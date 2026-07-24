@@ -1,6 +1,5 @@
 const { chromium } = require('playwright');
 const path = require('path');
-const fs = require('fs');
 
 (async () => {
   const browser = await chromium.launch();
@@ -9,14 +8,17 @@ const fs = require('fs');
     const page = await browser.newPage({ viewport: { width: size, height: size } });
     const logoPath = 'file:///' + path.resolve(__dirname, 'public', 'gohannavi-icon.png').replace(/\\/g, '/');
 
-    const borderWidth = Math.max(4, Math.round(size * 0.04));
-    const padding = Math.round(size * 0.14);
-    const badgePadding = Math.round(size * 0.08);
+    // Thicker black frame as requested: 8% of icon size
+    const borderWidth = Math.max(8, Math.round(size * 0.08));
+    const cardPadding = Math.round(size * 0.06);
 
     await page.setContent(`
       <!DOCTYPE html>
       <html>
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@900&display=swap" rel="stylesheet">
         <style>
           * { box-sizing: border-box; margin: 0; padding: 0; }
           body {
@@ -26,36 +28,74 @@ const fs = require('fs');
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: ${padding}px;
+            padding: ${borderWidth}px;
             overflow: hidden;
-            font-family: system-ui, sans-serif;
+            font-family: 'Unbounded', sans-serif;
           }
-          .icon-box {
+          .outer-card {
             width: 100%;
             height: 100%;
+            background-color: #121212;
+            border: ${Math.round(size * 0.04)}px solid #111111;
+            border-radius: ${Math.round(size * 0.18)}px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: ${cardPadding * 1.5}px ${cardPadding}px;
+            box-shadow: 0 0 0 ${Math.round(size * 0.02)}px #111111;
+          }
+          .top-badge {
             background-color: #FFFFFF;
-            border: ${borderWidth}px solid #111111;
-            border-radius: ${Math.round(size * 0.16)}px;
+            border: ${Math.max(2, Math.round(size * 0.025))}px solid #111111;
+            padding: ${Math.round(size * 0.02)}px ${Math.round(size * 0.06)}px;
+            border-radius: ${Math.round(size * 0.04)}px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: ${badgePadding}px;
-            box-shadow: ${Math.round(size * 0.03)}px ${Math.round(size * 0.03)}px 0px #111111;
           }
-          .icon-box img {
-            width: 85%;
-            height: 85%;
+          .top-badge img {
+            height: ${Math.round(size * 0.16)}px;
+            width: auto;
             object-fit: contain;
+          }
+          .text-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            line-height: 0.9;
+            letter-spacing: -0.04em;
+            color: #F5CE42;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: ${Math.round(size * 0.02)}px;
+          }
+          .line1 {
+            font-size: ${Math.round(size * 0.17)}px;
+          }
+          .line2 {
+            font-size: ${Math.round(size * 0.17)}px;
+            color: #FFFFFF;
           }
         </style>
       </head>
       <body>
-        <div class="icon-box">
-          <img src="${logoPath}" alt="ごはんなび" />
+        <div class="outer-card">
+          <div class="top-badge">
+            <img src="${logoPath}" alt="ごはんなび" />
+          </div>
+          <div class="text-container">
+            <div class="line1">FOOD</div>
+            <div class="line2">CHECK</div>
+          </div>
         </div>
       </body>
       </html>
     `);
+
+    // Wait for web font Unbounded to load
+    await page.waitForTimeout(600);
 
     await page.screenshot({ path: outputPath, type: 'png' });
     console.log(`Generated ${size}x${size} icon at ${outputPath}`);
@@ -73,5 +113,5 @@ const fs = require('fs');
   await generateIcon(180, path.join(appDir, 'apple-icon.png'));
 
   await browser.close();
-  console.log('All app icons generated successfully!');
+  console.log('All Swiss 70s PWA app icons generated successfully!');
 })();

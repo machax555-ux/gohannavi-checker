@@ -1,26 +1,26 @@
 import type { Metadata, Viewport } from "next";
-import { Noto_Sans_JP } from "next/font/google";
+import { Noto_Sans_JP, Unbounded } from "next/font/google";
 import "./globals.css";
 
 const notoSansJP = Noto_Sans_JP({
-  variable: "--font-noto-sans",
+  variable: "--font-noto-sans-jp",
   subsets: ["latin"],
-  weight: ["400", "500", "700", "800"],
+  weight: ["400", "500", "700", "900"],
+});
+
+const unbounded = Unbounded({
+  variable: "--font-unbounded",
+  subsets: ["latin"],
+  weight: ["700", "900"],
 });
 
 export const metadata: Metadata = {
-  title: "ごはんなび添加物チェッカー｜原材料を撮るだけで無添加判定",
-  description: "食品の原材料名を撮影するだけで、AIが添加物を瞬時に判定。無添加の代替商品も提案します。",
+  title: "ごはんなび | 食品添加物チェッカー",
+  description: "原材料を撮るだけで気になる添加物をAIが瞬時に検出。安全な無添加商品の購入までフルサポート。",
   manifest: "/manifest.json",
-  openGraph: {
-    title: "ごはんなび添加物チェッカー｜原材料を撮るだけで無添加判定",
-    description: "食品の原材料名を撮影するだけで、AIが添加物を瞬時に判定。無添加の代替商品も提案します。",
-    type: "website",
-    siteName: "ごはんなび添加物チェッカー",
-  },
   appleWebApp: {
     capable: true,
-    statusBarStyle: "default",
+    statusBarStyle: "black-translucent",
     title: "添加物チェッカー",
   },
 };
@@ -39,9 +39,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja">
-      <body className={`${notoSansJP.variable} antialiased min-h-screen bg-[#F5CE42] text-[#111111] selection:bg-[#111111] selection:text-[#F5CE42]`}>
-        <div className="mx-auto max-w-[440px] min-h-screen bg-[#F5CE42] sm:border-x-3 sm:border-black flex flex-col relative p-3.5 sm:p-5 justify-between overflow-x-hidden">
+    <html lang="ja" className="h-full overflow-hidden overscroll-none">
+      <body
+        className={`${notoSansJP.variable} ${unbounded.variable} antialiased h-full w-full overflow-hidden overscroll-none bg-[#F5CE42] text-[#111111] selection:bg-[#111111] selection:text-[#F5CE42] fixed inset-0`}
+      >
+        <div className="fixed inset-0 max-w-[440px] mx-auto h-[100dvh] max-h-[100dvh] overflow-hidden overscroll-none bg-[#F5CE42] sm:border-x-3 sm:border-black flex flex-col p-3.5 sm:p-4 justify-between select-none">
           {children}
         </div>
       </body>
