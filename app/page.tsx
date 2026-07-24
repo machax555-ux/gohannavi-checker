@@ -35,7 +35,7 @@ export default function HomePage() {
           <UsageLimit onLimitCheck={(valid) => setUsable(valid)} />
         </div>
 
-        {/* Hallmark Mega Typography Header */}
+        {/* Mega Typography Header */}
         <div className="flex flex-col gap-0.5 mt-0.5">
           <h1 className="font-display font-black text-3xl sm:text-4xl leading-none tracking-tight text-[#111111]">
             FOOD CHECKER
@@ -48,18 +48,17 @@ export default function HomePage() {
         <div className="w-full h-[2px] bg-[#111111]" />
       </header>
 
-      {/* 2. Main Hero Cards (Swiss 70s Hallmark Style) */}
-      <div className="flex flex-col gap-3 my-auto shrink-0">
+      {/* 2. Main Hero Cards (Swiss 70s Original Style) */}
+      <div className="flex flex-col gap-2.5 my-auto shrink-0">
         {/* 01. SCANNER Hero Card */}
-        <div className="swiss-card-dark p-4 flex flex-col gap-2.5 relative overflow-hidden">
-          <div className="flex items-center justify-between border-b border-white/20 pb-1.5">
+        <div className="swiss-card-dark p-3.5 flex flex-col gap-2 relative overflow-hidden">
+          <div className="flex items-center justify-between border-b border-white/20 pb-1">
             <span className="font-display font-black text-[10px] sm:text-xs text-[#F5CE42] tracking-widest">
               01. SCANNER
             </span>
-            <span className="text-[9px] font-mono text-white/60">AI POWERED</span>
           </div>
 
-          <h2 className="font-extrabold text-lg sm:text-xl text-white leading-snug">
+          <h2 className="font-extrabold text-base sm:text-lg text-white leading-snug">
             原材料名を撮影・入力する
           </h2>
 
@@ -71,9 +70,9 @@ export default function HomePage() {
           ) : (
             <Link
               href="/scan"
-              className="w-full py-3 bg-[#EF4444] hover:bg-[#DC2626] text-white swiss-border swiss-shadow-sm font-black text-base flex items-center justify-center gap-2.5 transition-transform active:translate-x-0.5 active:translate-y-0.5 group"
+              className="w-full py-2.5 bg-[#EF4444] hover:bg-[#DC2626] text-white swiss-border swiss-shadow-sm font-black text-base flex items-center justify-center gap-2 transition-transform active:translate-x-0.5 active:translate-y-0.5 group"
             >
-              <Camera className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
+              <Camera className="w-4 h-4 text-white group-hover:scale-110 transition-transform" />
               <span>判定スタート</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
@@ -81,7 +80,7 @@ export default function HomePage() {
         </div>
 
         {/* 02. DATABASE Card */}
-        <div className="swiss-card-white p-3.5 flex flex-col gap-2">
+        <div className="swiss-card-white p-3 flex flex-col gap-1.5">
           <div className="flex items-center justify-between">
             <span className="font-display font-black text-[10px] text-[#111111] tracking-widest">
               02. DATABASE
@@ -91,7 +90,7 @@ export default function HomePage() {
             href="/search"
             className="flex items-center justify-between text-left group"
           >
-            <span className="font-extrabold text-sm text-[#111111] group-hover:underline">
+            <span className="font-extrabold text-xs sm:text-sm text-[#111111] group-hover:underline">
               無添加商品を検索する
             </span>
             <span className="font-display font-black text-base text-[#111111] group-hover:translate-x-1 transition-transform">
@@ -100,36 +99,42 @@ export default function HomePage() {
           </Link>
         </div>
 
-        {/* 03. HOW IT WORKS Section (Compact 3-Step) */}
-        <section className="swiss-card-white p-3.5 flex flex-col gap-2">
+        {/* 03. HOW IT WORKS Section (Restored Vertical Step List) */}
+        <section className="swiss-card-white p-3 flex flex-col gap-2">
           <h3 className="font-display font-black text-[10px] text-[#111111] tracking-widest border-b border-black pb-1 flex items-center justify-between">
             <span>03. HOW IT WORKS</span>
             <span>使い方</span>
           </h3>
           
-          <div className="grid grid-cols-3 gap-1.5 pt-0.5">
-            <div className="flex flex-col items-start gap-1 p-1.5 bg-[#F5CE42]/20 swiss-border-sm">
-              <span className="font-display font-black text-[10px] bg-[#111111] text-[#F5CE42] px-1.5 py-0.2">
+          <div className="flex flex-col gap-1.5">
+            <div className="flex items-start gap-2">
+              <span className="font-display font-black text-[10px] bg-[#111111] text-[#F5CE42] px-1.5 py-0.2 shrink-0 mt-0.5">
                 01
               </span>
-              <p className="font-extrabold text-[11px] text-[#111111] leading-tight">撮影する</p>
-              <p className="text-[9px] text-[#444444] leading-none">原材料名をパシャリ</p>
+              <div>
+                <p className="font-extrabold text-xs text-[#111111] leading-tight">パッケージ撮影</p>
+                <p className="text-[10px] text-[#444444] font-medium leading-tight">原材料名欄をスマホでパシャリ</p>
+              </div>
             </div>
 
-            <div className="flex flex-col items-start gap-1 p-1.5 bg-[#F5CE42]/20 swiss-border-sm">
-              <span className="font-display font-black text-[10px] bg-[#111111] text-[#F5CE42] px-1.5 py-0.2">
+            <div className="flex items-start gap-2">
+              <span className="font-display font-black text-[10px] bg-[#111111] text-[#F5CE42] px-1.5 py-0.2 shrink-0 mt-0.5">
                 02
               </span>
-              <p className="font-extrabold text-[11px] text-[#111111] leading-tight">AI判定</p>
-              <p className="text-[9px] text-[#444444] leading-none">危険添加物を自動検出</p>
+              <div>
+                <p className="font-extrabold text-xs text-[#111111] leading-tight">AI瞬時判定</p>
+                <p className="text-[10px] text-[#444444] font-medium leading-tight">Gemini AIが危険添加物を検出</p>
+              </div>
             </div>
 
-            <div className="flex flex-col items-start gap-1 p-1.5 bg-[#F5CE42]/20 swiss-border-sm">
-              <span className="font-display font-black text-[10px] bg-[#111111] text-[#F5CE42] px-1.5 py-0.2">
+            <div className="flex items-start gap-2">
+              <span className="font-display font-black text-[10px] bg-[#111111] text-[#F5CE42] px-1.5 py-0.2 shrink-0 mt-0.5">
                 03
               </span>
-              <p className="font-extrabold text-[11px] text-[#111111] leading-tight">代替提案</p>
-              <p className="text-[9px] text-[#444444] leading-none">Amazon安心商品を推薦</p>
+              <div>
+                <p className="font-extrabold text-xs text-[#111111] leading-tight">無添加代替品提案</p>
+                <p className="text-[10px] text-[#444444] font-medium leading-tight">Amazonで買える安心商品を推薦</p>
+              </div>
             </div>
           </div>
         </section>
