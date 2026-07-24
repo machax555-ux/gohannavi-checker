@@ -92,22 +92,22 @@ export default function CameraCapture({
   };
 
   return (
-    <div className="w-full flex flex-col gap-5">
+    <div className="w-full h-full flex flex-col justify-between gap-3 overflow-hidden">
       {/* Mode Switch Tabs (Swiss 70s Segmented Switch) */}
-      <div className="grid grid-cols-2 bg-[#121212] p-1 swiss-border">
+      <div className="grid grid-cols-2 bg-[#121212] p-1 swiss-border shrink-0">
         <button
           type="button"
           onClick={() => {
             setActiveTab("camera");
             if (onError) onError("");
           }}
-          className={`py-3 text-xs font-black font-display tracking-wider transition-colors flex items-center justify-center gap-2 ${
+          className={`py-2 text-[11px] font-black font-display tracking-wider transition-colors flex items-center justify-center gap-1.5 ${
             activeTab === "camera"
               ? "bg-[#F5CE42] text-[#111111]"
               : "bg-transparent text-white hover:text-[#F5CE42]"
           }`}
         >
-          <Camera className="w-4 h-4" />
+          <Camera className="w-3.5 h-3.5" />
           <span>01. CAMERA</span>
         </button>
         <button
@@ -116,22 +116,22 @@ export default function CameraCapture({
             setActiveTab("text");
             if (onError) onError("");
           }}
-          className={`py-3 text-xs font-black font-display tracking-wider transition-colors flex items-center justify-center gap-2 ${
+          className={`py-2 text-[11px] font-black font-display tracking-wider transition-colors flex items-center justify-center gap-1.5 ${
             activeTab === "text"
               ? "bg-[#F5CE42] text-[#111111]"
               : "bg-transparent text-white hover:text-[#F5CE42]"
           }`}
         >
-          <FileText className="w-4 h-4" />
+          <FileText className="w-3.5 h-3.5" />
           <span>02. TEXT INPUT</span>
         </button>
       </div>
 
-      {/* Camera Mode */}
+      {/* Camera Mode Area */}
       {activeTab === "camera" && (
-        <div className="flex flex-col gap-4">
+        <div className="flex-1 flex flex-col justify-center gap-3 overflow-hidden my-auto">
           {!previewImage ? (
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-2.5">
               {/* Main Camera Dropzone */}
               <label className="w-full">
                 <input
@@ -143,18 +143,18 @@ export default function CameraCapture({
                   className="hidden"
                 />
                 <div
-                  className={`w-full min-h-[160px] swiss-card-white flex flex-col items-center justify-center gap-3 p-6 text-center transition-transform active:translate-x-0.5 active:translate-y-0.5 ${
+                  className={`w-full min-h-[110px] sm:min-h-[130px] swiss-card-white flex flex-col items-center justify-center gap-2 p-4 text-center transition-transform active:translate-x-0.5 active:translate-y-0.5 ${
                     disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:bg-[#FAF9F5]"
                   }`}
                 >
-                  <div className="w-14 h-14 bg-[#121212] text-[#F5CE42] flex items-center justify-center swiss-border">
-                    <Camera className="w-8 h-8" />
+                  <div className="w-10 h-10 bg-[#121212] text-[#F5CE42] flex items-center justify-center swiss-border">
+                    <Camera className="w-6 h-6" />
                   </div>
                   <div>
-                    <span className="font-extrabold text-lg text-[#111111] block">
+                    <span className="font-extrabold text-base text-[#111111] block">
                       📷 パッケージを撮影する
                     </span>
-                    <span className="text-xs text-[#555555] font-medium block mt-0.5">
+                    <span className="text-[10px] text-[#555555] font-medium block mt-0.5">
                       スマホのカメラで原材料表示を撮影
                     </span>
                   </div>
@@ -171,36 +171,36 @@ export default function CameraCapture({
                   className="hidden"
                 />
                 <div
-                  className={`w-full py-3 px-4 bg-[#121212] text-white swiss-border text-center font-extrabold text-xs flex items-center justify-center gap-2 transition-transform active:translate-x-0.5 active:translate-y-0.5 ${
+                  className={`w-full py-2.5 px-3 bg-[#121212] text-white swiss-border text-center font-extrabold text-xs flex items-center justify-center gap-2 transition-transform active:translate-x-0.5 active:translate-y-0.5 ${
                     disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:bg-[#222222]"
                   }`}
                 >
-                  <ImageIcon className="w-4 h-4 text-[#F5CE42]" />
+                  <ImageIcon className="w-3.5 h-3.5 text-[#F5CE42]" />
                   <span>ライブラリから画像を選択する</span>
                 </div>
               </label>
             </div>
           ) : (
             /* Image Preview Area */
-            <div className="swiss-card-white p-4 flex flex-col items-center gap-3">
-              <div className="w-full flex justify-between items-center border-b-2 border-black pb-2">
-                <span className="font-display font-black text-xs text-[#111111] tracking-widest">
+            <div className="swiss-card-white p-3 flex flex-col items-center gap-2">
+              <div className="w-full flex justify-between items-center border-b-2 border-black pb-1">
+                <span className="font-display font-black text-[10px] text-[#111111] tracking-widest">
                   SELECTED IMAGE
                 </span>
                 <button
                   type="button"
                   onClick={handleResetImage}
-                  className="flex items-center gap-1 text-xs text-[#EF4444] font-black hover:underline"
+                  className="flex items-center gap-1 text-[11px] text-[#EF4444] font-black hover:underline"
                 >
-                  <RefreshCw className="w-3.5 h-3.5" />
+                  <RefreshCw className="w-3 h-3" />
                   <span>撮り直す</span>
                 </button>
               </div>
-              <div className="w-full max-h-[220px] bg-[#121212] p-2 flex items-center justify-center swiss-border">
+              <div className="w-full max-h-[160px] bg-[#121212] p-1.5 flex items-center justify-center swiss-border">
                 <img
                   src={previewImage}
                   alt="撮影した原材料名"
-                  className="max-h-[200px] w-auto object-contain"
+                  className="max-h-[140px] w-auto object-contain"
                 />
               </div>
             </div>
@@ -208,10 +208,10 @@ export default function CameraCapture({
         </div>
       )}
 
-      {/* Text Mode */}
+      {/* Text Mode Area */}
       {activeTab === "text" && (
-        <div className="swiss-card-dark p-4 flex flex-col gap-2">
-          <span className="font-display font-black text-xs text-[#F5CE42] tracking-widest border-b border-white/20 pb-1">
+        <div className="flex-1 swiss-card-dark p-3 flex flex-col justify-between gap-1.5 my-auto overflow-hidden">
+          <span className="font-display font-black text-[10px] text-[#F5CE42] tracking-widest border-b border-white/20 pb-1 shrink-0">
             INPUT INGREDIENT TEXT
           </span>
           <textarea
@@ -219,11 +219,11 @@ export default function CameraCapture({
             onChange={(e) => setTextInput(e.target.value.slice(0, MAX_TEXT_LENGTH))}
             maxLength={MAX_TEXT_LENGTH}
             placeholder={`原材料名をここに貼り付けてください\n例）小麦粉、砂糖、食塩、醤油、ソルビン酸K、着色料（赤102）`}
-            rows={6}
+            rows={5}
             disabled={disabled}
-            className="w-full p-3 bg-white text-[#111111] swiss-border-sm focus:outline-none text-xs font-bold leading-relaxed resize-none mt-1"
+            className="w-full h-full p-2 bg-white text-[#111111] swiss-border-sm focus:outline-none text-xs font-bold leading-relaxed resize-none mt-1"
           />
-          <div className="text-right text-[10px] text-white/60 font-mono">
+          <div className="text-right text-[9px] text-white/60 font-mono shrink-0">
             {MAX_TEXT_LENGTH - textInput.length} / {MAX_TEXT_LENGTH} CHARS LEFT
           </div>
         </div>
@@ -238,9 +238,9 @@ export default function CameraCapture({
           (activeTab === "camera" && !previewImage) ||
           (activeTab === "text" && !textInput.trim())
         }
-        className="w-full py-4 bg-[#EF4444] hover:bg-[#DC2626] text-white swiss-border swiss-shadow font-black text-lg flex items-center justify-center gap-3 transition-transform active:translate-x-0.5 active:translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed"
+        className="w-full py-3 bg-[#EF4444] hover:bg-[#DC2626] text-white swiss-border swiss-shadow-sm font-black text-base flex items-center justify-center gap-2 transition-transform active:translate-x-0.5 active:translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed shrink-0"
       >
-        <Sparkles className="w-5 h-5 text-white" />
+        <Sparkles className="w-4 h-4 text-white" />
         <span>判定を実行する</span>
       </button>
     </div>
