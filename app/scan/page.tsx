@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, Loader2 } from "lucide-react";
+import { ArrowLeft, Loader2, AlertCircle } from "lucide-react";
 import CameraCapture from "@/components/CameraCapture";
 import UsageLimit from "@/components/UsageLimit";
 
@@ -12,37 +12,63 @@ export default function ScanPage() {
   const [canUse, setCanUse] = useState(true);
 
   return (
-    <main className="flex-1 flex flex-col p-5">
+    <main className="flex-1 flex flex-col justify-between gap-5 py-2">
       {/* Header Bar */}
-      <div className="flex items-center gap-3 mb-2">
-        <Link href="/" className="p-2 text-gray-600 hover:text-gray-900 rounded-full hover:bg-gray-100 transition">
-          <ArrowLeft className="w-6 h-6" />
-        </Link>
-        <h1 className="text-lg font-bold text-gray-900">原材料名の読み取り・入力</h1>
-      </div>
+      <header className="flex flex-col gap-3">
+        <div className="flex items-center justify-between">
+          <Link
+            href="/"
+            className="bg-[#121212] text-white px-3 py-1.5 swiss-border text-xs font-black font-display tracking-wider flex items-center gap-1.5 hover:bg-[#EF4444] transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            <span>HOME</span>
+          </Link>
+          <UsageLimit onLimitCheck={(valid) => setCanUse(valid)} />
+        </div>
 
-      {/* Usage Limit Badge/Alert at top */}
-      <UsageLimit onLimitCheck={(valid) => setCanUse(valid)} />
+        <div className="flex flex-col gap-1 mt-1">
+          <span className="font-display font-black text-xs text-[#111111] tracking-widest">
+            01. SCANNER
+          </span>
+          <h1 className="font-display font-black text-3xl text-[#111111] leading-none">
+            撮影・入力画面
+          </h1>
+        </div>
+
+        <div className="w-full h-[3px] bg-[#111111]" />
+      </header>
 
       {/* Error Banner */}
       {errorMsg && (
-        <div className="p-4 bg-red-50 border border-red-200 rounded-2xl text-xs text-[#E63946] my-2 font-medium leading-relaxed">
-          {errorMsg}
+        <div className="swiss-card-coral p-4 text-xs font-extrabold flex items-start gap-2">
+          <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
+          <span>{errorMsg}</span>
         </div>
       )}
 
-      {/* Loading State UI */}
+      {/* Loading State UI (Swiss 70s Animated Bar) */}
       {loading ? (
-        <div className="flex-1 flex flex-col items-center justify-center gap-4 py-16 text-center">
-          <Loader2 className="w-12 h-12 text-[#2D6A4F] animate-spin" />
-          <div className="flex flex-col gap-1">
-            <p className="text-base font-bold text-[#2D6A4F]">原材料を分析中...少々お待ちください</p>
-            <p className="text-xs text-gray-500">AIが添加物の抽出と安全性を判定しています</p>
+        <div className="swiss-card-dark p-8 flex flex-col items-center justify-center gap-5 text-center my-4">
+          <div className="w-16 h-16 bg-[#F5CE42] text-[#111111] swiss-border flex items-center justify-center">
+            <Loader2 className="w-10 h-10 animate-spin" />
+          </div>
+          <div className="flex flex-col gap-2">
+            <h2 className="font-display font-black text-xl text-[#F5CE42] tracking-wider">
+              ANALYZING...
+            </h2>
+            <p className="text-xs font-extrabold text-white">
+              原材料を分析中...少々お待ちください
+            </p>
+            <p className="text-[11px] text-white/70">
+              AIが添加物の抽出と安全性をスキャンしています
+            </p>
+          </div>
+          <div className="w-full bg-white/20 h-3 swiss-border-sm overflow-hidden mt-2">
+            <div className="bg-[#EF4444] h-full w-2/3 animate-pulse" />
           </div>
         </div>
       ) : canUse ? (
-        /* Camera / Text Capture Area when allowed */
-        <div className="mt-2 flex-1">
+        <div className="flex-1">
           <CameraCapture
             disabled={!canUse}
             onStartLoading={() => setLoading(true)}
@@ -51,19 +77,27 @@ export default function ScanPage() {
           />
         </div>
       ) : (
-        /* Disabled Message when limit reached */
-        <div className="mt-6 p-6 bg-gray-50 border border-gray-200 rounded-2xl text-center flex flex-col items-center gap-2">
-          <p className="text-sm text-gray-600">
+        /* Disabled Message */
+        <div className="swiss-card-dark p-6 text-center flex flex-col items-center gap-4 my-4">
+          <AlertCircle className="w-10 h-10 text-[#EF4444]" />
+          <p className="text-xs font-extrabold text-white leading-relaxed">
             本日の無料判定回数（3回）の上限に達しているため、新規撮影・判定はできません。
           </p>
           <Link
             href="/"
-            className="mt-2 text-xs font-bold text-[#2D6A4F] underline"
+            className="px-4 py-2 bg-[#F5CE42] text-[#111111] swiss-border font-black text-xs"
           >
             ホーム画面に戻る
           </Link>
         </div>
       )}
+
+      {/* Footer */}
+      <footer className="pt-2 border-t-3 border-black text-center">
+        <span className="font-display font-black tracking-widest text-[10px] text-[#111111]">
+          GOHANNAVI ADDITIVE CHECKER
+        </span>
+      </footer>
     </main>
   );
 }

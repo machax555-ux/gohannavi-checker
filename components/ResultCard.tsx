@@ -2,7 +2,7 @@
 
 import React from "react";
 import { AdditiveCheckResult } from "@/lib/gemini";
-import { ShieldCheck, AlertCircle } from "lucide-react";
+import { ShieldCheck, AlertCircle, CheckCircle2, AlertTriangle, XCircle } from "lucide-react";
 
 interface ResultCardProps {
   result: AdditiveCheckResult;
@@ -13,18 +13,30 @@ export default function ResultCard({ result }: ResultCardProps) {
     switch (judgment) {
       case "safe":
         return {
-          bg: "bg-[#52B788]",
-          text: "✅ 無添加です！",
+          cardStyle: "swiss-card-dark",
+          badgeBg: "bg-[#10B981] text-[#111111]",
+          icon: <CheckCircle2 className="w-8 h-8 text-[#10B981]" />,
+          title: "SAFE / 無添加です",
+          sub: "避けるべき添加物は検出されませんでした",
+          accentColor: "#10B981",
         };
       case "caution":
         return {
-          bg: "bg-[#F4A261]",
-          text: "⚠️ 要注意の添加物が含まれます",
+          cardStyle: "swiss-card-dark",
+          badgeBg: "bg-[#F59E0B] text-[#111111]",
+          icon: <AlertTriangle className="w-8 h-8 text-[#F59E0B]" />,
+          title: "CAUTION / 要注意添加物あり",
+          sub: "過剰摂取に注意が必要な成分が含まれます",
+          accentColor: "#F59E0B",
         };
       case "danger":
         return {
-          bg: "bg-[#E63946]",
-          text: "❌ 避けたい添加物が含まれています",
+          cardStyle: "swiss-card-coral",
+          badgeBg: "bg-[#121212] text-white",
+          icon: <XCircle className="w-8 h-8 text-white" />,
+          title: "食品添加物が含まれている商品です",
+          sub: "",
+          accentColor: "#EF4444",
         };
     }
   };
@@ -33,80 +45,95 @@ export default function ResultCard({ result }: ResultCardProps) {
   const showAdditives = (result.judgment === "caution" || result.judgment === "danger") &&
                         result.detected_additives && result.detected_additives.length > 0;
 
-  return (
-    <div className="w-full bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden my-4">
-      {/* 1. 判定バナー（画面上部、大きく表示 24px以上 白文字） */}
-      <div className={`${banner.bg} text-white p-6 text-center shadow-inner`}>
-        <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight leading-snug">
-          {banner.text}
-        </h2>
-        {result.product_category && (
-          <p className="text-xs mt-2 opacity-90 font-medium">
-            カテゴリ: {result.product_category}
-          </p>
-        )}
-      </div>
+  // Format category badge text: Remove "CATEGORY:", and map "加工肉" to "加工肉（ハム・ベーコン・ソーセージ）"
+  const formatCategory = (cat?: string) => {
+    if (!cat) return "判定結果";
+    const cleaned = cat.replace(/^CATEGORY:\s*/i, "");
+    if (cleaned.includes("加工肉")) {
+      return "加工肉（ハム・ベーコン・ソーセージ）";
+    }
+    return cleaned;
+  };
 
-      {/* Body Area */}
-      <div className="p-6 flex flex-col gap-6">
-        {/* 2. 判定サマリー文 */}
+  return (
+    <div className="w-full flex flex-col gap-4 my-2">
+      {/* 1. Status Banner Header */}
+      <div className={`${banner.cardStyle} p-5 flex flex-col gap-3`}>
+        <div className="flex items-center justify-between border-b border-current/20 pb-2">
+          <span className={`font-display font-black text-xs px-2.5 py-0.5 swiss-border-sm ${banner.badgeBg}`}>
+            {formatCategory(result.product_category)}
+          </span>
+          {banner.icon}
+        </div>
         <div>
-          <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2 flex items-center gap-1">
-            <AlertCircle className="w-4 h-4 text-gray-400" />
-            判定サマリー
-          </h3>
-          <p className="text-base text-gray-800 leading-relaxed font-semibold bg-gray-50 p-4 rounded-2xl border border-gray-100">
-            {result.summary}
+          <h2 className="font-display font-black text-xl sm:text-2xl tracking-tight leading-tight">
+            {banner.title}
+          </h2>
+          <p className="text-xs font-bold opacity-90 mt-1">
+            {banner.sub}
           </p>
         </div>
-
-        {/* 3. 検出された添加物リスト (caution / danger の場合のみ) */}
-        {showAdditives && (
-          <div>
-            <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
-              検出された添加物 ({result.detected_additives.length}件)
-            </h3>
-            <div className="flex flex-col gap-3">
-              {result.detected_additives.map((item, idx) => (
-                <div
-                  key={idx}
-                  className="p-4 rounded-2xl border border-gray-100 bg-white shadow-sm flex flex-col gap-1.5"
-                >
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="font-extrabold text-base text-gray-900">{item.name}</span>
-                    <span className="text-xs px-2.5 py-1 rounded-full font-medium bg-gray-100 text-gray-600 shrink-0">
-                      {item.category || "添加物"}
-                    </span>
-                  </div>
-                  {item.reason && (
-                    <p className="text-xs text-gray-600 leading-relaxed">{item.reason}</p>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* 4. 安全な原材料 */}
-        {result.safe_ingredients && result.safe_ingredients.length > 0 && (
-          <div>
-            <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3 flex items-center gap-1">
-              <ShieldCheck className="w-4 h-4 text-[#52B788]" />
-              主な安全な原材料
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              {result.safe_ingredients.map((ing, idx) => (
-                <span
-                  key={idx}
-                  className="text-xs px-3 py-1.5 bg-[#95D5B2]/30 text-[#2D6A4F] font-bold rounded-xl border border-[#95D5B2]/40"
-                >
-                  {ing}
-                </span>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
+
+      {/* 2. Summary Quote Card */}
+      <div className="swiss-card-white p-5 flex flex-col gap-2">
+        <h3 className="font-display font-black text-xs text-[#111111] tracking-widest border-b-2 border-black pb-1 flex items-center gap-1.5">
+          <AlertCircle className="w-4 h-4 text-[#111111]" />
+          <span>判定結果</span>
+        </h3>
+        <p className="text-xs sm:text-sm text-[#111111] leading-relaxed font-extrabold pt-1">
+          "{result.summary}"
+        </p>
+      </div>
+
+      {/* 3. Detected Additives List */}
+      {showAdditives && (
+        <div className="swiss-card-dark p-5 flex flex-col gap-3">
+          <h3 className="font-display font-black text-xs text-[#F5CE42] tracking-widest border-b border-white/20 pb-2">
+            01. DETECTED ADDITIVES ({result.detected_additives.length})
+          </h3>
+          <div className="flex flex-col gap-3">
+            {result.detected_additives.map((item, idx) => (
+              <div
+                key={idx}
+                className="bg-white text-[#111111] swiss-border p-3.5 flex flex-col gap-1"
+              >
+                <div className="flex items-center justify-between gap-2">
+                  <span className="font-extrabold text-base text-[#111111]">{item.name}</span>
+                  <span className="font-display font-black text-[10px] bg-[#121212] text-[#F5CE42] px-2 py-0.5 shrink-0">
+                    {item.category || "添加物"}
+                  </span>
+                </div>
+                {item.reason && (
+                  <p className="text-xs font-medium text-[#444444] leading-relaxed pt-0.5">
+                    {item.reason}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* 4. Safe Ingredients */}
+      {result.safe_ingredients && result.safe_ingredients.length > 0 && (
+        <div className="swiss-card-white p-5 flex flex-col gap-3">
+          <h3 className="font-display font-black text-xs text-[#111111] tracking-widest border-b-2 border-black pb-2 flex items-center gap-1.5">
+            <ShieldCheck className="w-4 h-4 text-[#10B981]" />
+            <span>02. SAFE INGREDIENTS / 主な安全な原材料</span>
+          </h3>
+          <div className="flex flex-wrap gap-2 pt-1">
+            {result.safe_ingredients.map((ing, idx) => (
+              <span
+                key={idx}
+                className="text-xs px-3 py-1 bg-[#121212] text-white font-extrabold swiss-border-sm"
+              >
+                {ing}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

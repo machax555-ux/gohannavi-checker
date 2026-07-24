@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { Camera, ArrowRight, ExternalLink, ShieldCheck, Search } from "lucide-react";
+import { Camera, ArrowRight, Search, ExternalLink } from "lucide-react";
 import UsageLimit from "@/components/UsageLimit";
 import { canUseToday } from "@/lib/storage";
 
@@ -16,125 +16,149 @@ export default function HomePage() {
   }, []);
 
   return (
-    <main className="flex-1 flex flex-col p-6 justify-between gap-6">
-      {/* 1. ヘッダー */}
-      <header className="flex flex-col items-center text-center mt-4 gap-2">
-        <div className="w-16 h-16 bg-[#2D6A4F] rounded-2xl flex items-center justify-center text-white shadow-lg mb-1">
-          <ShieldCheck className="w-10 h-10" />
+    <main className="flex-1 flex flex-col justify-between gap-6 py-2">
+      {/* 1. Header Row */}
+      <header className="flex flex-col gap-4">
+        <div className="flex items-center justify-between">
+          <a
+            href="https://gohannavi.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-white px-3 py-1.5 swiss-border inline-flex items-center hover:opacity-90 transition-opacity"
+          >
+            <img
+              src="/gohannavi-logo.png"
+              alt="ごはんなび"
+              className="h-7 w-auto object-contain"
+            />
+          </a>
+          <UsageLimit onLimitCheck={(valid) => setUsable(valid)} />
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-[#2D6A4F] tracking-tight">
-          ごはんなび添加物チェッカー
-        </h1>
-        <p className="text-sm font-semibold text-gray-600">
-          原材料を撮るだけで添加物を瞬時に判定
-        </p>
+
+        {/* Mega Typography Header */}
+        <div className="flex flex-col gap-1 mt-1">
+          <h1 className="font-display font-black text-4xl sm:text-5xl leading-none tracking-tight text-[#111111]">
+            FOOD<br />CHECKER
+          </h1>
+          <p className="text-xs font-black text-[#111111] tracking-wider mt-1">
+            添加物をAIが瞬時に判定するスキャンツール
+          </p>
+        </div>
+
+        <div className="w-full h-[3px] bg-[#111111]" />
       </header>
 
-      {/* 2. UsageLimitコンポーネント（本日の残り回数表示） */}
-      <div className="w-full">
-        <UsageLimit onLimitCheck={(valid) => setUsable(valid)} />
-      </div>
-
-      {/* 3. メインアクションボタンエリア */}
-      <div className="w-full flex flex-col gap-3">
-        {mounted && !usable ? (
-          <div
-            className="w-full min-h-[80px] bg-gray-300 text-gray-500 rounded-3xl font-extrabold text-xl flex items-center justify-center gap-3 cursor-not-allowed shadow-inner px-4 text-center"
-          >
-            <Camera className="w-7 h-7 text-gray-400" />
-            <span>本日の無料判定は終了しました</span>
+      {/* 2. Main Hero Cards (Swiss 70s Style) */}
+      <div className="flex flex-col gap-5 my-2">
+        {/* 01. SCANNER Card */}
+        <div className="swiss-card-dark p-6 flex flex-col gap-4 relative overflow-hidden">
+          <div className="flex items-center justify-between border-b border-white/20 pb-2">
+            <span className="font-display font-black text-xs text-[#F5CE42] tracking-widest">
+              01. SCANNER
+            </span>
+            <span className="text-[10px] font-mono text-white/60">AI POWERED</span>
           </div>
-        ) : (
+
+          <h2 className="font-extrabold text-2xl text-white leading-tight">
+            原材料名を<br />撮影・入力する
+          </h2>
+
+          {mounted && !usable ? (
+            <div className="w-full py-4 bg-[#333333] text-white/50 swiss-border-sm text-center font-extrabold text-sm flex items-center justify-center gap-2 cursor-not-allowed">
+              <Camera className="w-5 h-5" />
+              <span>本日の無料判定は終了しました</span>
+            </div>
+          ) : (
+            <Link
+              href="/scan"
+              className="w-full py-4 bg-[#EF4444] hover:bg-[#DC2626] text-white swiss-border swiss-shadow-sm font-black text-lg flex items-center justify-center gap-3 transition-transform active:translate-x-0.5 active:translate-y-0.5 group"
+            >
+              <Camera className="w-6 h-6 text-white group-hover:scale-110 transition-transform" />
+              <span>判定スタート</span>
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          )}
+        </div>
+
+        {/* 02. DATABASE Card */}
+        <div className="swiss-card-white p-5 flex flex-col gap-3">
+          <div className="flex items-center justify-between">
+            <span className="font-display font-black text-xs text-[#111111] tracking-widest">
+              02. DATABASE
+            </span>
+          </div>
           <Link
-            href="/scan"
-            className="w-full min-h-[80px] bg-[#2D6A4F] hover:bg-[#255740] text-white rounded-3xl font-extrabold text-xl sm:text-2xl flex items-center justify-center gap-3 shadow-xl transition active:scale-[0.98] px-4 text-center"
+            href="/search"
+            className="flex items-center justify-between text-left group pt-1"
           >
-            <Camera className="w-7 h-7 text-white" />
-            <span>判定スタート</span>
-            <ArrowRight className="w-6 h-6 text-white ml-1" />
+            <span className="font-extrabold text-base text-[#111111] group-hover:underline">
+              無添加商品を検索する
+            </span>
+            <span className="font-display font-black text-xl text-[#111111] group-hover:translate-x-1 transition-transform">
+              →
+            </span>
           </Link>
-        )}
-
-        {/* 無添加商品を検索 ボタン */}
-        <Link
-          href="/search"
-          className="w-full py-4 bg-[#F4A261] hover:bg-[#e7924e] text-white rounded-2xl font-bold text-base flex items-center justify-center gap-2 shadow-md transition active:scale-[0.98]"
-        >
-          <Search className="w-5 h-5" />
-          <span>🔍 無添加商品を検索</span>
-        </Link>
+        </div>
       </div>
 
-      {/* 4. 使い方3ステップ */}
-      <section className="w-full my-2">
-        <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest text-center mb-4">
-          かんたん 3ステップの使い方
-        </h2>
+      {/* 3. Step Guide (Swiss Block Style) */}
+      <section className="swiss-card-white p-5 flex flex-col gap-4">
+        <h3 className="font-display font-black text-xs text-[#111111] tracking-widest border-b-2 border-black pb-2 flex items-center justify-between">
+          <span>03. HOW IT WORKS</span>
+          <span>使い方</span>
+        </h3>
+        
         <div className="flex flex-col gap-3">
-          {/* Step 1 */}
-          <div className="p-4 bg-gray-50 border border-gray-100 rounded-2xl flex items-start gap-3.5 shadow-sm">
-            <span className="w-7 h-7 rounded-full bg-[#2D6A4F] text-white font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">
-              1
+          <div className="flex items-start gap-3">
+            <span className="font-display font-black text-sm bg-[#111111] text-[#F5CE42] px-2 py-0.5 shrink-0">
+              01
             </span>
-            <div className="flex flex-col gap-0.5">
-              <span className="font-extrabold text-sm text-gray-900">
-                📷 原材料名を撮影
-              </span>
-              <p className="text-xs text-gray-500 leading-relaxed">
-                食品パッケージ裏面の原材料名欄をスマホカメラで撮影またはテキスト入力します。
-              </p>
+            <div>
+              <p className="font-extrabold text-xs text-[#111111]">パッケージ撮影</p>
+              <p className="text-[11px] text-[#444444] font-medium leading-tight">原材料名欄をスマホでパシャリ</p>
             </div>
           </div>
 
-          {/* Step 2 */}
-          <div className="p-4 bg-gray-50 border border-gray-100 rounded-2xl flex items-start gap-3.5 shadow-sm">
-            <span className="w-7 h-7 rounded-full bg-[#2D6A4F] text-white font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">
-              2
+          <div className="flex items-start gap-3">
+            <span className="font-display font-black text-sm bg-[#111111] text-[#F5CE42] px-2 py-0.5 shrink-0">
+              02
             </span>
-            <div className="flex flex-col gap-0.5">
-              <span className="font-extrabold text-sm text-gray-900">
-                🤖 AIが添加物を自動判定
-              </span>
-              <p className="text-xs text-gray-500 leading-relaxed">
-                Gemini AIが文字を解析し、無添加・要注意・避けるべき添加物をワンストップ判定。
-              </p>
+            <div>
+              <p className="font-extrabold text-xs text-[#111111]">AI瞬時判定</p>
+              <p className="text-[11px] text-[#444444] font-medium leading-tight">Gemini AIが危険添加物を検出</p>
             </div>
           </div>
 
-          {/* Step 3 */}
-          <div className="p-4 bg-gray-50 border border-gray-100 rounded-2xl flex items-start gap-3.5 shadow-sm">
-            <span className="w-7 h-7 rounded-full bg-[#2D6A4F] text-white font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">
-              3
+          <div className="flex items-start gap-3">
+            <span className="font-display font-black text-sm bg-[#111111] text-[#F5CE42] px-2 py-0.5 shrink-0">
+              03
             </span>
-            <div className="flex flex-col gap-0.5">
-              <span className="font-extrabold text-sm text-gray-900">
-                🛒 無添加の代替商品を提案
-              </span>
-              <p className="text-xs text-gray-500 leading-relaxed">
-                添加物が含まれる場合は、Amazonで購入可能な安心安全な代替商品をすぐ提案します。
-              </p>
+            <div>
+              <p className="font-extrabold text-xs text-[#111111]">無添加代替品提案</p>
+              <p className="text-[11px] text-[#444444] font-medium leading-tight">Amazonで買える安心商品を推薦</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 5. ごはんなびへのリンクバナー */}
-      <footer className="w-full mb-2">
+      {/* 4. Footer */}
+      <footer className="pt-2 border-t-3 border-black flex items-center justify-between text-xs">
         <a
           href="https://gohannavi.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="w-full p-4 bg-[#95D5B2]/40 hover:bg-[#95D5B2]/60 border border-[#95D5B2] rounded-2xl flex items-center justify-between gap-3 shadow-sm transition active:scale-[0.98]"
+          className="font-display font-black tracking-widest text-[11px] text-[#111111] hover:underline"
         >
-          <div className="flex flex-col gap-0.5 text-left">
-            <span className="text-xs font-bold text-[#2D6A4F]">
-              ごはんなび 公式ブログ
-            </span>
-            <span className="text-sm font-extrabold text-gray-900">
-              無添加食品をもっと知りたい方はごはんなびへ
-            </span>
-          </div>
-          <ExternalLink className="w-5 h-5 text-[#2D6A4F] shrink-0" />
+          GOHANNAVI.COM
+        </a>
+        <a
+          href="https://gohannavi.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-[#111111] text-white px-3 py-1.5 font-display font-black text-[10px] tracking-wider hover:bg-[#EF4444] transition-colors flex items-center gap-1.5"
+        >
+          <span>READ BLOG</span>
+          <ExternalLink className="w-3 h-3" />
         </a>
       </footer>
     </main>

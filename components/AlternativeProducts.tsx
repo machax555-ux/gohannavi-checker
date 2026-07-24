@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ShoppingBag, BookOpen } from "lucide-react";
+import { ShoppingBag, BookOpen, ExternalLink } from "lucide-react";
 import { generateAmazonLink, generateBlogLink } from "@/lib/affiliateLinks";
 
 interface AlternativeProductsProps {
@@ -14,47 +14,64 @@ export default function AlternativeProducts({
   productCategory,
 }: AlternativeProductsProps) {
   const keyword = blogKeyword || productCategory || "食品";
-
+  
   const amazonUrl = generateAmazonLink(keyword);
   const blogUrl = generateBlogLink(keyword);
 
   return (
-    <div className="w-full flex flex-col gap-4 my-4">
-      {/* ① Amazonアフィリエイトセクション */}
-      <div className="bg-amber-50/70 border border-amber-200 rounded-3xl p-5 shadow-sm flex flex-col gap-3">
-        <h3 className="font-bold text-gray-900 text-base flex items-center gap-2">
-          <ShoppingBag className="w-5 h-5 text-[#F4A261]" />
-          🛒 無添加の代替商品はこちら
-        </h3>
-        <p className="text-xs text-gray-600 leading-relaxed">
-          「{keyword}」の添加物が気になる方へ。Amazonで購入可能な安心・安全の無添加アイテムをご紹介します。
-        </p>
+    <div className="w-full flex flex-col gap-4 my-2">
+      {/* 03. CLEAN ALTERNATIVES Header Banner */}
+      <div className="swiss-card-dark p-5 flex flex-col gap-3">
+        <span className="font-display font-black text-xs text-[#F5CE42] tracking-widest border-b border-white/20 pb-1">
+          03. CLEAN ALTERNATIVES
+        </span>
+
+        <div className="flex items-start gap-3">
+          <div className="p-2.5 bg-[#EF4444] text-white swiss-border-sm shrink-0">
+            <ShoppingBag className="w-6 h-6" />
+          </div>
+          <div>
+            <h3 className="font-extrabold text-white text-base leading-tight">
+              無添加の代替商品をご案内
+            </h3>
+            <p className="text-xs text-white/70 font-medium mt-1 leading-snug">
+              「{keyword}」の安全な代替アイテムをAmazonでチェック
+            </p>
+          </div>
+        </div>
+
         <a
           href={amazonUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="w-full py-3.5 px-4 bg-[#F4A261] hover:bg-[#e7924e] text-white rounded-2xl font-bold text-sm text-center shadow-md transition active:scale-[0.98] block"
+          className="w-full py-3.5 bg-[#EF4444] hover:bg-[#DC2626] text-white swiss-border swiss-shadow-sm font-black text-sm text-center flex items-center justify-center gap-2 transition-transform active:translate-x-0.5 active:translate-y-0.5 group mt-1"
         >
-          Amazonで無添加商品を探す →
+          <span>🛒 Amazonで「{keyword}」の無添加品を探す</span>
+          <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
         </a>
       </div>
 
-      {/* ② ごはんなびブログ誘導バナー */}
-      <div className="bg-emerald-50/70 border border-emerald-200 rounded-3xl p-5 shadow-sm flex flex-col gap-3">
-        <h3 className="font-bold text-[#2D6A4F] text-base flex items-center gap-2">
-          <BookOpen className="w-5 h-5 text-[#2D6A4F]" />
-          📖 ごはんなびで詳しく解説中！
-        </h3>
-        <p className="text-xs text-gray-600 leading-relaxed">
-          「{keyword}」に含まれる添加物の安全性や選び方のポイントをごはんなびブログで詳しく紹介しています。
-        </p>
+      {/* Blog Link Card */}
+      <div className="swiss-card-white p-5 flex flex-col gap-3">
+        <div className="flex items-center justify-between border-b-2 border-black pb-1">
+          <span className="font-display font-black text-xs text-[#111111] tracking-widest">
+            GOHANNAVI BLOG
+          </span>
+          <BookOpen className="w-4 h-4 text-[#111111]" />
+        </div>
+
+        <h4 className="font-extrabold text-sm text-[#111111] leading-snug">
+          「{keyword}」の添加物危険度をブログで詳しく解説中
+        </h4>
+
         <a
           href={blogUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="w-full py-3.5 px-4 bg-[#2D6A4F] hover:bg-[#255740] text-white rounded-2xl font-bold text-sm text-center shadow-md transition active:scale-[0.98] block"
+          className="w-full py-3 bg-[#121212] hover:bg-[#222222] text-[#F5CE42] swiss-border font-display font-black text-xs text-center flex items-center justify-center gap-2 transition-colors"
         >
-          ごはんなびで記事を読む →
+          <span>READ ARTICLE / 記事を読む</span>
+          <ExternalLink className="w-3.5 h-3.5" />
         </a>
       </div>
     </div>

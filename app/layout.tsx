@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#2D6A4F",
+  themeColor: "#F5CE42",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
@@ -40,8 +40,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body className={`${notoSansJP.variable} antialiased min-h-screen bg-[#F8F9FA] text-[#212529]`}>
-        <div className="mx-auto max-w-[430px] min-h-screen bg-white shadow-xl flex flex-col relative overflow-x-hidden">
+      <body className={`${notoSansJP.variable} antialiased min-h-screen bg-[#F5CE42] text-[#111111] selection:bg-[#111111] selection:text-[#F5CE42]`}>
+        <div className="mx-auto max-w-[440px] min-h-screen bg-[#F5CE42] sm:border-x-3 sm:border-black flex flex-col relative overflow-x-hidden p-3 sm:p-5">
           {children}
         </div>
       </body>

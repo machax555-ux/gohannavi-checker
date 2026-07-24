@@ -18,24 +18,23 @@ export default function UsageLimit({ onLimitCheck }: UsageLimitProps) {
     }
   }, [onLimitCheck]);
 
-  // SSR hydraton safeguard - don't render until mounted on client
+  // SSR hydration safeguard - don't render until mounted on client
   if (remaining === null) {
     return null;
   }
 
   if (remaining > 0) {
     return (
-      <div className="w-full flex justify-center my-3">
-        <div className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#2D6A4F]/10 border border-[#2D6A4F]/30 text-[#2D6A4F] rounded-full text-xs font-bold shadow-sm">
-          <span>本日あと <span className="text-sm font-extrabold">{remaining}</span> 回使えます</span>
-        </div>
+      <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#121212] text-white swiss-border rounded-none text-xs font-black tracking-widest font-display">
+        <span className="w-2 h-2 rounded-full bg-[#EF4444] animate-pulse" />
+        <span>{remaining} USES LEFT</span>
       </div>
     );
   }
 
   return (
-    <div className="w-full bg-[#E63946]/10 border border-[#E63946]/30 text-[#E63946] rounded-2xl p-4 my-3 text-center shadow-sm">
-      <p className="text-xs font-bold leading-relaxed">
+    <div className="w-full bg-[#EF4444] text-white swiss-border swiss-shadow p-3 text-center">
+      <p className="text-xs font-extrabold tracking-wide">
         本日の無料判定は終了しました。明日またご利用ください。
       </p>
     </div>

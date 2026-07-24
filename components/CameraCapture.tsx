@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Camera, Image as ImageIcon, RefreshCw, Sparkles } from "lucide-react";
+import { Camera, Image as ImageIcon, RefreshCw, Sparkles, FileText } from "lucide-react";
 import { incrementUsage } from "@/lib/storage";
 
 interface CameraCaptureProps {
@@ -25,7 +25,6 @@ export default function CameraCapture({
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [textInput, setTextInput] = useState<string>("");
 
-  // Handle Image File Selection
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -41,13 +40,11 @@ export default function CameraCapture({
     reader.readAsDataURL(file);
   };
 
-  // Reset selected image
   const handleResetImage = () => {
     setPreviewImage(null);
     if (onError) onError("");
   };
 
-  // Execute Check API Submission
   const handleSubmit = async () => {
     if (disabled) return;
 
@@ -81,13 +78,8 @@ export default function CameraCapture({
         throw new Error(data.error || "判定処理に失敗しました");
       }
 
-      // Save to LocalStorage limit
       incrementUsage();
-
-      // Save result to sessionStorage key "gohannavi_result"
       sessionStorage.setItem("gohannavi_result", JSON.stringify(data));
-
-      // Navigate to result page
       router.push("/result");
     } catch (err: any) {
       console.error(err);
@@ -101,21 +93,22 @@ export default function CameraCapture({
 
   return (
     <div className="w-full flex flex-col gap-5">
-      {/* Mode Switch Tabs */}
-      <div className="flex bg-gray-100 p-1 rounded-2xl">
+      {/* Mode Switch Tabs (Swiss 70s Segmented Switch) */}
+      <div className="grid grid-cols-2 bg-[#121212] p-1 swiss-border">
         <button
           type="button"
           onClick={() => {
             setActiveTab("camera");
             if (onError) onError("");
           }}
-          className={`flex-1 py-3 text-sm font-bold rounded-xl transition flex items-center justify-center gap-2 ${
+          className={`py-3 text-xs font-black font-display tracking-wider transition-colors flex items-center justify-center gap-2 ${
             activeTab === "camera"
-              ? "bg-[#2D6A4F] text-white shadow-sm"
-              : "text-gray-600 hover:text-gray-900"
+              ? "bg-[#F5CE42] text-[#111111]"
+              : "bg-transparent text-white hover:text-[#F5CE42]"
           }`}
         >
-          <span>📷 カメラで撮影</span>
+          <Camera className="w-4 h-4" />
+          <span>01. CAMERA</span>
         </button>
         <button
           type="button"
@@ -123,13 +116,14 @@ export default function CameraCapture({
             setActiveTab("text");
             if (onError) onError("");
           }}
-          className={`flex-1 py-3 text-sm font-bold rounded-xl transition flex items-center justify-center gap-2 ${
+          className={`py-3 text-xs font-black font-display tracking-wider transition-colors flex items-center justify-center gap-2 ${
             activeTab === "text"
-              ? "bg-[#2D6A4F] text-white shadow-sm"
-              : "text-gray-600 hover:text-gray-900"
+              ? "bg-[#F5CE42] text-[#111111]"
+              : "bg-transparent text-white hover:text-[#F5CE42]"
           }`}
         >
-          <span>✏️ テキストで入力</span>
+          <FileText className="w-4 h-4" />
+          <span>02. TEXT INPUT</span>
         </button>
       </div>
 
@@ -138,7 +132,7 @@ export default function CameraCapture({
         <div className="flex flex-col gap-4">
           {!previewImage ? (
             <div className="flex flex-col gap-3">
-              {/* Main Camera Capture Button (>= 120px height) */}
+              {/* Main Camera Dropzone */}
               <label className="w-full">
                 <input
                   type="file"
@@ -149,12 +143,21 @@ export default function CameraCapture({
                   className="hidden"
                 />
                 <div
-                  className={`w-full min-h-[130px] bg-[#2D6A4F] text-white rounded-2xl flex flex-col items-center justify-center gap-2 font-bold text-lg shadow-md transition active:scale-[0.98] ${
-                    disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:bg-[#255740]"
+                  className={`w-full min-h-[160px] swiss-card-white flex flex-col items-center justify-center gap-3 p-6 text-center transition-transform active:translate-x-0.5 active:translate-y-0.5 ${
+                    disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:bg-[#FAF9F5]"
                   }`}
                 >
-                  <Camera className="w-10 h-10 text-white" />
-                  <span>カメラで原材料を撮影する</span>
+                  <div className="w-14 h-14 bg-[#121212] text-[#F5CE42] flex items-center justify-center swiss-border">
+                    <Camera className="w-8 h-8" />
+                  </div>
+                  <div>
+                    <span className="font-extrabold text-lg text-[#111111] block">
+                      📷 パッケージを撮影する
+                    </span>
+                    <span className="text-xs text-[#555555] font-medium block mt-0.5">
+                      スマホのカメラで原材料表示を撮影
+                    </span>
+                  </div>
                 </div>
               </label>
 
@@ -168,34 +171,38 @@ export default function CameraCapture({
                   className="hidden"
                 />
                 <div
-                  className={`w-full py-3.5 px-4 border-2 border-[#2D6A4F] text-[#2D6A4F] bg-white rounded-2xl flex items-center justify-center gap-2 font-semibold text-sm transition active:scale-[0.98] ${
-                    disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:bg-emerald-50"
+                  className={`w-full py-3 px-4 bg-[#121212] text-white swiss-border text-center font-extrabold text-xs flex items-center justify-center gap-2 transition-transform active:translate-x-0.5 active:translate-y-0.5 ${
+                    disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:bg-[#222222]"
                   }`}
                 >
-                  <ImageIcon className="w-5 h-5" />
-                  <span>ライブラリから画像を選択</span>
+                  <ImageIcon className="w-4 h-4 text-[#F5CE42]" />
+                  <span>ライブラリから画像を選択する</span>
                 </div>
               </label>
             </div>
           ) : (
             /* Image Preview Area */
-            <div className="flex flex-col items-center gap-3 bg-gray-50 border border-gray-200 rounded-2xl p-4">
-              <div className="w-full flex justify-between items-center mb-1">
-                <span className="text-xs font-semibold text-gray-500">選択した画像</span>
+            <div className="swiss-card-white p-4 flex flex-col items-center gap-3">
+              <div className="w-full flex justify-between items-center border-b-2 border-black pb-2">
+                <span className="font-display font-black text-xs text-[#111111] tracking-widest">
+                  SELECTED IMAGE
+                </span>
                 <button
                   type="button"
                   onClick={handleResetImage}
-                  className="flex items-center gap-1 text-xs text-[#E63946] font-bold hover:underline"
+                  className="flex items-center gap-1 text-xs text-[#EF4444] font-black hover:underline"
                 >
                   <RefreshCw className="w-3.5 h-3.5" />
                   <span>撮り直す</span>
                 </button>
               </div>
-              <img
-                src={previewImage}
-                alt="撮影した原材料名"
-                className="max-h-[200px] w-auto object-contain rounded-xl border border-gray-200 shadow-sm"
-              />
+              <div className="w-full max-h-[220px] bg-[#121212] p-2 flex items-center justify-center swiss-border">
+                <img
+                  src={previewImage}
+                  alt="撮影した原材料名"
+                  className="max-h-[200px] w-auto object-contain"
+                />
+              </div>
             </div>
           )}
         </div>
@@ -203,20 +210,21 @@ export default function CameraCapture({
 
       {/* Text Mode */}
       {activeTab === "text" && (
-        <div className="flex flex-col gap-2">
-          <div className="relative">
-            <textarea
-              value={textInput}
-              onChange={(e) => setTextInput(e.target.value.slice(0, MAX_TEXT_LENGTH))}
-              maxLength={MAX_TEXT_LENGTH}
-              placeholder={`原材料名をここに貼り付けてください\n例）小麦粉、砂糖、食塩、醤油（大豆・小麦を含む）`}
-              rows={6}
-              disabled={disabled}
-              className="w-full p-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-[#2D6A4F] focus:border-[#2D6A4F] focus:outline-none text-sm leading-relaxed resize-none bg-white"
-            />
-            <div className="text-right text-xs text-gray-400 mt-1 font-mono">
-              残り {MAX_TEXT_LENGTH - textInput.length} / {MAX_TEXT_LENGTH} 文字
-            </div>
+        <div className="swiss-card-dark p-4 flex flex-col gap-2">
+          <span className="font-display font-black text-xs text-[#F5CE42] tracking-widest border-b border-white/20 pb-1">
+            INPUT INGREDIENT TEXT
+          </span>
+          <textarea
+            value={textInput}
+            onChange={(e) => setTextInput(e.target.value.slice(0, MAX_TEXT_LENGTH))}
+            maxLength={MAX_TEXT_LENGTH}
+            placeholder={`原材料名をここに貼り付けてください\n例）小麦粉、砂糖、食塩、醤油、ソルビン酸K、着色料（赤102）`}
+            rows={6}
+            disabled={disabled}
+            className="w-full p-3 bg-white text-[#111111] swiss-border-sm focus:outline-none text-xs font-bold leading-relaxed resize-none mt-1"
+          />
+          <div className="text-right text-[10px] text-white/60 font-mono">
+            {MAX_TEXT_LENGTH - textInput.length} / {MAX_TEXT_LENGTH} CHARS LEFT
           </div>
         </div>
       )}
@@ -230,10 +238,10 @@ export default function CameraCapture({
           (activeTab === "camera" && !previewImage) ||
           (activeTab === "text" && !textInput.trim())
         }
-        className="w-full py-4 bg-[#2D6A4F] hover:bg-[#255740] text-white rounded-2xl font-bold text-lg shadow-lg flex items-center justify-center gap-2 transition active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed"
+        className="w-full py-4 bg-[#EF4444] hover:bg-[#DC2626] text-white swiss-border swiss-shadow font-black text-lg flex items-center justify-center gap-3 transition-transform active:translate-x-0.5 active:translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed"
       >
-        <Sparkles className="w-5 h-5" />
-        <span>添加物を判定する</span>
+        <Sparkles className="w-5 h-5 text-white" />
+        <span>判定を実行する</span>
       </button>
     </div>
   );
