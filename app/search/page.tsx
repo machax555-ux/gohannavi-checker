@@ -161,7 +161,7 @@ export default function SearchPage() {
 
   return (
     <main className="flex-1 flex flex-col justify-between overflow-y-auto py-2 gap-4 pb-6">
-      {/* Header Bar (Page 2 Original Sizing) */}
+      {/* Header Bar */}
       <header className="flex flex-col gap-3 shrink-0">
         <div className="flex items-center justify-between">
           <Link
@@ -263,8 +263,8 @@ export default function SearchPage() {
             <div className="flex flex-col gap-4">
               {products.map((item) => (
                 <div key={item.id} className="swiss-card-white p-4 flex flex-col gap-3">
+                  {/* 1. Image & Title */}
                   <div className="flex gap-3 items-start">
-                    {/* Clean White Image Background Frame */}
                     {item.imageUrl ? (
                       <a
                         href={item.titleUrl}
@@ -296,6 +296,15 @@ export default function SearchPage() {
                     </div>
                   </div>
 
+                  {/* 2. 口コミを見る (1 line below Product Title, above Ingredients box) */}
+                  <div className="flex items-center justify-center gap-1.5 text-[#3B7A87] pt-1 pb-0.5 border-t border-black/10">
+                    <MessageSquare className="w-4 h-4 fill-[#3B7A87] text-[#3B7A87]" />
+                    <span className="font-extrabold text-sm tracking-wide text-[#3B7A87]">
+                      口コミを見る
+                    </span>
+                  </div>
+
+                  {/* 3. 【原材料名】 (Ingredients Box) */}
                   {item.ingredients && (
                     <div className="bg-[#F5CE42]/20 p-2.5 swiss-border-sm text-xs leading-relaxed text-[#333333] font-bold">
                       <span className="text-[#111111] block mb-0.5 font-extrabold">【原材料名】</span>
@@ -303,65 +312,55 @@ export default function SearchPage() {
                     </div>
                   )}
 
-                  {/* Pochipp Mobile Style Reviews Header & Affiliate Buttons */}
-                  <div className="flex flex-col gap-2 pt-1 border-t border-black/10">
-                    {/* 口コミを見る (View Reviews Header matching blog screenshot) */}
-                    <div className="flex items-center justify-center gap-1.5 text-[#3B7A87] pt-0.5">
-                      <MessageSquare className="w-4 h-4 fill-[#3B7A87] text-[#3B7A87]" />
-                      <span className="font-extrabold text-sm tracking-wide text-[#3B7A87]">
-                        口コミを見る
-                      </span>
-                    </div>
+                  {/* 4. Pochipp Affiliate Buttons (Amazon: Orange, 楽天市場: Red, Yahoo!: Sky Blue) */}
+                  <div className="grid grid-cols-3 gap-2 pt-0.5">
+                    {/* 1st: Amazon */}
+                    {item.amazonUrl ? (
+                      <a
+                        href={item.amazonUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="py-2.5 px-1 bg-[#FA9E2C] hover:bg-[#E08A1E] text-white swiss-border-sm rounded-full text-center font-extrabold text-xs transition-transform active:translate-x-0.5 active:translate-y-0.5 shadow-xs"
+                      >
+                        Amazon
+                      </a>
+                    ) : (
+                      <div className="py-2.5 px-1 bg-gray-200 text-gray-400 swiss-border-sm rounded-full text-center font-bold text-xs cursor-not-allowed">
+                        Amazon
+                      </div>
+                    )}
 
-                    <div className="grid grid-cols-3 gap-2 pt-0.5">
-                      {/* 1st: Amazon */}
-                      {item.amazonUrl ? (
-                        <a
-                          href={item.amazonUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="py-2.5 px-1 bg-[#FA9E2C] hover:bg-[#E08A1E] text-white swiss-border-sm rounded-full text-center font-extrabold text-xs transition-transform active:translate-x-0.5 active:translate-y-0.5 shadow-xs"
-                        >
-                          Amazon
-                        </a>
-                      ) : (
-                        <div className="py-2.5 px-1 bg-gray-200 text-gray-400 swiss-border-sm rounded-full text-center font-bold text-xs cursor-not-allowed">
-                          Amazon
-                        </div>
-                      )}
+                    {/* 2nd: 楽天市場 */}
+                    {item.rakutenUrl ? (
+                      <a
+                        href={item.rakutenUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="py-2.5 px-1 bg-[#E52E2E] hover:bg-[#C92222] text-white swiss-border-sm rounded-full text-center font-extrabold text-xs transition-transform active:translate-x-0.5 active:translate-y-0.5 shadow-xs"
+                      >
+                        楽天市場
+                      </a>
+                    ) : (
+                      <div className="py-2.5 px-1 bg-gray-200 text-gray-400 swiss-border-sm rounded-full text-center font-bold text-xs cursor-not-allowed">
+                        楽天市場
+                      </div>
+                    )}
 
-                      {/* 2nd: 楽天市場 */}
-                      {item.rakutenUrl ? (
-                        <a
-                          href={item.rakutenUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="py-2.5 px-1 bg-[#E52E2E] hover:bg-[#C92222] text-white swiss-border-sm rounded-full text-center font-extrabold text-xs transition-transform active:translate-x-0.5 active:translate-y-0.5 shadow-xs"
-                        >
-                          楽天市場
-                        </a>
-                      ) : (
-                        <div className="py-2.5 px-1 bg-gray-200 text-gray-400 swiss-border-sm rounded-full text-center font-bold text-xs cursor-not-allowed">
-                          楽天市場
-                        </div>
-                      )}
-
-                      {/* 3rd: Yahoo!ショッピング */}
-                      {item.yahooUrl ? (
-                        <a
-                          href={item.yahooUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="py-2.5 px-1 bg-[#3485E9] hover:bg-[#256ECB] text-white swiss-border-sm rounded-full text-center font-extrabold text-xs transition-transform active:translate-x-0.5 active:translate-y-0.5 shadow-xs truncate"
-                        >
-                          Yahoo!
-                        </a>
-                      ) : (
-                        <div className="py-2.5 px-1 bg-gray-200 text-gray-400 swiss-border-sm rounded-full text-center font-bold text-xs cursor-not-allowed">
-                          Yahoo!
-                        </div>
-                      )}
-                    </div>
+                    {/* 3rd: Yahoo!ショッピング */}
+                    {item.yahooUrl ? (
+                      <a
+                        href={item.yahooUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="py-2.5 px-1 bg-[#3485E9] hover:bg-[#256ECB] text-white swiss-border-sm rounded-full text-center font-extrabold text-xs transition-transform active:translate-x-0.5 active:translate-y-0.5 shadow-xs truncate"
+                      >
+                        Yahoo!
+                      </a>
+                    ) : (
+                      <div className="py-2.5 px-1 bg-gray-200 text-gray-400 swiss-border-sm rounded-full text-center font-bold text-xs cursor-not-allowed">
+                        Yahoo!
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}
