@@ -31,8 +31,6 @@ function getStoredRecord(): UsageRecord | null {
 
 /**
  * 今日の利用可能判定
- * - 保存された日付と今日が異なる場合は true (リセット扱い)
- * - count が 3 未満の場合は true, 3 以上は false
  */
 export function canUseToday(): boolean {
   if (typeof window === "undefined") return true;
@@ -49,7 +47,6 @@ export function canUseToday(): boolean {
 
 /**
  * 今日の残り回数を取得 (3 - count)
- * - データがない・日付が違う場合は 3 を返す
  */
 export function getUsageCount(): number {
   if (typeof window === "undefined") return DAILY_LIMIT;
@@ -66,8 +63,6 @@ export function getUsageCount(): number {
 
 /**
  * 利用回数を +1 加算
- * - canUseToday() が false の場合は false を返して終了
- * - count を +1 して保存し、true を返す
  */
 export function incrementUsage(): boolean {
   if (typeof window === "undefined") return false;
@@ -95,5 +90,17 @@ export function incrementUsage(): boolean {
   } catch (e) {
     console.error("Failed to save gohannavi_usage to LocalStorage", e);
     return false;
+  }
+}
+
+/**
+ * 利用回数をリセット（テスト用）
+ */
+export function resetUsage(): void {
+  if (typeof window === "undefined") return;
+  try {
+    localStorage.removeItem(STORAGE_KEY);
+  } catch (e) {
+    console.error("Failed to reset gohannavi_usage", e);
   }
 }
