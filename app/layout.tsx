@@ -39,9 +39,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja" className="h-full overflow-hidden">
-      <body className={`${notoSansJP.variable} antialiased h-[100dvh] max-h-[100dvh] overflow-hidden bg-[#F5CE42] text-[#111111] selection:bg-[#111111] selection:text-[#F5CE42]`}>
-        <div className="mx-auto max-w-[440px] h-[100dvh] max-h-[100dvh] overflow-hidden bg-[#F5CE42] sm:border-x-3 sm:border-black flex flex-col relative p-3 sm:p-4 justify-between">
+    <html lang="ja">
+      <body className={`${notoSansJP.variable} antialiased min-h-screen bg-[#F5CE42] text-[#111111] selection:bg-[#111111] selection:text-[#F5CE42]`}>
+        <div className="mx-auto max-w-[440px] min-h-screen bg-[#F5CE42] sm:border-x-3 sm:border-black flex flex-col relative p-3.5 sm:p-5 justify-between overflow-x-hidden">
           {children}
         </div>
       </body>
