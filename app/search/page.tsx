@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, Search, Loader2, ExternalLink, ShoppingBag, AlertCircle } from "lucide-react";
+import { ArrowLeft, Search, Loader2, ExternalLink, ShoppingBag, AlertCircle, MessageSquare } from "lucide-react";
 
 export interface SearchProduct {
   id: string;
@@ -70,15 +70,6 @@ export default function SearchPage() {
         ingredients = infoElem.textContent?.trim().replace(/^【原材料】\s*/, "") || "";
       }
 
-      const priceElem = box.querySelector(".pochipp-box__price");
-      let price = "";
-      if (priceElem) {
-        const clone = priceElem.cloneNode(true) as HTMLElement;
-        const span = clone.querySelector("span");
-        if (span) span.remove();
-        price = clone.textContent?.trim() || "";
-      }
-
       const amazonBtn = box.querySelector(".pochipp-box__btnwrap.-amazon a") as HTMLAnchorElement | null;
       const rakutenBtn = box.querySelector(".pochipp-box__btnwrap.-rakuten a") as HTMLAnchorElement | null;
       const yahooBtn = box.querySelector(".pochipp-box__btnwrap.-yahoo a") as HTMLAnchorElement | null;
@@ -89,7 +80,7 @@ export default function SearchPage() {
         title,
         titleUrl,
         ingredients,
-        price,
+        price: "",
         amazonUrl: amazonBtn?.getAttribute("href") || amazonBtn?.href || undefined,
         rakutenUrl: rakutenBtn?.getAttribute("href") || rakutenBtn?.href || undefined,
         yahooUrl: yahooBtn?.getAttribute("href") || yahooBtn?.href || undefined,
@@ -197,7 +188,7 @@ export default function SearchPage() {
         <div className="w-full h-[3px] bg-[#111111]" />
       </header>
 
-      {/* Search Input Box (Page 2 Camera Box Original Sizing) */}
+      {/* Search Input Box */}
       <div className="swiss-card-white p-5 flex flex-col gap-3 shrink-0">
         <span className="font-display font-black text-xs text-[#111111] tracking-widest border-b-2 border-black pb-1.5">
           SEARCH KEYWORD
@@ -298,15 +289,10 @@ export default function SearchPage() {
                         href={item.titleUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="font-extrabold text-xs sm:text-sm text-[#111111] line-clamp-2 hover:underline leading-snug"
+                        className="font-extrabold text-xs sm:text-sm text-[#111111] line-clamp-3 hover:underline leading-snug"
                       >
                         {item.title}
                       </a>
-                      {item.price && (
-                        <p className="text-sm font-black text-[#EF4444] mt-1 font-display">
-                          {item.price}
-                        </p>
-                      )}
                     </div>
                   </div>
 
@@ -317,55 +303,65 @@ export default function SearchPage() {
                     </div>
                   )}
 
-                  {/* Pochipp Blog Style Affiliate Buttons (Amazon: Orange, 楽天市場: Red, Yahoo!: Sky Blue) */}
-                  <div className="grid grid-cols-3 gap-2 pt-1">
-                    {/* 1st: Amazon */}
-                    {item.amazonUrl ? (
-                      <a
-                        href={item.amazonUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="py-2.5 px-1 bg-[#FA9E2C] hover:bg-[#E08A1E] text-white swiss-border-sm rounded-full text-center font-extrabold text-xs transition-transform active:translate-x-0.5 active:translate-y-0.5 shadow-xs"
-                      >
-                        Amazon
-                      </a>
-                    ) : (
-                      <div className="py-2.5 px-1 bg-gray-200 text-gray-400 swiss-border-sm rounded-full text-center font-bold text-xs cursor-not-allowed">
-                        Amazon
-                      </div>
-                    )}
+                  {/* Pochipp Mobile Style Reviews Header & Affiliate Buttons */}
+                  <div className="flex flex-col gap-2 pt-1 border-t border-black/10">
+                    {/* 口コミを見る (View Reviews Header matching blog screenshot) */}
+                    <div className="flex items-center justify-center gap-1.5 text-[#3B7A87] pt-0.5">
+                      <MessageSquare className="w-4 h-4 fill-[#3B7A87] text-[#3B7A87]" />
+                      <span className="font-extrabold text-sm tracking-wide text-[#3B7A87]">
+                        口コミを見る
+                      </span>
+                    </div>
 
-                    {/* 2nd: 楽天市場 */}
-                    {item.rakutenUrl ? (
-                      <a
-                        href={item.rakutenUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="py-2.5 px-1 bg-[#E52E2E] hover:bg-[#C92222] text-white swiss-border-sm rounded-full text-center font-extrabold text-xs transition-transform active:translate-x-0.5 active:translate-y-0.5 shadow-xs"
-                      >
-                        楽天市場
-                      </a>
-                    ) : (
-                      <div className="py-2.5 px-1 bg-gray-200 text-gray-400 swiss-border-sm rounded-full text-center font-bold text-xs cursor-not-allowed">
-                        楽天市場
-                      </div>
-                    )}
+                    <div className="grid grid-cols-3 gap-2 pt-0.5">
+                      {/* 1st: Amazon */}
+                      {item.amazonUrl ? (
+                        <a
+                          href={item.amazonUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="py-2.5 px-1 bg-[#FA9E2C] hover:bg-[#E08A1E] text-white swiss-border-sm rounded-full text-center font-extrabold text-xs transition-transform active:translate-x-0.5 active:translate-y-0.5 shadow-xs"
+                        >
+                          Amazon
+                        </a>
+                      ) : (
+                        <div className="py-2.5 px-1 bg-gray-200 text-gray-400 swiss-border-sm rounded-full text-center font-bold text-xs cursor-not-allowed">
+                          Amazon
+                        </div>
+                      )}
 
-                    {/* 3rd: Yahoo!ショッピング */}
-                    {item.yahooUrl ? (
-                      <a
-                        href={item.yahooUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="py-2.5 px-1 bg-[#3485E9] hover:bg-[#256ECB] text-white swiss-border-sm rounded-full text-center font-extrabold text-xs transition-transform active:translate-x-0.5 active:translate-y-0.5 shadow-xs truncate"
-                      >
-                        Yahoo!
-                      </a>
-                    ) : (
-                      <div className="py-2.5 px-1 bg-gray-200 text-gray-400 swiss-border-sm rounded-full text-center font-bold text-xs cursor-not-allowed">
-                        Yahoo!
-                      </div>
-                    )}
+                      {/* 2nd: 楽天市場 */}
+                      {item.rakutenUrl ? (
+                        <a
+                          href={item.rakutenUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="py-2.5 px-1 bg-[#E52E2E] hover:bg-[#C92222] text-white swiss-border-sm rounded-full text-center font-extrabold text-xs transition-transform active:translate-x-0.5 active:translate-y-0.5 shadow-xs"
+                        >
+                          楽天市場
+                        </a>
+                      ) : (
+                        <div className="py-2.5 px-1 bg-gray-200 text-gray-400 swiss-border-sm rounded-full text-center font-bold text-xs cursor-not-allowed">
+                          楽天市場
+                        </div>
+                      )}
+
+                      {/* 3rd: Yahoo!ショッピング */}
+                      {item.yahooUrl ? (
+                        <a
+                          href={item.yahooUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="py-2.5 px-1 bg-[#3485E9] hover:bg-[#256ECB] text-white swiss-border-sm rounded-full text-center font-extrabold text-xs transition-transform active:translate-x-0.5 active:translate-y-0.5 shadow-xs truncate"
+                        >
+                          Yahoo!
+                        </a>
+                      ) : (
+                        <div className="py-2.5 px-1 bg-gray-200 text-gray-400 swiss-border-sm rounded-full text-center font-bold text-xs cursor-not-allowed">
+                          Yahoo!
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               ))}
