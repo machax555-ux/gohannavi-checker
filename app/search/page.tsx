@@ -160,9 +160,9 @@ export default function SearchPage() {
   };
 
   return (
-    <main className="flex-1 flex flex-col justify-between overflow-y-auto py-2 gap-4 pb-6">
+    <main className="flex-1 flex flex-col justify-start overflow-y-auto py-2 gap-3 pb-6">
       {/* Header Bar */}
-      <header className="flex flex-col gap-3 shrink-0">
+      <header className="flex flex-col gap-2.5 shrink-0">
         <div className="flex items-center justify-between">
           <Link
             href="/"
@@ -189,7 +189,7 @@ export default function SearchPage() {
       </header>
 
       {/* Search Input Box */}
-      <div className="swiss-card-white p-5 flex flex-col gap-3 shrink-0">
+      <div className="swiss-card-white p-4 sm:p-5 flex flex-col gap-2.5 shrink-0">
         <span className="font-display font-black text-xs text-[#111111] tracking-widest border-b-2 border-black pb-1.5">
           SEARCH KEYWORD
         </span>
@@ -220,7 +220,7 @@ export default function SearchPage() {
           href={recommendArticle.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="swiss-card-dark p-4 flex items-center justify-between gap-2 shrink-0 group"
+          className="swiss-card-dark p-3.5 flex items-center justify-between gap-2 shrink-0 group"
         >
           <div className="flex items-center gap-2.5 min-w-0">
             <ShoppingBag className="w-5 h-5 text-[#F5CE42] shrink-0" />
@@ -234,20 +234,20 @@ export default function SearchPage() {
 
       {/* Error Banner */}
       {errorMsg && (
-        <div className="swiss-card-coral p-4 text-xs font-extrabold flex items-start gap-2 shrink-0">
+        <div className="swiss-card-coral p-3.5 text-xs font-extrabold flex items-start gap-2 shrink-0">
           <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
           <span>{errorMsg}</span>
         </div>
       )}
 
-      {/* Main Results / Loading / Guide Section */}
+      {/* Main Results / Loading / Guide Section (Reduced Vertical Gap) */}
       {loading ? (
-        <div className="swiss-card-dark p-8 flex flex-col items-center justify-center gap-4 text-center my-auto shrink-0">
+        <div className="swiss-card-dark p-7 flex flex-col items-center justify-center gap-3.5 text-center shrink-0 mt-1">
           <Loader2 className="w-8 h-8 text-[#F5CE42] animate-spin" />
           <p className="text-xs font-black text-white">無添加商品をデータベースから検索中...</p>
         </div>
       ) : hasSearched ? (
-        <div className="flex-1 flex flex-col gap-4">
+        <div className="flex-1 flex flex-col gap-3.5 mt-1">
           {/* Status Counter */}
           <div className="flex justify-between items-center px-1 text-xs font-black text-[#111111] shrink-0">
             <span>
@@ -260,10 +260,10 @@ export default function SearchPage() {
 
           {/* Product Cards List */}
           {products.length > 0 ? (
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-3.5">
               {products.map((item) => (
                 <div key={item.id} className="swiss-card-white p-4 flex flex-col gap-3">
-                  {/* 1. Image & Title */}
+                  {/* Top Image & Title + 口コミを見る (Aligned with bottom line of product image border frame) */}
                   <div className="flex gap-3 items-start">
                     {item.imageUrl ? (
                       <a
@@ -284,27 +284,27 @@ export default function SearchPage() {
                       </div>
                     )}
 
-                    <div className="flex-1 flex flex-col justify-between min-w-0">
+                    <div className="flex-1 flex flex-col justify-between h-20 min-w-0">
                       <a
                         href={item.titleUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="font-extrabold text-xs sm:text-sm text-[#111111] line-clamp-3 hover:underline leading-snug"
+                        className="font-extrabold text-xs sm:text-sm text-[#111111] line-clamp-2 hover:underline leading-snug"
                       >
                         {item.title}
                       </a>
+
+                      {/* 口コミを見る (Aligned with bottom line of product image's black border frame) */}
+                      <div className="flex items-center gap-1.5 text-[#3B7A87] pb-0.5">
+                        <MessageSquare className="w-4 h-4 fill-[#3B7A87] text-[#3B7A87]" />
+                        <span className="font-extrabold text-xs tracking-wide text-[#3B7A87]">
+                          口コミを見る
+                        </span>
+                      </div>
                     </div>
                   </div>
 
-                  {/* 2. 口コミを見る (1 line below Product Title, above Ingredients box) */}
-                  <div className="flex items-center justify-center gap-1.5 text-[#3B7A87] pt-1 pb-0.5 border-t border-black/10">
-                    <MessageSquare className="w-4 h-4 fill-[#3B7A87] text-[#3B7A87]" />
-                    <span className="font-extrabold text-sm tracking-wide text-[#3B7A87]">
-                      口コミを見る
-                    </span>
-                  </div>
-
-                  {/* 3. 【原材料名】 (Ingredients Box) */}
+                  {/* 【原材料名】 (Ingredients Box) */}
                   {item.ingredients && (
                     <div className="bg-[#F5CE42]/20 p-2.5 swiss-border-sm text-xs leading-relaxed text-[#333333] font-bold">
                       <span className="text-[#111111] block mb-0.5 font-extrabold">【原材料名】</span>
@@ -312,7 +312,7 @@ export default function SearchPage() {
                     </div>
                   )}
 
-                  {/* 4. Pochipp Affiliate Buttons (Amazon: Orange, 楽天市場: Red, Yahoo!: Sky Blue) */}
+                  {/* Pochipp Affiliate Buttons (Amazon: Orange, 楽天市場: Red, Yahoo!: Sky Blue) */}
                   <div className="grid grid-cols-3 gap-2 pt-0.5">
                     {/* 1st: Amazon */}
                     {item.amazonUrl ? (
@@ -393,22 +393,22 @@ export default function SearchPage() {
           )}
         </div>
       ) : (
-        /* Initial State Guide */
-        <div className="swiss-card-white p-5 text-center flex flex-col items-center justify-center gap-3 my-auto shrink-0">
+        /* Initial State Guide (Sits neatly below search card with reduced gap) */
+        <div className="swiss-card-white p-5 text-center flex flex-col items-center justify-center gap-3 shrink-0 mt-1">
           <div className="w-12 h-12 bg-[#121212] text-[#F5CE42] swiss-border flex items-center justify-center">
             <Search className="w-6 h-6" />
           </div>
           <div className="flex flex-col gap-1.5">
             <p className="text-sm font-black text-[#111111]">無添加食品をキーワードで探す</p>
             <p className="text-xs text-[#444444] font-bold leading-relaxed">
-              気になる商品やカテゴリー（ぽん酢・めんつゆ・おやつ・塩など）を入力してください
+              気になる商品やカテゴリー（ぽn酢・めんつゆ・おやつ・塩など）を入力してください
             </p>
           </div>
         </div>
       )}
 
       {/* Footer */}
-      <footer className="pt-2 border-t-3 border-black text-center shrink-0">
+      <footer className="pt-2 border-t-3 border-black text-center shrink-0 mt-auto">
         <span className="font-display font-black tracking-widest text-[10px] text-[#111111]">
           GOHANNAVI DATABASE SEARCH
         </span>
