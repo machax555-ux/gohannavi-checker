@@ -6,11 +6,9 @@ const path = require('path');
 
   const generateIcon = async (size, outputPath) => {
     const page = await browser.newPage({ viewport: { width: size, height: size } });
-    const logoPath = 'file:///' + path.resolve(__dirname, 'public', 'gohannavi-icon.png').replace(/\\/g, '/');
 
-    // Thicker black frame as requested: 8% of icon size
     const borderWidth = Math.max(8, Math.round(size * 0.08));
-    const cardPadding = Math.round(size * 0.06);
+    const cardPadding = Math.round(size * 0.08);
 
     await page.setContent(`
       <!DOCTYPE html>
@@ -41,50 +39,32 @@ const path = require('path');
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: space-between;
-            padding: ${cardPadding * 1.5}px ${cardPadding}px;
-            box-shadow: 0 0 0 ${Math.round(size * 0.02)}px #111111;
-          }
-          .top-badge {
-            background-color: #FFFFFF;
-            border: ${Math.max(2, Math.round(size * 0.025))}px solid #111111;
-            padding: ${Math.round(size * 0.02)}px ${Math.round(size * 0.06)}px;
-            border-radius: ${Math.round(size * 0.04)}px;
-            display: flex;
-            align-items: center;
             justify-content: center;
-          }
-          .top-badge img {
-            height: ${Math.round(size * 0.16)}px;
-            width: auto;
-            object-fit: contain;
+            padding: ${cardPadding}px;
+            box-shadow: 0 0 0 ${Math.round(size * 0.02)}px #111111;
           }
           .text-container {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            line-height: 0.9;
+            line-height: 0.95;
             letter-spacing: -0.04em;
-            color: #F5CE42;
             font-weight: 900;
             text-align: center;
-            margin-bottom: ${Math.round(size * 0.02)}px;
           }
           .line1 {
-            font-size: ${Math.round(size * 0.17)}px;
+            font-size: ${Math.round(size * 0.22)}px;
+            color: #F5CE42;
           }
           .line2 {
-            font-size: ${Math.round(size * 0.17)}px;
+            font-size: ${Math.round(size * 0.22)}px;
             color: #FFFFFF;
           }
         </style>
       </head>
       <body>
         <div class="outer-card">
-          <div class="top-badge">
-            <img src="${logoPath}" alt="ごはんなび" />
-          </div>
           <div class="text-container">
             <div class="line1">FOOD</div>
             <div class="line2">CHECK</div>
@@ -94,7 +74,7 @@ const path = require('path');
       </html>
     `);
 
-    // Wait for web font Unbounded to load
+    // Wait for Unbounded font to load
     await page.waitForTimeout(600);
 
     await page.screenshot({ path: outputPath, type: 'png' });
@@ -113,5 +93,5 @@ const path = require('path');
   await generateIcon(180, path.join(appDir, 'apple-icon.png'));
 
   await browser.close();
-  console.log('All Swiss 70s PWA app icons generated successfully!');
+  console.log('All Swiss 70s PWA app icons (FOOD CHECK only) generated successfully!');
 })();

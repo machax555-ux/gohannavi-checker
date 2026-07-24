@@ -169,54 +169,54 @@ export default function SearchPage() {
   };
 
   return (
-    <main className="h-full flex flex-col justify-between overflow-y-auto py-1 gap-3 pb-6">
-      {/* Header Bar (Directly Top Aligned Matching Scan Page Layout) */}
-      <header className="flex flex-col gap-2 shrink-0">
+    <main className="flex-1 flex flex-col justify-between overflow-y-auto py-2 gap-4 pb-6">
+      {/* Header Bar (Page 2 Original Sizing) */}
+      <header className="flex flex-col gap-3 shrink-0">
         <div className="flex items-center justify-between">
           <Link
             href="/"
-            className="bg-[#121212] text-white px-2.5 py-1 swiss-border text-[10px] font-black font-display tracking-wider flex items-center gap-1 hover:bg-[#EF4444] transition-colors"
+            className="bg-[#121212] text-white px-3 py-1.5 swiss-border text-xs font-black font-display tracking-wider flex items-center gap-1.5 hover:bg-[#EF4444] transition-colors"
           >
-            <ArrowLeft className="w-3.5 h-3.5" />
+            <ArrowLeft className="w-4 h-4" />
             <span>HOME</span>
           </Link>
-          <span className="font-display font-black text-[10px] text-[#111111] bg-white px-2.5 py-1 swiss-border">
+          <span className="font-display font-black text-xs text-[#111111] bg-white px-3 py-1.5 swiss-border">
             SEARCH DATABASE
           </span>
         </div>
 
-        <div className="flex flex-col gap-0.5 mt-0.5">
-          <span className="font-display font-black text-[10px] text-[#111111] tracking-widest">
+        <div className="flex flex-col gap-1 mt-1">
+          <span className="font-display font-black text-xs text-[#111111] tracking-widest">
             02. DATABASE
           </span>
-          <h1 className="font-display font-black text-2xl text-[#111111] leading-none">
+          <h1 className="font-display font-black text-3xl text-[#111111] leading-none">
             無添加商品検索
           </h1>
         </div>
 
-        <div className="w-full h-[2px] bg-[#111111]" />
+        <div className="w-full h-[3px] bg-[#111111]" />
       </header>
 
-      {/* Search Input Box (High Top Alignment) */}
-      <div className="swiss-card-white p-3.5 flex flex-col gap-2 shrink-0">
-        <span className="font-display font-black text-[10px] text-[#111111] tracking-widest border-b border-black pb-1">
+      {/* Search Input Box (Page 2 Camera Box Original Sizing) */}
+      <div className="swiss-card-white p-5 flex flex-col gap-3 shrink-0">
+        <span className="font-display font-black text-xs text-[#111111] tracking-widest border-b-2 border-black pb-1.5">
           SEARCH KEYWORD
         </span>
-        <form onSubmit={handleFormSubmit} className="flex gap-2 mt-0.5">
+        <form onSubmit={handleFormSubmit} className="flex gap-2">
           <div className="relative flex-1">
             <input
               type="text"
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
               placeholder="醤油・めんつゆ・お菓子・ラーメン・・・・"
-              className="w-full pl-3 pr-8 py-2.5 bg-white text-[#111111] swiss-border-sm text-xs font-extrabold focus:outline-none placeholder:text-[#777777]"
+              className="w-full pl-3.5 pr-9 py-3 bg-white text-[#111111] swiss-border-sm text-xs font-extrabold focus:outline-none placeholder:text-[#777777]"
             />
-            <Search className="w-3.5 h-3.5 text-[#111111] absolute right-2.5 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-[#111111] absolute right-3 top-1/2 -translate-y-1/2" />
           </div>
           <button
             type="submit"
             disabled={loading || !keyword.trim()}
-            className="px-3.5 py-2.5 bg-[#EF4444] hover:bg-[#DC2626] text-white swiss-border swiss-shadow-sm font-black text-xs transition-transform active:translate-x-0.5 active:translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed shrink-0"
+            className="px-4 py-3 bg-[#EF4444] hover:bg-[#DC2626] text-white swiss-border swiss-shadow-sm font-black text-xs transition-transform active:translate-x-0.5 active:translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed shrink-0"
           >
             検索
           </button>
@@ -229,21 +229,21 @@ export default function SearchPage() {
           href={recommendArticle.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="swiss-card-dark p-3 flex items-center justify-between gap-2 shrink-0 group"
+          className="swiss-card-dark p-4 flex items-center justify-between gap-2 shrink-0 group"
         >
-          <div className="flex items-center gap-2 min-w-0">
-            <ShoppingBag className="w-4 h-4 text-[#F5CE42] shrink-0" />
-            <span className="text-[11px] font-black text-white truncate group-hover:text-[#F5CE42] transition-colors">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <ShoppingBag className="w-5 h-5 text-[#F5CE42] shrink-0" />
+            <span className="text-xs font-black text-white truncate group-hover:text-[#F5CE42] transition-colors">
               {recommendArticle.title}
             </span>
           </div>
-          <ExternalLink className="w-3.5 h-3.5 text-[#F5CE42] shrink-0 group-hover:translate-x-0.5 transition-transform" />
+          <ExternalLink className="w-4 h-4 text-[#F5CE42] shrink-0 group-hover:translate-x-0.5 transition-transform" />
         </a>
       )}
 
       {/* Error Banner */}
       {errorMsg && (
-        <div className="swiss-card-coral p-3 text-xs font-extrabold flex items-start gap-1.5 shrink-0">
+        <div className="swiss-card-coral p-4 text-xs font-extrabold flex items-start gap-2 shrink-0">
           <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
           <span>{errorMsg}</span>
         </div>
@@ -251,12 +251,12 @@ export default function SearchPage() {
 
       {/* Main Results / Loading / Guide Section */}
       {loading ? (
-        <div className="swiss-card-dark p-6 flex flex-col items-center justify-center gap-3 text-center my-auto shrink-0">
-          <Loader2 className="w-7 h-7 text-[#F5CE42] animate-spin" />
+        <div className="swiss-card-dark p-8 flex flex-col items-center justify-center gap-4 text-center my-auto shrink-0">
+          <Loader2 className="w-8 h-8 text-[#F5CE42] animate-spin" />
           <p className="text-xs font-black text-white">無添加商品をデータベースから検索中...</p>
         </div>
       ) : hasSearched ? (
-        <div className="flex-1 flex flex-col gap-3">
+        <div className="flex-1 flex flex-col gap-4">
           {/* Status Counter */}
           <div className="flex justify-between items-center px-1 text-xs font-black text-[#111111] shrink-0">
             <span>
@@ -269,9 +269,9 @@ export default function SearchPage() {
 
           {/* Product Cards List */}
           {products.length > 0 ? (
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-4">
               {products.map((item) => (
-                <div key={item.id} className="swiss-card-white p-3.5 flex flex-col gap-2.5">
+                <div key={item.id} className="swiss-card-white p-4 flex flex-col gap-3">
                   <div className="flex gap-3 items-start">
                     {/* Clean White Image Background Frame */}
                     {item.imageUrl ? (
@@ -279,7 +279,7 @@ export default function SearchPage() {
                         href={item.titleUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-18 h-18 shrink-0 bg-white p-1 swiss-border flex items-center justify-center"
+                        className="w-20 h-20 shrink-0 bg-white p-1.5 swiss-border flex items-center justify-center"
                       >
                         <img
                           src={item.imageUrl}
@@ -288,7 +288,7 @@ export default function SearchPage() {
                         />
                       </a>
                     ) : (
-                      <div className="w-18 h-18 shrink-0 bg-white swiss-border flex items-center justify-center text-[#111111] text-[10px] font-black">
+                      <div className="w-20 h-20 shrink-0 bg-white swiss-border flex items-center justify-center text-[#111111] text-xs font-black">
                         NO IMAGE
                       </div>
                     )}
@@ -298,12 +298,12 @@ export default function SearchPage() {
                         href={item.titleUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="font-extrabold text-xs text-[#111111] line-clamp-2 hover:underline leading-snug"
+                        className="font-extrabold text-xs sm:text-sm text-[#111111] line-clamp-2 hover:underline leading-snug"
                       >
                         {item.title}
                       </a>
                       {item.price && (
-                        <p className="text-xs font-black text-[#EF4444] mt-1 font-display">
+                        <p className="text-sm font-black text-[#EF4444] mt-1 font-display">
                           {item.price}
                         </p>
                       )}
@@ -311,26 +311,26 @@ export default function SearchPage() {
                   </div>
 
                   {item.ingredients && (
-                    <div className="bg-[#F5CE42]/20 p-2 swiss-border-sm text-[10px] leading-relaxed text-[#333333] font-bold">
+                    <div className="bg-[#F5CE42]/20 p-2.5 swiss-border-sm text-xs leading-relaxed text-[#333333] font-bold">
                       <span className="text-[#111111] block mb-0.5 font-extrabold">【原材料名】</span>
                       <p className="line-clamp-2">{item.ingredients}</p>
                     </div>
                   )}
 
-                  {/* Pochipp Blog Style Affiliate Buttons (Amazon: Warm Orange, 楽天市場: Red, Yahoo!: Sky Blue) */}
-                  <div className="grid grid-cols-3 gap-1.5 pt-1">
+                  {/* Pochipp Blog Style Affiliate Buttons (Amazon: Orange, 楽天市場: Red, Yahoo!: Sky Blue) */}
+                  <div className="grid grid-cols-3 gap-2 pt-1">
                     {/* 1st: Amazon */}
                     {item.amazonUrl ? (
                       <a
                         href={item.amazonUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="py-2 px-1 bg-[#FA9E2C] hover:bg-[#E08A1E] text-white swiss-border-sm rounded-full text-center font-extrabold text-[10px] sm:text-xs transition-transform active:translate-x-0.5 active:translate-y-0.5 shadow-xs"
+                        className="py-2.5 px-1 bg-[#FA9E2C] hover:bg-[#E08A1E] text-white swiss-border-sm rounded-full text-center font-extrabold text-xs transition-transform active:translate-x-0.5 active:translate-y-0.5 shadow-xs"
                       >
                         Amazon
                       </a>
                     ) : (
-                      <div className="py-2 px-1 bg-gray-200 text-gray-400 swiss-border-sm rounded-full text-center font-bold text-[10px] cursor-not-allowed">
+                      <div className="py-2.5 px-1 bg-gray-200 text-gray-400 swiss-border-sm rounded-full text-center font-bold text-xs cursor-not-allowed">
                         Amazon
                       </div>
                     )}
@@ -341,12 +341,12 @@ export default function SearchPage() {
                         href={item.rakutenUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="py-2 px-1 bg-[#E52E2E] hover:bg-[#C92222] text-white swiss-border-sm rounded-full text-center font-extrabold text-[10px] sm:text-xs transition-transform active:translate-x-0.5 active:translate-y-0.5 shadow-xs"
+                        className="py-2.5 px-1 bg-[#E52E2E] hover:bg-[#C92222] text-white swiss-border-sm rounded-full text-center font-extrabold text-xs transition-transform active:translate-x-0.5 active:translate-y-0.5 shadow-xs"
                       >
                         楽天市場
                       </a>
                     ) : (
-                      <div className="py-2 px-1 bg-gray-200 text-gray-400 swiss-border-sm rounded-full text-center font-bold text-[10px] cursor-not-allowed">
+                      <div className="py-2.5 px-1 bg-gray-200 text-gray-400 swiss-border-sm rounded-full text-center font-bold text-xs cursor-not-allowed">
                         楽天市場
                       </div>
                     )}
@@ -357,12 +357,12 @@ export default function SearchPage() {
                         href={item.yahooUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="py-2 px-1 bg-[#3485E9] hover:bg-[#256ECB] text-white swiss-border-sm rounded-full text-center font-extrabold text-[10px] sm:text-xs transition-transform active:translate-x-0.5 active:translate-y-0.5 shadow-xs truncate"
+                        className="py-2.5 px-1 bg-[#3485E9] hover:bg-[#256ECB] text-white swiss-border-sm rounded-full text-center font-extrabold text-xs transition-transform active:translate-x-0.5 active:translate-y-0.5 shadow-xs truncate"
                       >
                         Yahoo!
                       </a>
                     ) : (
-                      <div className="py-2 px-1 bg-gray-200 text-gray-400 swiss-border-sm rounded-full text-center font-bold text-[10px] cursor-not-allowed">
+                      <div className="py-2.5 px-1 bg-gray-200 text-gray-400 swiss-border-sm rounded-full text-center font-bold text-xs cursor-not-allowed">
                         Yahoo!
                       </div>
                     )}
@@ -375,7 +375,7 @@ export default function SearchPage() {
                   type="button"
                   onClick={handleLoadMore}
                   disabled={loadingMore}
-                  className="w-full py-2.5 bg-white hover:bg-[#FAF9F5] text-[#111111] swiss-border font-black text-xs transition-transform active:translate-x-0.5 active:translate-y-0.5 mt-1 flex items-center justify-center gap-2"
+                  className="w-full py-3.5 bg-white hover:bg-[#FAF9F5] text-[#111111] swiss-border font-black text-xs transition-transform active:translate-x-0.5 active:translate-y-0.5 mt-1 flex items-center justify-center gap-2"
                 >
                   {loadingMore ? (
                     <>
@@ -389,8 +389,8 @@ export default function SearchPage() {
               )}
             </div>
           ) : (
-            <div className="swiss-card-white p-5 text-center flex flex-col items-center justify-center gap-2">
-              <AlertCircle className="w-6 h-6 text-[#111111]" />
+            <div className="swiss-card-white p-6 text-center flex flex-col items-center justify-center gap-2">
+              <AlertCircle className="w-8 h-8 text-[#111111]" />
               <p className="text-xs font-extrabold text-[#111111]">
                 見つかりませんでした。別のキーワードをお試しください。
               </p>
@@ -399,13 +399,13 @@ export default function SearchPage() {
         </div>
       ) : (
         /* Initial State Guide */
-        <div className="swiss-card-white p-4 text-center flex flex-col items-center justify-center gap-2 my-auto shrink-0">
-          <div className="w-9 h-9 bg-[#121212] text-[#F5CE42] swiss-border flex items-center justify-center">
-            <Search className="w-4 h-4" />
+        <div className="swiss-card-white p-5 text-center flex flex-col items-center justify-center gap-3 my-auto shrink-0">
+          <div className="w-12 h-12 bg-[#121212] text-[#F5CE42] swiss-border flex items-center justify-center">
+            <Search className="w-6 h-6" />
           </div>
-          <div className="flex flex-col gap-1">
-            <p className="text-xs font-black text-[#111111]">無添加食品をキーワードで探す</p>
-            <p className="text-[11px] text-[#444444] font-bold leading-relaxed">
+          <div className="flex flex-col gap-1.5">
+            <p className="text-sm font-black text-[#111111]">無添加食品をキーワードで探す</p>
+            <p className="text-xs text-[#444444] font-bold leading-relaxed">
               気になる商品やカテゴリー（ぽん酢・めんつゆ・おやつ・塩など）を入力してください
             </p>
           </div>
@@ -413,8 +413,8 @@ export default function SearchPage() {
       )}
 
       {/* Footer */}
-      <footer className="pt-1 border-t-2 border-black text-center shrink-0">
-        <span className="font-display font-black tracking-widest text-[9px] text-[#111111]">
+      <footer className="pt-2 border-t-3 border-black text-center shrink-0">
+        <span className="font-display font-black tracking-widest text-[10px] text-[#111111]">
           GOHANNAVI DATABASE SEARCH
         </span>
       </footer>
