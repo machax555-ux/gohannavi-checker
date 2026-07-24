@@ -46,7 +46,7 @@ export default function ScanPage() {
         </div>
       )}
 
-      {/* Loading State UI (Swiss 70s Animated Bar) */}
+      {/* Loading State UI */}
       {loading ? (
         <div className="swiss-card-dark p-6 flex flex-col items-center justify-center gap-4 text-center my-auto shrink-0">
           <div className="w-12 h-12 bg-[#F5CE42] text-[#111111] swiss-border flex items-center justify-center">

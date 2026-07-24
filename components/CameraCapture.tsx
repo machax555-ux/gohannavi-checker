@@ -93,7 +93,7 @@ export default function CameraCapture({
 
   return (
     <div className="w-full h-full flex flex-col justify-between gap-3 overflow-hidden">
-      {/* Mode Switch Tabs (Swiss 70s Segmented Switch) */}
+      {/* Mode Switch Tabs (Segmented Switch) */}
       <div className="grid grid-cols-2 bg-[#121212] p-1 swiss-border shrink-0">
         <button
           type="button"
@@ -143,7 +143,7 @@ export default function CameraCapture({
                   className="hidden"
                 />
                 <div
-                  className={`w-full min-h-[110px] sm:min-h-[130px] swiss-card-white flex flex-col items-center justify-center gap-2 p-4 text-center transition-transform active:translate-x-0.5 active:translate-y-0.5 ${
+                  className={`w-full min-h-[120px] swiss-card-white flex flex-col items-center justify-center gap-2 p-4 text-center transition-transform active:translate-x-0.5 active:translate-y-0.5 ${
                     disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:bg-[#FAF9F5]"
                   }`}
                 >
@@ -171,11 +171,11 @@ export default function CameraCapture({
                   className="hidden"
                 />
                 <div
-                  className={`w-full py-2.5 px-3 bg-[#121212] text-white swiss-border text-center font-extrabold text-xs flex items-center justify-center gap-2 transition-transform active:translate-x-0.5 active:translate-y-0.5 ${
+                  className={`w-full py-3 px-3 bg-[#121212] text-white swiss-border text-center font-extrabold text-xs flex items-center justify-center gap-2 transition-transform active:translate-x-0.5 active:translate-y-0.5 ${
                     disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:bg-[#222222]"
                   }`}
                 >
-                  <ImageIcon className="w-3.5 h-3.5 text-[#F5CE42]" />
+                  <ImageIcon className="w-4 h-4 text-[#F5CE42]" />
                   <span>ライブラリから画像を選択する</span>
                 </div>
               </label>
@@ -238,7 +238,7 @@ export default function CameraCapture({
           (activeTab === "camera" && !previewImage) ||
           (activeTab === "text" && !textInput.trim())
         }
-        className="w-full py-3 bg-[#EF4444] hover:bg-[#DC2626] text-white swiss-border swiss-shadow-sm font-black text-base flex items-center justify-center gap-2 transition-transform active:translate-x-0.5 active:translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed shrink-0"
+        className="w-full py-3.5 bg-[#EF4444] hover:bg-[#DC2626] text-white swiss-border swiss-shadow-sm font-black text-base flex items-center justify-center gap-2 transition-transform active:translate-x-0.5 active:translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed shrink-0"
       >
         <Sparkles className="w-4 h-4 text-white" />
         <span>判定を実行する</span>
