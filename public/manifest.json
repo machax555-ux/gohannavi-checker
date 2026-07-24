@@ -1,0 +1,15 @@
+{
+  "name": "ごはんなび添加物チェッカー",
+  "short_name": "添加物チェッカー",
+  "description": "原材料を撮るだけで添加物を瞬時に判定",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F8F9FA",
+  "theme_color": "#2D6A4F",
+  "icons": [
+    { "src": "/icon-192.svg", "sizes": "192x192", "type": "image/svg+xml" },
+    { "src": "/icon-512.svg", "sizes": "512x512", "type": "image/svg+xml" },
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
