@@ -48,18 +48,20 @@ const path = require('path');
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            line-height: 0.95;
-            letter-spacing: -0.04em;
+            gap: ${Math.round(size * 0.04)}px;
+            letter-spacing: -0.03em;
             font-weight: 900;
             text-align: center;
           }
           .line1 {
-            font-size: ${Math.round(size * 0.22)}px;
+            font-size: ${Math.round(size * 0.18)}px;
             color: #F5CE42;
+            line-height: 1;
           }
           .line2 {
-            font-size: ${Math.round(size * 0.22)}px;
+            font-size: ${Math.round(size * 0.18)}px;
             color: #FFFFFF;
+            line-height: 1;
           }
         </style>
       </head>
@@ -93,5 +95,5 @@ const path = require('path');
   await generateIcon(180, path.join(appDir, 'apple-icon.png'));
 
   await browser.close();
-  console.log('All Swiss 70s PWA app icons (FOOD CHECK only) generated successfully!');
+  console.log('All Swiss 70s PWA app icons (narrower FOOD CHECK with wider 2-line gap) generated successfully!');
 })();
