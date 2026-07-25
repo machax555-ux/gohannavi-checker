@@ -13,7 +13,7 @@ const fs = require('fs');
     const page = await browser.newPage({ viewport: { width: size, height: size } });
 
     const borderWidth = Math.max(8, Math.round(size * 0.08));
-    const cardPadding = Math.round(size * 0.06);
+    const cardPadding = Math.round(size * 0.05);
 
     await page.setContent(`
       <!DOCTYPE html>
@@ -53,31 +53,31 @@ const fs = require('fs');
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: ${Math.round(size * 0.03)}px;
+            gap: ${Math.round(size * 0.02)}px;
             width: 100%;
           }
           .line1 {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: ${Math.round(size * 0.035)}px;
+            gap: ${Math.round(size * 0.03)}px;
             width: 100%;
           }
           .food-text {
-            font-size: ${Math.round(size * 0.15)}px;
+            font-size: ${Math.round(size * 0.16)}px;
             color: #F5CE42;
             line-height: 1;
             font-weight: 900;
             letter-spacing: -0.03em;
           }
           .emblem-img {
-            height: ${Math.round(size * 0.23)}px;
+            height: ${Math.round(size * 0.29)}px;
             width: auto;
             object-fit: contain;
-            filter: drop-shadow(0px 2px 5px rgba(0,0,0,0.6));
+            filter: drop-shadow(0px 3px 6px rgba(0,0,0,0.6));
           }
           .line2 {
-            font-size: ${Math.round(size * 0.175)}px;
+            font-size: ${Math.round(size * 0.18)}px;
             color: #FFFFFF;
             line-height: 1;
             font-weight: 900;
@@ -119,5 +119,5 @@ const fs = require('fs');
   await generateIcon(180, path.join(appDir, 'apple-icon.png'));
 
   await browser.close();
-  console.log('All PWA app icons generated with larger rogo11.png emblem!');
+  console.log('All PWA app icons generated with significantly larger rogo11.png emblem!');
 })();

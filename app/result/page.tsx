@@ -55,9 +55,9 @@ export default function ResultPage() {
   if (loading) return null;
 
   return (
-    <main className="flex-1 flex flex-col justify-between gap-4 py-2 pb-6">
+    <main className="h-full flex flex-col justify-start overflow-y-auto py-2 gap-4 pb-8">
       {/* Header Bar */}
-      <header className="flex flex-col gap-3">
+      <header className="flex flex-col gap-3 shrink-0">
         <div className="flex items-center justify-between">
           <Link
             href="/"
@@ -98,7 +98,7 @@ export default function ResultPage() {
       )}
 
       {/* 4. Action Button */}
-      <div className="mt-2 mb-2">
+      <div className="mt-2 mb-2 shrink-0">
         <Link
           href="/scan"
           className="w-full py-4 bg-[#121212] hover:bg-[#222222] text-[#F5CE42] swiss-border swiss-shadow font-black text-base text-center flex items-center justify-center gap-2 transition-transform active:translate-x-0.5 active:translate-y-0.5"
