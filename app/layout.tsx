@@ -39,11 +39,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja">
+    <html lang="ja" className="h-full overflow-hidden overscroll-none">
       <body
-        className={`${notoSansJP.variable} ${unbounded.variable} antialiased min-h-[100dvh] bg-[#F5CE42] text-[#111111] selection:bg-[#111111] selection:text-[#F5CE42]`}
+        className={`${notoSansJP.variable} ${unbounded.variable} antialiased h-full w-full overflow-hidden overscroll-none bg-[#F5CE42] text-[#111111] selection:bg-[#111111] selection:text-[#F5CE42] fixed inset-0`}
       >
-        <div className="app-standalone-container mx-auto max-w-[440px] min-h-[100dvh] bg-[#F5CE42] sm:border-x-3 sm:border-black flex flex-col relative p-3.5 sm:p-4 justify-between overflow-y-auto overflow-x-hidden">
+        <div className="fixed inset-0 max-w-[440px] mx-auto h-[100dvh] max-h-[100dvh] overflow-hidden overscroll-none bg-[#F5CE42] sm:border-x-3 sm:border-black flex flex-col p-3.5 sm:p-4 justify-between select-none">
           {children}
         </div>
       </body>
