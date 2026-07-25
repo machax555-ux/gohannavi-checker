@@ -16,7 +16,7 @@ export default function ResultCard({ result }: ResultCardProps) {
           cardStyle: "swiss-card-dark",
           badgeBg: "bg-[#10B981] text-[#111111]",
           icon: <CheckCircle2 className="w-8 h-8 text-[#10B981]" />,
-          title: "SAFE / 無添加です",
+          title: "SAFE / 食品添加物無添加",
           sub: "避けるべき添加物は検出されませんでした",
           accentColor: "#10B981",
         };
@@ -132,7 +132,7 @@ export default function ResultCard({ result }: ResultCardProps) {
             {result.safe_ingredients?.map((ing, idx) => (
               <span
                 key={`safe-${idx}`}
-                className="text-xs px-3 py-1 bg-[#121212] text-white font-extrabold swiss-border-sm"
+                className="text-xs px-3 py-1 bg-[#121212] text-[#FFFFFF] font-extrabold swiss-border-sm"
               >
                 {ing}
               </span>
@@ -141,7 +141,7 @@ export default function ResultCard({ result }: ResultCardProps) {
             {result.detected_additives?.map((add, idx) => (
               <span
                 key={`add-${idx}`}
-                className="text-xs px-3 py-1 bg-[#EF4444] text-white font-extrabold swiss-border-sm"
+                className="text-xs px-3 py-1 bg-[#EF4444] text-[#FFFFFF] font-extrabold swiss-border-sm"
               >
                 {add.name}
               </span>

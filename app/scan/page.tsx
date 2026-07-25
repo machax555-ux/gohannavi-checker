@@ -52,14 +52,11 @@ export default function ScanPage() {
           <div className="w-14 h-14 bg-[#F5CE42] text-[#111111] swiss-border flex items-center justify-center">
             <Loader2 className="w-8 h-8 animate-spin" />
           </div>
-          <div className="flex flex-col gap-1.5">
-            <h2 className="font-display font-black text-xl text-[#F5CE42] tracking-wider">
-              ANALYZING...
+          <div className="flex flex-col gap-2">
+            <h2 className="font-display font-black text-lg sm:text-xl text-[#F5CE42] tracking-wider leading-snug">
+              原材料を判定中…少々お待ちください
             </h2>
-            <p className="text-sm font-extrabold text-white">
-              原材料を分析中...少々お待ちください
-            </p>
-            <p className="text-xs text-white/70">
+            <p className="text-xs text-white/80 font-bold">
               AIが添加物の抽出と安全性をスキャンしています
             </p>
           </div>
