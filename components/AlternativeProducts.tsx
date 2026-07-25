@@ -36,7 +36,7 @@ export default function AlternativeProducts({
               食品添加物無添加商品をご案内
             </h3>
             <p className="text-xs text-white/80 font-medium mt-1 leading-snug">
-              「{cleanCategory}」の安全な代替アイテムをAmazonでチェック
+              「{cleanCategory}」の無添加商品をAmazonでチェック
             </p>
           </div>
         </div>
