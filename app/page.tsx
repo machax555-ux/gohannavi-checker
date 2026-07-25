@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { Camera, ArrowRight, ExternalLink } from "lucide-react";
+import { Camera, Search, ArrowRight, ExternalLink } from "lucide-react";
 import UsageLimit from "@/components/UsageLimit";
 import { canUseToday } from "@/lib/storage";
 
@@ -50,7 +50,7 @@ export default function HomePage() {
 
       {/* 2. Main Hero Cards (Order: 01. DATABASE -> 02. SCANNER -> 03. HOW IT WORKS) */}
       <div className="flex flex-col gap-2.5 my-auto overflow-hidden">
-        {/* 01. DATABASE Card (Entire card clickable, compact previous shape & height, dark background, red button for "無添加商品を検索する") */}
+        {/* 01. DATABASE Card (Centered red button matching SCANNER 判定スタート) */}
         <Link
           href="/search"
           className="swiss-card-dark p-3 sm:p-3.5 flex flex-col gap-2 group hover:opacity-95 transition-opacity cursor-pointer block"
@@ -60,11 +60,10 @@ export default function HomePage() {
               01. DATABASE
             </span>
           </div>
-          <div className="w-full py-2.5 px-3.5 bg-[#EF4444] text-white swiss-border-sm font-extrabold text-sm sm:text-base flex items-center justify-between group-hover:bg-[#DC2626] transition-colors">
+          <div className="w-full py-2.5 px-3.5 bg-[#EF4444] text-white swiss-border-sm font-black text-sm sm:text-base flex items-center justify-center gap-2.5 group-hover:bg-[#DC2626] transition-colors">
+            <Search className="w-4 h-4 sm:w-5 sm:h-5 text-white group-hover:scale-110 transition-transform" />
             <span>無添加商品を検索する</span>
-            <span className="font-display font-black text-lg text-white group-hover:translate-x-1 transition-transform">
-              →
-            </span>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </div>
         </Link>
 
@@ -121,7 +120,7 @@ export default function HomePage() {
               </span>
               <div>
                 <p className="font-extrabold text-xs text-[#111111] leading-none">AI瞬時判定</p>
-                <p className="text-[10px] text-[#444444] font-medium leading-tight mt-0.5">AI AIが食品添加物を検出</p>
+                <p className="text-[10px] text-[#444444] font-medium leading-tight mt-0.5">AIが食品添加物を検出</p>
               </div>
             </div>
 
