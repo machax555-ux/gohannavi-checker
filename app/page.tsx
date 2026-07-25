@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { Camera, ArrowRight, ExternalLink } from "lucide-react";
+import { Camera, Search, ArrowRight, ExternalLink } from "lucide-react";
 import UsageLimit from "@/components/UsageLimit";
 import { canUseToday } from "@/lib/storage";
 
@@ -48,13 +48,35 @@ export default function HomePage() {
         <div className="w-full h-[2px] bg-[#111111]" />
       </header>
 
-      {/* 2. Main Hero Cards (Scaled to fit 100% in 1 page without scrolling) */}
+      {/* 2. Main Hero Cards (Reversed Order: 01. DATABASE -> 02. SCANNER -> 03. HOW IT WORKS) */}
       <div className="flex flex-col gap-2.5 my-auto overflow-hidden">
-        {/* 01. SCANNER Card */}
+        {/* 01. DATABASE Card (Dark Card with Red Button, formatted like SCANNER) */}
         <div className="swiss-card-dark p-3.5 sm:p-4 flex flex-col gap-2 relative overflow-hidden">
           <div className="flex items-center justify-between border-b border-white/20 pb-1">
             <span className="font-display font-black text-[10px] sm:text-xs text-[#F5CE42] tracking-widest">
-              01. SCANNER
+              01. DATABASE
+            </span>
+          </div>
+
+          <h2 className="font-extrabold text-lg sm:text-xl text-white leading-tight">
+            無添加商品を<br />検索する
+          </h2>
+
+          <Link
+            href="/search"
+            className="w-full py-2.5 sm:py-3 bg-[#EF4444] hover:bg-[#DC2626] text-white swiss-border swiss-shadow-sm font-black text-base flex items-center justify-center gap-2.5 transition-transform active:translate-x-0.5 active:translate-y-0.5 group"
+          >
+            <Search className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
+            <span>検索スタート</span>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </div>
+
+        {/* 02. SCANNER Card */}
+        <div className="swiss-card-dark p-3.5 sm:p-4 flex flex-col gap-2 relative overflow-hidden">
+          <div className="flex items-center justify-between border-b border-white/20 pb-1">
+            <span className="font-display font-black text-[10px] sm:text-xs text-[#F5CE42] tracking-widest">
+              02. SCANNER
             </span>
           </div>
 
@@ -77,26 +99,6 @@ export default function HomePage() {
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           )}
-        </div>
-
-        {/* 02. DATABASE Card */}
-        <div className="swiss-card-white p-3 flex flex-col gap-1">
-          <div className="flex items-center justify-between">
-            <span className="font-display font-black text-[10px] sm:text-xs text-[#111111] tracking-widest">
-              02. DATABASE
-            </span>
-          </div>
-          <Link
-            href="/search"
-            className="flex items-center justify-between text-left group pt-0.5"
-          >
-            <span className="font-extrabold text-sm sm:text-base text-[#111111] group-hover:underline">
-              無添加商品を検索する
-            </span>
-            <span className="font-display font-black text-lg text-[#111111] group-hover:translate-x-1 transition-transform">
-              →
-            </span>
-          </Link>
         </div>
 
         {/* 03. HOW IT WORKS Section */}
