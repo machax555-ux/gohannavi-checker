@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { Camera, Search, ArrowRight, ExternalLink } from "lucide-react";
+import { Camera, ArrowRight, ExternalLink } from "lucide-react";
 import UsageLimit from "@/components/UsageLimit";
 import { canUseToday } from "@/lib/storage";
 
@@ -48,29 +48,25 @@ export default function HomePage() {
         <div className="w-full h-[2px] bg-[#111111]" />
       </header>
 
-      {/* 2. Main Hero Cards (Reversed Order: 01. DATABASE -> 02. SCANNER -> 03. HOW IT WORKS) */}
+      {/* 2. Main Hero Cards (Order: 01. DATABASE -> 02. SCANNER -> 03. HOW IT WORKS) */}
       <div className="flex flex-col gap-2.5 my-auto overflow-hidden">
-        {/* 01. DATABASE Card (Dark Card with Red Button, formatted like SCANNER) */}
-        <div className="swiss-card-dark p-3.5 sm:p-4 flex flex-col gap-2 relative overflow-hidden">
-          <div className="flex items-center justify-between border-b border-white/20 pb-1">
+        {/* 01. DATABASE Card (Entire card clickable, compact previous shape & height, dark background, red button for "無添加商品を検索する") */}
+        <Link
+          href="/search"
+          className="swiss-card-dark p-3 sm:p-3.5 flex flex-col gap-2 group hover:opacity-95 transition-opacity cursor-pointer block"
+        >
+          <div className="flex items-center justify-between">
             <span className="font-display font-black text-[10px] sm:text-xs text-[#F5CE42] tracking-widest">
               01. DATABASE
             </span>
           </div>
-
-          <h2 className="font-extrabold text-lg sm:text-xl text-white leading-tight">
-            無添加商品を<br />検索する
-          </h2>
-
-          <Link
-            href="/search"
-            className="w-full py-2.5 sm:py-3 bg-[#EF4444] hover:bg-[#DC2626] text-white swiss-border swiss-shadow-sm font-black text-base flex items-center justify-center gap-2.5 transition-transform active:translate-x-0.5 active:translate-y-0.5 group"
-          >
-            <Search className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
-            <span>検索スタート</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
-        </div>
+          <div className="w-full py-2.5 px-3.5 bg-[#EF4444] text-white swiss-border-sm font-extrabold text-sm sm:text-base flex items-center justify-between group-hover:bg-[#DC2626] transition-colors">
+            <span>無添加商品を検索する</span>
+            <span className="font-display font-black text-lg text-white group-hover:translate-x-1 transition-transform">
+              →
+            </span>
+          </div>
+        </Link>
 
         {/* 02. SCANNER Card */}
         <div className="swiss-card-dark p-3.5 sm:p-4 flex flex-col gap-2 relative overflow-hidden">
@@ -125,7 +121,7 @@ export default function HomePage() {
               </span>
               <div>
                 <p className="font-extrabold text-xs text-[#111111] leading-none">AI瞬時判定</p>
-                <p className="text-[10px] text-[#444444] font-medium leading-tight mt-0.5">AIが食品添加物を検出</p>
+                <p className="text-[10px] text-[#444444] font-medium leading-tight mt-0.5">AI AIが食品添加物を検出</p>
               </div>
             </div>
 
