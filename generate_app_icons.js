@@ -5,9 +5,9 @@ const fs = require('fs');
 (async () => {
   const browser = await chromium.launch();
 
-  const logoPath = path.join(__dirname, 'public', 'gohannavi-logo.png');
-  const logoBase64 = fs.readFileSync(logoPath).toString('base64');
-  const logoDataUri = `data:image/png;base64,${logoBase64}`;
+  const emblemPath = path.join(__dirname, 'public', 'gohannavi-emblem.png');
+  const emblemBase64 = fs.readFileSync(emblemPath).toString('base64');
+  const emblemDataUri = `data:image/png;base64,${emblemBase64}`;
 
   const generateIcon = async (size, outputPath) => {
     const page = await browser.newPage({ viewport: { width: size, height: size } });
@@ -60,29 +60,21 @@ const fs = require('fs');
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: ${Math.round(size * 0.025)}px;
+            gap: ${Math.round(size * 0.03)}px;
             width: 100%;
           }
           .food-text {
-            font-size: ${Math.round(size * 0.15)}px;
+            font-size: ${Math.round(size * 0.16)}px;
             color: #F5CE42;
             line-height: 1;
             font-weight: 900;
             letter-spacing: -0.03em;
           }
-          .logo-img-wrapper {
-            background-color: #FFFFFF;
-            padding: ${Math.round(size * 0.015)}px ${Math.round(size * 0.025)}px;
-            border-radius: ${Math.round(size * 0.03)}px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: ${Math.max(2, Math.round(size * 0.015))}px solid #111111;
-          }
-          .logo-img {
-            height: ${Math.round(size * 0.09)}px;
+          .emblem-img {
+            height: ${Math.round(size * 0.17)}px;
             width: auto;
             object-fit: contain;
+            filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.5));
           }
           .line2 {
             font-size: ${Math.round(size * 0.18)}px;
@@ -99,9 +91,7 @@ const fs = require('fs');
           <div class="content-container">
             <div class="line1">
               <span class="food-text">FOOD</span>
-              <div class="logo-img-wrapper">
-                <img src="${logoDataUri}" class="logo-img" alt="ごはんなび" />
-              </div>
+              <img src="${emblemDataUri}" class="emblem-img" alt="ごはんなび紋章" />
             </div>
             <div class="line2">CHECK</div>
           </div>
@@ -110,7 +100,7 @@ const fs = require('fs');
       </html>
     `);
 
-    // Wait for Unbounded font and image to render
+    // Wait for Unbounded font and emblem image to render
     await page.waitForTimeout(600);
 
     await page.screenshot({ path: outputPath, type: 'png' });
@@ -129,5 +119,5 @@ const fs = require('fs');
   await generateIcon(180, path.join(appDir, 'apple-icon.png'));
 
   await browser.close();
-  console.log('All PWA app icons (FOOD + ごはんなび logo on top row, CHECK below) generated successfully!');
+  console.log('All PWA app icons with transparent emblem PNG generated successfully!');
 })();

@@ -17,15 +17,42 @@
   --foreground: #111111;
 }
 
-body {
+/* Standard Mobile Browser Mode (Safari/Chromeブラウザ閲覧時): 縦スクロールを許可 */
+html, body {
   background-color: #F5CE42;
   color: #111111;
   font-family: var(--font-noto-sans-jp), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   margin: 0;
   padding: 0;
   min-height: 100vh;
+  min-height: 100dvh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* PWA Standalone Mode (ホーム画面に追加してアプリ化後): 画面完全固定・非動・100%フィット */
+@media (display-mode: standalone) {
+  html, body {
+    height: 100vh !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    overflow: hidden !important;
+    overscroll-behavior: none !important;
+    position: fixed !important;
+    inset: 0 !important;
+  }
+
+  .app-standalone-container {
+    height: 100vh !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    overflow: hidden !important;
+    overscroll-behavior: none !important;
+    position: fixed !important;
+    inset: 0 !important;
+  }
 }
 
 /* Swiss 70s Neo-Brutalist Utilities */
