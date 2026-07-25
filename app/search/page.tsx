@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Link from "next/link";
-import { ArrowLeft, Search, Loader2, ExternalLink, ShoppingBag, AlertCircle, MessageSquare } from "lucide-react";
+import { ArrowLeft, Search, Loader2, ExternalLink, ShoppingBag, AlertCircle, MessageSquare, ArrowUp } from "lucide-react";
 
 export interface SearchProduct {
   id: string;
@@ -22,6 +22,7 @@ export interface RecommendArticle {
 }
 
 export default function SearchPage() {
+  const mainRef = useRef<HTMLDivElement>(null);
   const [keyword, setKeyword] = useState<string>("");
   const [activeKeyword, setActiveKeyword] = useState<string>("");
   const [products, setProducts] = useState<SearchProduct[]>([]);
@@ -32,6 +33,13 @@ export default function SearchPage() {
   const [loadingMore, setLoadingMore] = useState<boolean>(false);
   const [hasSearched, setHasSearched] = useState<boolean>(false);
   const [errorMsg, setErrorMsg] = useState<string>("");
+
+  const scrollToTop = () => {
+    if (mainRef.current) {
+      mainRef.current.scrollTo({ top: 0, behavior: "smooth" });
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const parseResponseHtml = (html: string) => {
     if (typeof window === "undefined") return { newProducts: [], article: null };
@@ -160,7 +168,7 @@ export default function SearchPage() {
   };
 
   return (
-    <main className="flex-1 flex flex-col justify-start overflow-y-auto py-2 gap-3 pb-6">
+    <main ref={mainRef} className="flex-1 flex flex-col justify-start overflow-y-auto py-2 gap-3 pb-6">
       {/* Header Bar */}
       <header className="flex flex-col gap-2.5 shrink-0">
         <div className="flex items-center justify-between">
@@ -240,7 +248,7 @@ export default function SearchPage() {
         </div>
       )}
 
-      {/* Main Results / Loading / Guide Section (Reduced Vertical Gap) */}
+      {/* Main Results / Loading / Guide Section */}
       {loading ? (
         <div className="swiss-card-dark p-7 flex flex-col items-center justify-center gap-3.5 text-center shrink-0 mt-1">
           <Loader2 className="w-8 h-8 text-[#F5CE42] animate-spin" />
@@ -365,23 +373,35 @@ export default function SearchPage() {
                 </div>
               ))}
 
-              {products.length < total && (
+              {/* Load More & Back to Top Buttons */}
+              <div className="flex flex-col gap-2 mt-1">
+                {products.length < total && (
+                  <button
+                    type="button"
+                    onClick={handleLoadMore}
+                    disabled={loadingMore}
+                    className="w-full py-3.5 bg-white hover:bg-[#FAF9F5] text-[#111111] swiss-border font-black text-xs transition-transform active:translate-x-0.5 active:translate-y-0.5 flex items-center justify-center gap-2"
+                  >
+                    {loadingMore ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        <span>読み込み中...</span>
+                      </>
+                    ) : (
+                      <span>もっと見る ({products.length} / {total} 件)</span>
+                    )}
+                  </button>
+                )}
+
                 <button
                   type="button"
-                  onClick={handleLoadMore}
-                  disabled={loadingMore}
-                  className="w-full py-3.5 bg-white hover:bg-[#FAF9F5] text-[#111111] swiss-border font-black text-xs transition-transform active:translate-x-0.5 active:translate-y-0.5 mt-1 flex items-center justify-center gap-2"
+                  onClick={scrollToTop}
+                  className="w-full py-3 bg-[#121212] hover:bg-[#222222] text-[#F5CE42] swiss-border font-black text-xs transition-transform active:translate-x-0.5 active:translate-y-0.5 flex items-center justify-center gap-1.5"
                 >
-                  {loadingMore ? (
-                    <>
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                      <span>読み込み中...</span>
-                    </>
-                  ) : (
-                    <span>もっと見る ({products.length} / {total} 件)</span>
-                  )}
+                  <ArrowUp className="w-4 h-4" />
+                  <span>最初に戻る</span>
                 </button>
-              )}
+              </div>
             </div>
           ) : (
             <div className="swiss-card-white p-6 text-center flex flex-col items-center justify-center gap-2">
@@ -393,7 +413,7 @@ export default function SearchPage() {
           )}
         </div>
       ) : (
-        /* Initial State Guide (Sits neatly below search card with reduced gap) */
+        /* Initial State Guide */
         <div className="swiss-card-white p-5 text-center flex flex-col items-center justify-center gap-3 shrink-0 mt-1">
           <div className="w-12 h-12 bg-[#121212] text-[#F5CE42] swiss-border flex items-center justify-center">
             <Search className="w-6 h-6" />
@@ -401,7 +421,7 @@ export default function SearchPage() {
           <div className="flex flex-col gap-1.5">
             <p className="text-sm font-black text-[#111111]">無添加食品をキーワードで探す</p>
             <p className="text-xs text-[#444444] font-bold leading-relaxed">
-              気になる商品やカテゴリー（ぽn酢・めんつゆ・おやつ・塩など）を入力してください
+              気になる商品やカテゴリー（ぽん酢・めんつゆ・おやつ・塩など）を入力してください
             </p>
           </div>
         </div>
@@ -409,9 +429,14 @@ export default function SearchPage() {
 
       {/* Footer */}
       <footer className="pt-2 border-t-3 border-black text-center shrink-0 mt-auto">
-        <span className="font-display font-black tracking-widest text-[10px] text-[#111111]">
-          GOHANNAVI DATABASE SEARCH
-        </span>
+        <a
+          href="https://gohannavi.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-display font-black tracking-widest text-[10px] text-[#111111] hover:underline inline-block"
+        >
+          GOHANNAVI.COM
+        </a>
       </footer>
     </main>
   );

@@ -1,14 +1,19 @@
 const { chromium } = require('playwright');
 const path = require('path');
+const fs = require('fs');
 
 (async () => {
   const browser = await chromium.launch();
+
+  const logoPath = path.join(__dirname, 'public', 'gohannavi-logo.png');
+  const logoBase64 = fs.readFileSync(logoPath).toString('base64');
+  const logoDataUri = `data:image/png;base64,${logoBase64}`;
 
   const generateIcon = async (size, outputPath) => {
     const page = await browser.newPage({ viewport: { width: size, height: size } });
 
     const borderWidth = Math.max(8, Math.round(size * 0.08));
-    const cardPadding = Math.round(size * 0.08);
+    const cardPadding = Math.round(size * 0.07);
 
     await page.setContent(`
       <!DOCTYPE html>
@@ -43,32 +48,61 @@ const path = require('path');
             padding: ${cardPadding}px;
             box-shadow: 0 0 0 ${Math.round(size * 0.02)}px #111111;
           }
-          .text-container {
+          .content-container {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: ${Math.round(size * 0.04)}px;
-            letter-spacing: -0.03em;
-            font-weight: 900;
-            text-align: center;
+            gap: ${Math.round(size * 0.035)}px;
+            width: 100%;
           }
           .line1 {
-            font-size: ${Math.round(size * 0.18)}px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: ${Math.round(size * 0.025)}px;
+            width: 100%;
+          }
+          .food-text {
+            font-size: ${Math.round(size * 0.15)}px;
             color: #F5CE42;
             line-height: 1;
+            font-weight: 900;
+            letter-spacing: -0.03em;
+          }
+          .logo-img-wrapper {
+            background-color: #FFFFFF;
+            padding: ${Math.round(size * 0.015)}px ${Math.round(size * 0.025)}px;
+            border-radius: ${Math.round(size * 0.03)}px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: ${Math.max(2, Math.round(size * 0.015))}px solid #111111;
+          }
+          .logo-img {
+            height: ${Math.round(size * 0.09)}px;
+            width: auto;
+            object-fit: contain;
           }
           .line2 {
             font-size: ${Math.round(size * 0.18)}px;
             color: #FFFFFF;
             line-height: 1;
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            text-align: center;
           }
         </style>
       </head>
       <body>
         <div class="outer-card">
-          <div class="text-container">
-            <div class="line1">FOOD</div>
+          <div class="content-container">
+            <div class="line1">
+              <span class="food-text">FOOD</span>
+              <div class="logo-img-wrapper">
+                <img src="${logoDataUri}" class="logo-img" alt="ごはんなび" />
+              </div>
+            </div>
             <div class="line2">CHECK</div>
           </div>
         </div>
@@ -76,7 +110,7 @@ const path = require('path');
       </html>
     `);
 
-    // Wait for Unbounded font to load
+    // Wait for Unbounded font and image to render
     await page.waitForTimeout(600);
 
     await page.screenshot({ path: outputPath, type: 'png' });
@@ -95,5 +129,5 @@ const path = require('path');
   await generateIcon(180, path.join(appDir, 'apple-icon.png'));
 
   await browser.close();
-  console.log('All Swiss 70s PWA app icons (narrower FOOD CHECK with wider 2-line gap) generated successfully!');
+  console.log('All PWA app icons (FOOD + ごはんなび logo on top row, CHECK below) generated successfully!');
 })();

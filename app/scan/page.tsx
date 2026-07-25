@@ -13,7 +13,7 @@ export default function ScanPage() {
 
   return (
     <main className="flex-1 flex flex-col justify-between gap-4 py-2">
-      {/* Header Bar (Full Original Sizing) */}
+      {/* Header Bar */}
       <header className="flex flex-col gap-3">
         <div className="flex items-center justify-between">
           <Link
@@ -93,10 +93,15 @@ export default function ScanPage() {
       )}
 
       {/* Footer */}
-      <footer className="pt-2 border-t-3 border-black text-center">
-        <span className="font-display font-black tracking-widest text-[10px] text-[#111111]">
-          GOHANNAVI ADDITIVE CHECKER
-        </span>
+      <footer className="pt-2 border-t-3 border-black text-center shrink-0">
+        <a
+          href="https://gohannavi.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-display font-black tracking-widest text-[10px] text-[#111111] hover:underline inline-block"
+        >
+          GOHANNAVI.COM
+        </a>
       </footer>
     </main>
   );

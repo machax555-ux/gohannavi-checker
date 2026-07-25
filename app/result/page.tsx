@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, RefreshCw, AlertCircle } from "lucide-react";
+import { ArrowLeft, RefreshCw } from "lucide-react";
 import ResultCard from "@/components/ResultCard";
 import AlternativeProducts from "@/components/AlternativeProducts";
 import AdBanner from "@/components/AdBanner";
@@ -98,7 +98,7 @@ export default function ResultPage() {
       )}
 
       {/* 4. Action Button */}
-      <div className="mt-2">
+      <div className="mt-2 mb-2">
         <Link
           href="/scan"
           className="w-full py-4 bg-[#121212] hover:bg-[#222222] text-[#F5CE42] swiss-border swiss-shadow font-black text-base text-center flex items-center justify-center gap-2 transition-transform active:translate-x-0.5 active:translate-y-0.5"
@@ -107,6 +107,18 @@ export default function ResultPage() {
           <span>もう一度判定する</span>
         </Link>
       </div>
+
+      {/* Footer */}
+      <footer className="pt-2 border-t-3 border-black text-center shrink-0 mt-auto">
+        <a
+          href="https://gohannavi.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-display font-black tracking-widest text-[10px] text-[#111111] hover:underline inline-block"
+        >
+          GOHANNAVI.COM
+        </a>
+      </footer>
     </main>
   );
 }
