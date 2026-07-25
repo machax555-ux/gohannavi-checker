@@ -55,6 +55,9 @@ export default function ResultCard({ result }: ResultCardProps) {
     return cleaned;
   };
 
+  const hasIngredients = (result.safe_ingredients && result.safe_ingredients.length > 0) ||
+                        (result.detected_additives && result.detected_additives.length > 0);
+
   return (
     <div className="w-full flex flex-col gap-4 my-2">
       {/* 1. Status Banner Header */}
@@ -69,9 +72,11 @@ export default function ResultCard({ result }: ResultCardProps) {
           <h2 className="font-display font-black text-xl sm:text-2xl tracking-tight leading-tight">
             {banner.title}
           </h2>
-          <p className="text-xs font-bold opacity-90 mt-1">
-            {banner.sub}
-          </p>
+          {banner.sub && (
+            <p className="text-xs font-bold opacity-90 mt-1">
+              {banner.sub}
+            </p>
+          )}
         </div>
       </div>
 
@@ -115,20 +120,30 @@ export default function ResultCard({ result }: ResultCardProps) {
         </div>
       )}
 
-      {/* 4. Safe Ingredients */}
-      {result.safe_ingredients && result.safe_ingredients.length > 0 && (
+      {/* 4. この商品の原材料 (Includes ALL ingredients: Safe = Black, Additives = Coral Red #EF4444) */}
+      {hasIngredients && (
         <div className="swiss-card-white p-5 flex flex-col gap-3">
           <h3 className="font-display font-black text-xs text-[#111111] tracking-widest border-b-2 border-black pb-2 flex items-center gap-1.5">
-            <ShieldCheck className="w-4 h-4 text-[#10B981]" />
-            <span>02. SAFE INGREDIENTS / 主な安全な原材料</span>
+            <ShieldCheck className="w-4 h-4 text-[#111111]" />
+            <span>この商品の原材料</span>
           </h3>
           <div className="flex flex-wrap gap-2 pt-1">
-            {result.safe_ingredients.map((ing, idx) => (
+            {/* Safe / Regular Ingredients (Black Background) */}
+            {result.safe_ingredients?.map((ing, idx) => (
               <span
-                key={idx}
+                key={`safe-${idx}`}
                 className="text-xs px-3 py-1 bg-[#121212] text-white font-extrabold swiss-border-sm"
               >
                 {ing}
+              </span>
+            ))}
+            {/* Food Additives (Coral Red Background #EF4444 with White Text) */}
+            {result.detected_additives?.map((add, idx) => (
+              <span
+                key={`add-${idx}`}
+                className="text-xs px-3 py-1 bg-[#EF4444] text-white font-extrabold swiss-border-sm"
+              >
+                {add.name}
               </span>
             ))}
           </div>

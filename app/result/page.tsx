@@ -89,8 +89,8 @@ export default function ResultPage() {
       {/* 2. AdBanner */}
       <AdBanner />
 
-      {/* 3. AlternativeProducts (danger / caution 判定時) */}
-      {result && (result.judgment === "danger" || result.judgment === "caution") && (
+      {/* 3. AlternativeProducts (Always output CLEAN ALTERNATIVES & BLOG cards for ALL judgments including SAFE) */}
+      {result && (
         <AlternativeProducts
           blogKeyword={result.blog_keyword}
           productCategory={result.product_category}
