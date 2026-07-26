@@ -20,12 +20,12 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   icons: {
     icon: [
+      { url: "/rogo11.png", type: "image/png" },
       { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
-      { url: "/icon.png", sizes: "192x192", type: "image/png" },
     ],
     apple: [
+      { url: "/rogo11.png", sizes: "180x180", type: "image/png" },
       { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
-      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
     ],
   },
   appleWebApp: {
@@ -50,6 +50,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja" className="h-full overflow-hidden overscroll-none">
+      <head>
+        <link rel="icon" href="/rogo11.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/rogo11.png" />
+        <link rel="apple-touch-icon-precomposed" href="/rogo11.png" />
+      </head>
       <body
         className={`${notoSansJP.variable} ${unbounded.variable} antialiased h-full w-full overflow-hidden overscroll-none bg-[#F5CE42] text-[#111111] selection:bg-[#111111] selection:text-[#F5CE42] fixed inset-0`}
       >
