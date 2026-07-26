@@ -181,28 +181,51 @@ export default function CameraCapture({
               </label>
             </div>
           ) : (
-            /* Image Preview Area */
-            <div className="swiss-card-white p-4 flex flex-col items-center gap-3">
-              <div className="w-full flex justify-between items-center border-b-2 border-black pb-2">
-                <span className="font-display font-black text-xs text-[#111111] tracking-widest">
-                  SELECTED IMAGE
+            /* 撮影後・画像選択後の「写真確認（プレビュー）画面」 */
+            <div className="swiss-card-dark p-4 sm:p-5 flex flex-col gap-4 animate-in fade-in duration-200">
+              <div className="flex justify-between items-center border-b border-white/20 pb-2">
+                <span className="font-display font-black text-xs text-[#F5CE42] tracking-widest flex items-center gap-1.5">
+                  <Camera className="w-4 h-4 text-[#F5CE42]" />
+                  <span>01. PHOTO PREVIEW</span>
                 </span>
-                <button
-                  type="button"
-                  onClick={handleResetImage}
-                  className="flex items-center gap-1 text-xs text-[#EF4444] font-black hover:underline"
-                >
-                  <RefreshCw className="w-3.5 h-3.5" />
-                  <span>撮り直す</span>
-                </button>
+                <span className="text-[10px] text-white/60 font-bold">写真確認</span>
               </div>
-              <div className="w-full max-h-[220px] bg-[#121212] p-2 flex items-center justify-center swiss-border">
+
+              {/* 撮影画像プレビュー表示エリア */}
+              <div className="w-full min-h-[180px] max-h-[260px] bg-[#0A0A0A] p-2 sm:p-3 flex items-center justify-center swiss-border relative overflow-hidden">
                 <img
                   src={previewImage}
                   alt="撮影した原材料名"
-                  className="max-h-[200px] w-auto object-contain"
+                  className="max-h-[240px] w-auto object-contain rounded-xs"
                 />
               </div>
+
+              {/* メインアクションボタン（再撮影 / 写真を使用） */}
+              <div className="grid grid-cols-2 gap-3 pt-1">
+                <button
+                  type="button"
+                  onClick={handleResetImage}
+                  className="py-3.5 px-3 bg-[#222222] hover:bg-[#333333] text-white swiss-border font-black text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-transform active:translate-x-0.5 active:translate-y-0.5 cursor-pointer"
+                >
+                  <RefreshCw className="w-4 h-4 text-[#F5CE42]" />
+                  <span>再撮影</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleSubmit}
+                  disabled={disabled}
+                  className="py-3.5 px-3 bg-[#EF4444] hover:bg-[#DC2626] text-white swiss-border swiss-shadow font-black text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-transform active:translate-x-0.5 active:translate-y-0.5 disabled:opacity-40 cursor-pointer"
+                >
+                  <Sparkles className="w-4 h-4 text-white" />
+                  <span>写真を使用</span>
+                </button>
+              </div>
+
+              {/* プライバシー注記 */}
+              <p className="text-[10px] sm:text-[11px] font-bold text-white/70 text-center leading-tight pt-1 border-t border-white/10">
+                ※撮影された画像や解析データはサーバー上に保存・収集されることはありません。
+              </p>
             </div>
           )}
         </div>
@@ -229,20 +252,18 @@ export default function CameraCapture({
         </div>
       )}
 
-      {/* Main Submit Button (Full Original Sizing) */}
-      <button
-        type="button"
-        onClick={handleSubmit}
-        disabled={
-          disabled ||
-          (activeTab === "camera" && !previewImage) ||
-          (activeTab === "text" && !textInput.trim())
-        }
-        className="w-full py-4 bg-[#EF4444] hover:bg-[#DC2626] text-white swiss-border swiss-shadow font-black text-lg flex items-center justify-center gap-3 transition-transform active:translate-x-0.5 active:translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed"
-      >
-        <Sparkles className="w-5 h-5 text-white" />
-        <span>判定を実行する</span>
-      </button>
+      {/* Main Submit Button for Text Mode */}
+      {activeTab === "text" && (
+        <button
+          type="button"
+          onClick={handleSubmit}
+          disabled={disabled || !textInput.trim()}
+          className="w-full py-4 bg-[#EF4444] hover:bg-[#DC2626] text-white swiss-border swiss-shadow font-black text-lg flex items-center justify-center gap-3 transition-transform active:translate-x-0.5 active:translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+        >
+          <Sparkles className="w-5 h-5 text-white" />
+          <span>判定を実行する</span>
+        </button>
+      )}
     </div>
   );
 }
