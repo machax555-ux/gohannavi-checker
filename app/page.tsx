@@ -41,7 +41,7 @@ export default function HomePage() {
             FOOD<br />CHECKER
           </h1>
           <p className="text-[11px] font-black text-[#111111] tracking-wider mt-0.5">
-            添加物をAIが瞬時に判定するスキャンツール
+            食品添加物を瞬時に判定するアプリ
           </p>
         </div>
 
