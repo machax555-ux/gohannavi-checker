@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { Loader2, ExternalLink, ShoppingBag, AlertCircle, MessageSquare, ArrowUp } from "lucide-react";
+import { generateAmazonLink, formatCleanCategory } from "@/lib/affiliateLinks";
 
 export interface SearchProduct {
   id: string;
@@ -23,9 +24,14 @@ export interface RecommendArticle {
 interface SearchResultListProps {
   keyword: string;
   autoFetch?: boolean;
+  showAmazonBanner?: boolean;
 }
 
-export default function SearchResultList({ keyword, autoFetch = true }: SearchResultListProps) {
+export default function SearchResultList({
+  keyword,
+  autoFetch = true,
+  showAmazonBanner = true,
+}: SearchResultListProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [products, setProducts] = useState<SearchProduct[]>([]);
   const [recommendArticle, setRecommendArticle] = useState<RecommendArticle | null>(null);
@@ -172,8 +178,42 @@ export default function SearchResultList({ keyword, autoFetch = true }: SearchRe
 
   if (!keyword || keyword === "不明" || keyword.includes("不明")) return null;
 
+  const currentKeyword = fetchedKeyword || keyword;
+  const cleanDisplayCategory = formatCleanCategory(currentKeyword);
+  const amazonSearchUrl = generateAmazonLink(currentKeyword);
+
   return (
     <div ref={containerRef} className="w-full flex flex-col gap-3 my-0.5">
+      {/* Dynamic Amazon Ranking Banner Card */}
+      {showAmazonBanner && (
+        <div className="swiss-card-dark p-4 sm:p-5 flex flex-col gap-3 my-0.5">
+          <div className="flex items-center gap-3">
+            <div className="p-2 sm:p-2.5 bg-[#10B981] text-white swiss-border-sm shrink-0">
+              <ShoppingBag className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+            </div>
+            <h3 className="font-extrabold text-white text-sm sm:text-base leading-tight">
+              食品添加物無添加商品をご案内
+            </h3>
+          </div>
+
+          <a
+            href={amazonSearchUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full px-4 sm:px-5 py-3 sm:py-3.5 bg-[#10B981] hover:bg-[#059669] text-white swiss-border swiss-shadow-sm flex items-center justify-between gap-3 transition-transform active:translate-x-0.5 active:translate-y-0.5 group mt-0.5"
+          >
+            <div className="flex flex-col text-left min-w-0">
+              <span className="font-black text-xs sm:text-sm tracking-tight leading-snug">
+                Amazonの売れ筋ランキング
+              </span>
+              <span className="font-bold text-[11px] sm:text-xs text-white/90 leading-snug mt-0.5">
+                「無添加 {cleanDisplayCategory}」の商品を探す
+              </span>
+            </div>
+            <ExternalLink className="w-5 h-5 text-white shrink-0 group-hover:translate-x-1 transition-transform" />
+          </a>
+        </div>
+      )}
 
       {/* Error Banner */}
       {errorMsg && (

@@ -60,7 +60,7 @@ export default function AlternativeProducts({
 
       {/* Embedded Additive-Free Product Database Results */}
       {!isUnreadable && (
-        <SearchResultList keyword={cleanCategory} autoFetch={true} />
+        <SearchResultList keyword={cleanCategory} autoFetch={true} showAmazonBanner={false} />
       )}
 
       {/* Blog Link Card (Output on both readable & unreadable states) */}
