@@ -229,20 +229,25 @@ export default function CameraCapture({
         </div>
       )}
 
-      {/* Main Submit Button (Full Original Sizing) */}
-      <button
-        type="button"
-        onClick={handleSubmit}
-        disabled={
-          disabled ||
-          (activeTab === "camera" && !previewImage) ||
-          (activeTab === "text" && !textInput.trim())
-        }
-        className="w-full py-4 bg-[#EF4444] hover:bg-[#DC2626] text-white swiss-border swiss-shadow font-black text-lg flex items-center justify-center gap-3 transition-transform active:translate-x-0.5 active:translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed"
-      >
-        <Sparkles className="w-5 h-5 text-white" />
-        <span>判定を実行する</span>
-      </button>
+      {/* Main Submit Button & Privacy Note */}
+      <div className="flex flex-col gap-1.5 w-full">
+        <button
+          type="button"
+          onClick={handleSubmit}
+          disabled={
+            disabled ||
+            (activeTab === "camera" && !previewImage) ||
+            (activeTab === "text" && !textInput.trim())
+          }
+          className="w-full py-4 bg-[#EF4444] hover:bg-[#DC2626] text-white swiss-border swiss-shadow font-black text-lg flex items-center justify-center gap-3 transition-transform active:translate-x-0.5 active:translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+        >
+          <span>判定を実行する</span>
+        </button>
+
+        <p className="text-[10px] sm:text-[11px] font-bold text-[#111111]/80 text-center leading-tight">
+          ※撮影された画像や解析データはサーバー上に保存・収集されることはありません。
+        </p>
+      </div>
     </div>
   );
 }
