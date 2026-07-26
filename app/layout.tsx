@@ -18,16 +18,6 @@ export const metadata: Metadata = {
   title: "FOOD CHECKER | ごはんなび食品添加物チェッカー",
   description: "原材料を撮るだけで気になる添加物をAIが瞬時に検出。安全な無添加商品の購入までフルサポート。",
   manifest: "/manifest.json",
-  icons: {
-    icon: [
-      { url: "/rogo11.png", type: "image/png" },
-      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
-    ],
-    apple: [
-      { url: "/rogo11.png", sizes: "180x180", type: "image/png" },
-      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
-    ],
-  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
@@ -50,11 +40,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja" className="h-full overflow-hidden overscroll-none">
-      <head>
-        <link rel="icon" href="/rogo11.png" type="image/png" />
-        <link rel="apple-touch-icon" href="/rogo11.png" />
-        <link rel="apple-touch-icon-precomposed" href="/rogo11.png" />
-      </head>
       <body
         className={`${notoSansJP.variable} ${unbounded.variable} antialiased h-full w-full overflow-hidden overscroll-none bg-[#F5CE42] text-[#111111] selection:bg-[#111111] selection:text-[#F5CE42] fixed inset-0`}
       >
