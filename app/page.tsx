@@ -68,11 +68,11 @@ export default function HomePage() {
         </div>
 
         {/* Mega Typography Header */}
-        <div className="flex flex-col gap-0 mt-0.5">
-          <h1 className="font-display font-black text-2xl sm:text-3xl leading-none tracking-tight text-[#111111]">
-            FOOD CHECKER
+        <div className="flex flex-col gap-0.5 mt-0.5">
+          <h1 className="font-display font-black text-3xl sm:text-4xl leading-none tracking-tight text-[#111111]">
+            FOOD<br />CHECKER
           </h1>
-          <p className="text-[10px] font-black text-[#111111] tracking-wider mt-0.5">
+          <p className="text-[11px] font-black text-[#111111] tracking-wider mt-0.5">
             食品添加物を瞬時に判定するアプリ
           </p>
         </div>
