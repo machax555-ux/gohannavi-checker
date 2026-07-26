@@ -30,18 +30,13 @@ export default function AlternativeProducts({
             03. CLEAN ALTERNATIVES
           </span>
 
-          <div className="flex items-start gap-3">
+          <div className="flex items-center gap-3 my-0.5">
             <div className="p-2.5 bg-[#10B981] text-white swiss-border-sm shrink-0">
               <ShoppingBag className="w-6 h-6 text-white" />
             </div>
-            <div>
-              <h3 className="font-extrabold text-white text-base leading-tight">
-                食品添加物無添加商品をご案内
-              </h3>
-              <p className="text-xs text-white/80 font-medium mt-1 leading-snug">
-                「{cleanCategory}」の無添加商品をAmazonでチェック
-              </p>
-            </div>
+            <h3 className="font-extrabold text-white text-base leading-tight">
+              食品添加物無添加商品をご案内
+            </h3>
           </div>
 
           <a
