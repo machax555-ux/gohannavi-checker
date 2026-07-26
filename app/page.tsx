@@ -99,8 +99,8 @@ export default function HomePage() {
           </div>
         </Link>
 
-        {/* 02. SCANNER Card (Primary Hero Feature - Compact internal spacing) */}
-        <div className="swiss-card-dark p-3 sm:p-3.5 flex flex-col gap-2.5 relative overflow-hidden">
+        {/* 02. SCANNER Card (Primary Hero Feature - Slightly expanded bottom padding) */}
+        <div className="swiss-card-dark p-3 pb-4 sm:p-3.5 sm:pb-4.5 flex flex-col gap-2.5 relative overflow-hidden">
           <div className="flex items-center justify-between border-b border-white/20 pb-1">
             <span className="font-display font-black text-[10px] sm:text-xs text-[#F5CE42] tracking-widest">
               02. SCANNER
@@ -141,7 +141,7 @@ export default function HomePage() {
                 01
               </span>
               <p className="font-extrabold text-[10px] sm:text-[11px] text-[#111111] leading-none">
-                パッケージ撮影
+                原材料名を撮影
               </p>
             </div>
 
