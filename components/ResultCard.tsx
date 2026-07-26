@@ -9,8 +9,29 @@ interface ResultCardProps {
 }
 
 export default function ResultCard({ result }: ResultCardProps) {
-  const getBannerConfig = (judgment: "safe" | "caution" | "danger") => {
-    switch (judgment) {
+  const isUnreadable =
+    result.product_category === "不明" ||
+    result.product_category?.includes("不明") ||
+    (result.summary &&
+      (result.summary.includes("読み取れ") ||
+       result.summary.includes("確認できません") ||
+       result.summary.includes("特定できません") ||
+       result.summary.includes("判別できません") ||
+       (result.summary.includes("原材料") && result.summary.includes("不明"))));
+
+  const getBannerConfig = () => {
+    if (isUnreadable) {
+      return {
+        cardStyle: "swiss-card-dark",
+        badgeBg: "bg-[#F59E0B] text-[#111111]",
+        icon: <AlertCircle className="w-8 h-8 text-[#F59E0B]" />,
+        title: "NO MATCH / 読み取れませんでした",
+        sub: "明るくブレのない画像でもう一度お試しください",
+        accentColor: "#F59E0B",
+      };
+    }
+
+    switch (result.judgment) {
       case "safe":
         return {
           cardStyle: "swiss-card-dark",
@@ -41,13 +62,14 @@ export default function ResultCard({ result }: ResultCardProps) {
     }
   };
 
-  const banner = getBannerConfig(result.judgment);
-  const showAdditives = (result.judgment === "caution" || result.judgment === "danger") &&
+  const banner = getBannerConfig();
+  const showAdditives = !isUnreadable &&
+                        (result.judgment === "caution" || result.judgment === "danger") &&
                         result.detected_additives && result.detected_additives.length > 0;
 
-  // Format category badge text: Remove "CATEGORY:", and map "加工肉" to "加工肉（ハム・ベーコン・ソーセージ）"
+  // Format category badge text: Keep "不明" as is, remove "CATEGORY:", and map "加工肉" to "加工肉（ハム・ベーコン・ソーセージ）"
   const formatCategory = (cat?: string) => {
-    if (!cat) return "判定結果";
+    if (!cat || cat === "不明" || cat.includes("不明")) return "不明";
     const cleaned = cat.replace(/^CATEGORY:\s*/i, "");
     if (cleaned.includes("加工肉")) {
       return "加工肉（ハム・ベーコン・ソーセージ）";
@@ -55,8 +77,9 @@ export default function ResultCard({ result }: ResultCardProps) {
     return cleaned;
   };
 
-  const hasIngredients = (result.safe_ingredients && result.safe_ingredients.length > 0) ||
-                        (result.detected_additives && result.detected_additives.length > 0);
+  const hasIngredients = !isUnreadable &&
+                        ((result.safe_ingredients && result.safe_ingredients.length > 0) ||
+                         (result.detected_additives && result.detected_additives.length > 0));
 
   return (
     <div className="w-full flex flex-col gap-4 my-2">
@@ -120,7 +143,7 @@ export default function ResultCard({ result }: ResultCardProps) {
         </div>
       )}
 
-      {/* 4. この商品の原材料 (Includes ALL ingredients: Safe = Black, Additives = Coral Red #EF4444) */}
+      {/* 4. この商品の原材料 */}
       {hasIngredients && (
         <div className="swiss-card-white p-5 flex flex-col gap-3">
           <h3 className="font-display font-black text-xs text-[#111111] tracking-widest border-b-2 border-black pb-2 flex items-center gap-1.5">

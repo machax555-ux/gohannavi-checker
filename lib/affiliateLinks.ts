@@ -1,7 +1,9 @@
 // Amazon Affiliate and Gohannavi Blog Link Generator
 
 export function formatCleanCategory(rawKeyword?: string): string {
-  if (!rawKeyword) return "お菓子";
+  if (!rawKeyword || rawKeyword === "不明" || rawKeyword.includes("不明") || rawKeyword.includes("読み取れ")) {
+    return "不明";
+  }
   
   let cleaned = rawKeyword
     .replace(/^CATEGORY:\s*/i, "")
@@ -40,7 +42,10 @@ export function generateAmazonLink(rawKeyword: string): string {
   return `https://www.amazon.co.jp/s?k=${encodeURIComponent(query)}&tag=gohannavi-22`;
 }
 
-export function generateBlogLink(rawKeyword: string): string {
+export function generateBlogLink(rawKeyword?: string): string {
+  if (!rawKeyword || rawKeyword === "不明" || rawKeyword.includes("不明") || rawKeyword.includes("読み取れ")) {
+    return "https://gohannavi.com/";
+  }
   const cleanCat = formatCleanCategory(rawKeyword);
   return `https://gohannavi.com/?s=${encodeURIComponent(cleanCat)}`;
 }
