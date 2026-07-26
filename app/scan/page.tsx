@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowLeft, Loader2, AlertCircle } from "lucide-react";
 import CameraCapture from "@/components/CameraCapture";
 import UsageLimit from "@/components/UsageLimit";
+import AdBanner from "@/components/AdBanner";
 
 export default function ScanPage() {
   const [loading, setLoading] = useState(false);
@@ -48,23 +49,34 @@ export default function ScanPage() {
 
       {/* Loading State UI */}
       {loading ? (
-        <div className="swiss-card-dark p-8 md:p-12 flex flex-col items-center justify-center gap-5 text-center my-auto">
-          <div className="w-14 h-14 md:w-18 md:h-18 bg-[#F5CE42] text-[#111111] swiss-border flex items-center justify-center">
-            <Loader2 className="w-8 h-8 md:w-10 md:h-10 animate-spin" />
+        <div className="my-auto flex flex-col gap-3 sm:gap-4 w-full min-h-0">
+          {/* Main Loading Status Card */}
+          <div className="swiss-card-dark p-5 sm:p-6 md:p-8 flex flex-col items-center justify-center gap-4 text-center">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 bg-[#F5CE42] text-[#111111] swiss-border flex items-center justify-center">
+              <Loader2 className="w-7 h-7 sm:w-8 sm:h-8 animate-spin" />
+            </div>
+            <div className="flex flex-col gap-1.5 w-full">
+              <h2 className="font-display font-black text-lg sm:text-xl md:text-2xl text-[#F5CE42] tracking-wider leading-snug">
+                原材料を判定中...
+              </h2>
+              <p className="text-xs sm:text-sm md:text-base font-extrabold text-white tracking-wide">
+                少々お待ちください
+              </p>
+              <p className="text-xs sm:text-sm text-white/90 font-bold mt-1">
+                食品添加物の抽出と安全性をスキャンしています
+              </p>
+              <p className="text-[9.5px] sm:text-[10.5px] text-white/70 font-bold text-center whitespace-nowrap tracking-tighter mt-1">
+                ※撮影された画像や解析データはサーバーに保存・収集されることはありません
+              </p>
+            </div>
+            <div className="w-full bg-white/20 h-2.5 sm:h-3 swiss-border-sm overflow-hidden mt-1">
+              <div className="bg-[#EF4444] h-full w-2/3 animate-pulse" />
+            </div>
           </div>
-          <div className="flex flex-col gap-1.5">
-            <h2 className="font-display font-black text-lg sm:text-xl md:text-2xl text-[#F5CE42] tracking-wider leading-snug">
-              原材料を判定中...
-            </h2>
-            <p className="text-sm md:text-base font-extrabold text-white tracking-wide">
-              少々お待ちください
-            </p>
-            <p className="text-xs md:text-sm text-white/80 font-bold mt-1">
-              AIが添加物の抽出と安全性をスキャンしています
-            </p>
-          </div>
-          <div className="w-full bg-white/20 h-3 swiss-border-sm overflow-hidden mt-2">
-            <div className="bg-[#EF4444] h-full w-2/3 animate-pulse" />
+
+          {/* Ad Container for Google AdSense */}
+          <div className="w-full max-w-[320px] mx-auto shrink-0">
+            <AdBanner />
           </div>
         </div>
       ) : canUse ? (
