@@ -173,24 +173,7 @@ export default function SearchResultList({ keyword, autoFetch = true }: SearchRe
   if (!keyword || keyword === "不明" || keyword.includes("不明")) return null;
 
   return (
-    <div ref={containerRef} className="w-full flex flex-col gap-3.5 my-1">
-      {/* 1. Recommend Article Link */}
-      {recommendArticle && (
-        <a
-          href={recommendArticle.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="swiss-card-dark p-3.5 md:p-4 flex items-center justify-between gap-2 shrink-0 group"
-        >
-          <div className="flex items-center gap-2.5 min-w-0">
-            <ShoppingBag className="w-5 h-5 text-[#F5CE42] shrink-0" />
-            <span className="text-xs md:text-sm font-black text-white truncate group-hover:text-[#F5CE42] transition-colors">
-              {recommendArticle.title}
-            </span>
-          </div>
-          <ExternalLink className="w-4 h-4 text-[#F5CE42] shrink-0 group-hover:translate-x-0.5 transition-transform" />
-        </a>
-      )}
+    <div ref={containerRef} className="w-full flex flex-col gap-3 my-0.5">
 
       {/* Error Banner */}
       {errorMsg && (
