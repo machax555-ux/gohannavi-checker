@@ -43,10 +43,17 @@ export default function AlternativeProducts({
             href={amazonUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full py-3.5 bg-[#10B981] hover:bg-[#059669] text-white swiss-border swiss-shadow-sm font-black text-xs sm:text-sm text-center flex items-center justify-center gap-2 transition-transform active:translate-x-0.5 active:translate-y-0.5 group mt-1"
+            className="w-full px-4 sm:px-5 py-3 sm:py-3.5 bg-[#10B981] hover:bg-[#059669] text-white swiss-border swiss-shadow-sm flex items-center justify-between gap-3 transition-transform active:translate-x-0.5 active:translate-y-0.5 group mt-1"
           >
-            <span>Amazonの売れ筋ランキングで「無添加 {cleanCategory}」の商品を探す</span>
-            <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <div className="flex flex-col text-left min-w-0">
+              <span className="font-black text-xs sm:text-sm tracking-tight leading-snug">
+                Amazonの売れ筋ランキング
+              </span>
+              <span className="font-bold text-[11px] sm:text-xs text-white/90 leading-snug mt-0.5">
+                「無添加 {cleanCategory}」の商品を探す
+              </span>
+            </div>
+            <ExternalLink className="w-5 h-5 text-white shrink-0 group-hover:translate-x-1 transition-transform" />
           </a>
         </div>
       )}
