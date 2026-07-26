@@ -3,6 +3,7 @@
 import React from "react";
 import { ShoppingBag, BookOpen, ExternalLink } from "lucide-react";
 import { generateAmazonLink, generateBlogLink, formatCleanCategory } from "@/lib/affiliateLinks";
+import SearchResultList from "@/components/SearchResultList";
 
 interface AlternativeProductsProps {
   blogKeyword?: string;
@@ -53,6 +54,11 @@ export default function AlternativeProducts({
             <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </a>
         </div>
+      )}
+
+      {/* Embedded Additive-Free Product Database Results */}
+      {!isUnreadable && (
+        <SearchResultList keyword={cleanCategory} autoFetch={true} />
       )}
 
       {/* Blog Link Card (Output on both readable & unreadable states) */}
