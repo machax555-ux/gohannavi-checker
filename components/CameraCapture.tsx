@@ -230,7 +230,7 @@ export default function CameraCapture({
       )}
 
       {/* Main Submit Button & Privacy Note */}
-      <div className="flex flex-col gap-1.5 w-full">
+      <div className="flex flex-col gap-2.5 sm:gap-3 w-full mt-1">
         <button
           type="button"
           onClick={handleSubmit}
@@ -244,7 +244,7 @@ export default function CameraCapture({
           <span>判定を実行する</span>
         </button>
 
-        <p className="text-[9.5px] sm:text-[11px] font-bold text-[#111111]/85 text-center leading-none whitespace-nowrap tracking-tighter">
+        <p className="text-[9.5px] sm:text-[11px] font-bold text-[#111111]/85 text-center leading-none whitespace-nowrap tracking-tighter pt-0.5">
           ※撮影された画像や解析データはサーバーに保存・収集されることはありません
         </p>
       </div>
