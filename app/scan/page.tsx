@@ -12,9 +12,9 @@ export default function ScanPage() {
   const [canUse, setCanUse] = useState(true);
 
   return (
-    <main className="flex-1 flex flex-col justify-between gap-4 py-2 max-w-full md:max-w-[800px] md:mx-auto w-full">
+    <main className="flex-1 flex flex-col justify-between gap-2 py-1 sm:py-2 max-w-full md:max-w-[800px] md:mx-auto w-full min-h-0 overflow-hidden">
       {/* Header Bar */}
-      <header className="flex flex-col gap-3">
+      <header className="flex flex-col gap-2 shrink-0">
         <div className="flex items-center justify-between">
           <Link
             href="/"
@@ -26,21 +26,21 @@ export default function ScanPage() {
           <UsageLimit onLimitCheck={(valid) => setCanUse(valid)} />
         </div>
 
-        <div className="flex flex-col gap-1 mt-1">
+        <div className="flex flex-col gap-0.5 mt-0.5">
           <span className="font-display font-black text-xs md:text-sm text-[#111111] tracking-widest">
             01. SCANNER
           </span>
-          <h1 className="font-display font-black text-3xl md:text-4xl text-[#111111] leading-none">
+          <h1 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-[#111111] leading-none">
             撮影・入力画面
           </h1>
         </div>
 
-        <div className="w-full h-[3px] bg-[#111111]" />
+        <div className="w-full h-[2px] sm:h-[3px] bg-[#111111]" />
       </header>
 
       {/* Error Banner */}
       {errorMsg && (
-        <div className="swiss-card-coral p-4 text-xs md:text-sm font-extrabold flex items-start gap-2">
+        <div className="swiss-card-coral p-3 text-xs md:text-sm font-extrabold flex items-start gap-2 shrink-0">
           <AlertCircle className="w-4 h-4 md:w-5 md:h-5 shrink-0 mt-0.5" />
           <span>{errorMsg}</span>
         </div>
@@ -68,7 +68,7 @@ export default function ScanPage() {
           </div>
         </div>
       ) : canUse ? (
-        <div className="my-auto flex flex-col w-full">
+        <div className="my-auto flex flex-col w-full min-h-0">
           <CameraCapture
             disabled={!canUse}
             onStartLoading={() => setLoading(true)}
@@ -93,12 +93,12 @@ export default function ScanPage() {
       )}
 
       {/* Footer */}
-      <footer className="pt-2 border-t-3 border-black text-center shrink-0">
+      <footer className="pt-1 sm:pt-1.5 border-t-2 sm:border-t-3 border-black text-center shrink-0">
         <a
           href="https://gohannavi.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="font-display font-black tracking-widest text-[10px] md:text-xs text-[#111111] hover:underline inline-block"
+          className="font-display font-black tracking-widest text-[9px] sm:text-[10px] md:text-xs text-[#111111] hover:underline inline-block"
         >
           GOHANNAVI.COM
         </a>
