@@ -41,21 +41,14 @@ export default function ResultCard({ result }: ResultCardProps) {
           sub: "避けるべき添加物は検出されませんでした",
           accentColor: "#10B981",
         };
-      case "caution":
-        return {
-          cardStyle: "swiss-card-dark",
-          badgeBg: "bg-[#F59E0B] text-[#111111]",
-          icon: <AlertTriangle className="w-8 h-8 text-[#F59E0B]" />,
-          title: "CAUTION / 要注意添加物あり",
-          sub: "過剰摂取に注意が必要な成分が含まれます",
-          accentColor: "#F59E0B",
-        };
       case "danger":
+      case "caution":
+      default:
         return {
           cardStyle: "swiss-card-coral",
           badgeBg: "bg-[#121212] text-white",
           icon: <XCircle className="w-8 h-8 text-white" />,
-          title: "食品添加物が含まれている商品です",
+          title: "食品添加物が含まれています",
           sub: "",
           accentColor: "#EF4444",
         };
@@ -64,7 +57,7 @@ export default function ResultCard({ result }: ResultCardProps) {
 
   const banner = getBannerConfig();
   const showAdditives = !isUnreadable &&
-                        (result.judgment === "caution" || result.judgment === "danger") &&
+                        result.judgment !== "safe" &&
                         result.detected_additives && result.detected_additives.length > 0;
 
   // Format category badge text: Keep "不明" as is, remove "CATEGORY:", and map "加工肉" to "加工肉（ハム・ベーコン・ソーセージ）"

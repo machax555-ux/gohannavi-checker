@@ -6,7 +6,7 @@ const SYSTEM_PROMPT = `あなたは日本の食品添加物の専門家です。
 マークダウンや説明文は一切不要です。JSONのみを返してください。
 
 {
-  "judgment": "safe" | "caution" | "danger",
+  "judgment": "safe" | "danger",
   "detected_additives": [
     {
       "name": "添加物名",
@@ -21,9 +21,8 @@ const SYSTEM_PROMPT = `あなたは日本の食品添加物の専門家です。
 }
 
 判定基準：
-- safe：避けるべき添加物が含まれていない
-- caution：増粘剤・乳化剤・香料など要注意添加物が少量含まれる  
-- danger：人工甘味料・人工着色料・保存料・化学調味料・亜硝酸塩・漂白剤が含まれる
+- safe：食品添加物が含まれていない、または完全無添加
+- danger：食品添加物が1つ以上含まれている
 ※画像から原材料名が読み取れない・食品パッケージでない場合は、product_categoryを "不明" とし、summaryを "画像の原材料名を読み取れませんでした。明るくブレのない画像でもう一度お試しください。" としてください。`;
 
 export async function POST(req: NextRequest) {
