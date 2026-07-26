@@ -81,12 +81,12 @@ export default function CameraCapture({
       incrementUsage();
       sessionStorage.setItem("gohannavi_result", JSON.stringify(data));
       router.push("/result");
+      // 成功時は /result への遷移が完了するまでローディング表示を維持
     } catch (err: any) {
       console.error(err);
       if (onError) {
         onError(err.message || "エラーが発生しました。しばらく時間をおいて再度お試しください。");
       }
-    } finally {
       if (onEndLoading) onEndLoading();
     }
   };
