@@ -75,7 +75,7 @@ export default function ScanPage() {
           </div>
 
           {/* Ad Container for Google AdSense */}
-          <div className="w-full max-w-[320px] mx-auto shrink-0">
+          <div className="w-full max-w-[320px] mx-auto shrink-0 mt-4 sm:mt-6">
             <AdBanner />
           </div>
         </div>
