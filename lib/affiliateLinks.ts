@@ -39,7 +39,7 @@ export function formatCleanCategory(rawKeyword?: string): string {
 export function generateAmazonLink(rawKeyword: string): string {
   const cleanCat = formatCleanCategory(rawKeyword);
   const query = `無添加 ${cleanCat}`;
-  return `https://www.amazon.co.jp/s?k=${encodeURIComponent(query)}&tag=gohannavi-22`;
+  return `https://www.amazon.co.jp/s?k=${encodeURIComponent(query)}&s=exact-aware-popularity-rank&tag=gohannavi-22`;
 }
 
 export function generateBlogLink(rawKeyword?: string): string {

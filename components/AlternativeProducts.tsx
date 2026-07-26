@@ -48,9 +48,9 @@ export default function AlternativeProducts({
             href={amazonUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full py-3.5 bg-[#10B981] hover:bg-[#059669] text-white swiss-border swiss-shadow-sm font-black text-sm text-center flex items-center justify-center gap-2 transition-transform active:translate-x-0.5 active:translate-y-0.5 group mt-1"
+            className="w-full py-3.5 bg-[#10B981] hover:bg-[#059669] text-white swiss-border swiss-shadow-sm font-black text-xs sm:text-sm text-center flex items-center justify-center gap-2 transition-transform active:translate-x-0.5 active:translate-y-0.5 group mt-1"
           >
-            <span>Amazonで「無添加 {cleanCategory}」の商品を探す</span>
+            <span>Amazonランキングで「無添加 {cleanCategory}」の商品を探す</span>
             <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </a>
         </div>
