@@ -67,7 +67,7 @@ export default function RootLayout({
       <body
         className={`${notoSansJP.variable} ${unbounded.variable} antialiased h-full w-full overflow-hidden overscroll-none bg-[#F5CE42] text-[#111111] selection:bg-[#111111] selection:text-[#F5CE42] fixed inset-0`}
       >
-        <div className="fixed inset-0 max-w-[440px] mx-auto h-[100dvh] max-h-[100dvh] overflow-hidden overscroll-none bg-[#F5CE42] sm:border-x-3 sm:border-black flex flex-col p-2.5 sm:p-3.5 justify-between select-none">
+        <div className="fixed inset-0 max-w-[440px] md:max-w-[1200px] mx-auto h-[100dvh] max-h-[100dvh] overflow-hidden overscroll-none bg-[#F5CE42] sm:border-x-3 sm:border-black flex flex-col p-2.5 sm:p-3.5 md:p-6 justify-between select-none">
           {children}
         </div>
 

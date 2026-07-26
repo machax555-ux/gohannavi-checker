@@ -12,25 +12,25 @@ export default function ScanPage() {
   const [canUse, setCanUse] = useState(true);
 
   return (
-    <main className="flex-1 flex flex-col justify-between gap-4 py-2">
+    <main className="flex-1 flex flex-col justify-between gap-4 py-2 max-w-full md:max-w-[800px] md:mx-auto w-full">
       {/* Header Bar */}
       <header className="flex flex-col gap-3">
         <div className="flex items-center justify-between">
           <Link
             href="/"
-            className="bg-[#121212] text-white px-3 py-1.5 swiss-border text-xs font-black font-display tracking-wider flex items-center gap-1.5 hover:bg-[#EF4444] transition-colors"
+            className="bg-[#121212] text-white px-3 py-1.5 md:px-4 md:py-2 swiss-border text-xs md:text-sm font-black font-display tracking-wider flex items-center gap-1.5 hover:bg-[#EF4444] transition-colors"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-4 h-4 md:w-5 md:h-5" />
             <span>HOME</span>
           </Link>
           <UsageLimit onLimitCheck={(valid) => setCanUse(valid)} />
         </div>
 
         <div className="flex flex-col gap-1 mt-1">
-          <span className="font-display font-black text-xs text-[#111111] tracking-widest">
+          <span className="font-display font-black text-xs md:text-sm text-[#111111] tracking-widest">
             01. SCANNER
           </span>
-          <h1 className="font-display font-black text-3xl text-[#111111] leading-none">
+          <h1 className="font-display font-black text-3xl md:text-4xl text-[#111111] leading-none">
             撮影・入力画面
           </h1>
         </div>
@@ -40,26 +40,26 @@ export default function ScanPage() {
 
       {/* Error Banner */}
       {errorMsg && (
-        <div className="swiss-card-coral p-4 text-xs font-extrabold flex items-start gap-2">
-          <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+        <div className="swiss-card-coral p-4 text-xs md:text-sm font-extrabold flex items-start gap-2">
+          <AlertCircle className="w-4 h-4 md:w-5 md:h-5 shrink-0 mt-0.5" />
           <span>{errorMsg}</span>
         </div>
       )}
 
       {/* Loading State UI */}
       {loading ? (
-        <div className="swiss-card-dark p-8 flex flex-col items-center justify-center gap-5 text-center my-auto">
-          <div className="w-14 h-14 bg-[#F5CE42] text-[#111111] swiss-border flex items-center justify-center">
-            <Loader2 className="w-8 h-8 animate-spin" />
+        <div className="swiss-card-dark p-8 md:p-12 flex flex-col items-center justify-center gap-5 text-center my-auto">
+          <div className="w-14 h-14 md:w-18 md:h-18 bg-[#F5CE42] text-[#111111] swiss-border flex items-center justify-center">
+            <Loader2 className="w-8 h-8 md:w-10 md:h-10 animate-spin" />
           </div>
           <div className="flex flex-col gap-1.5">
-            <h2 className="font-display font-black text-lg sm:text-xl text-[#F5CE42] tracking-wider leading-snug">
+            <h2 className="font-display font-black text-lg sm:text-xl md:text-2xl text-[#F5CE42] tracking-wider leading-snug">
               原材料を判定中...
             </h2>
-            <p className="text-sm font-extrabold text-white tracking-wide">
+            <p className="text-sm md:text-base font-extrabold text-white tracking-wide">
               少々お待ちください
             </p>
-            <p className="text-xs text-white/80 font-bold mt-1">
+            <p className="text-xs md:text-sm text-white/80 font-bold mt-1">
               AIが添加物の抽出と安全性をスキャンしています
             </p>
           </div>
@@ -68,7 +68,7 @@ export default function ScanPage() {
           </div>
         </div>
       ) : canUse ? (
-        <div className="my-auto flex flex-col">
+        <div className="my-auto flex flex-col w-full">
           <CameraCapture
             disabled={!canUse}
             onStartLoading={() => setLoading(true)}
@@ -78,14 +78,14 @@ export default function ScanPage() {
         </div>
       ) : (
         /* Disabled Message */
-        <div className="swiss-card-dark p-6 text-center flex flex-col items-center gap-4 my-auto">
-          <AlertCircle className="w-10 h-10 text-[#EF4444]" />
-          <p className="text-sm font-extrabold text-white leading-relaxed">
+        <div className="swiss-card-dark p-6 md:p-10 text-center flex flex-col items-center gap-4 my-auto">
+          <AlertCircle className="w-10 h-10 md:w-14 md:h-14 text-[#EF4444]" />
+          <p className="text-sm md:text-base font-extrabold text-white leading-relaxed">
             本日分（10回）の利用上限に達したため、新規撮影・判定はできません。
           </p>
           <Link
             href="/"
-            className="px-4 py-2 bg-[#F5CE42] text-[#111111] swiss-border font-black text-xs"
+            className="px-5 py-2.5 bg-[#F5CE42] text-[#111111] swiss-border font-black text-xs md:text-sm"
           >
             ホーム画面に戻る
           </Link>
@@ -98,7 +98,7 @@ export default function ScanPage() {
           href="https://gohannavi.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="font-display font-black tracking-widest text-[10px] text-[#111111] hover:underline inline-block"
+          className="font-display font-black tracking-widest text-[10px] md:text-xs text-[#111111] hover:underline inline-block"
         >
           GOHANNAVI.COM
         </a>

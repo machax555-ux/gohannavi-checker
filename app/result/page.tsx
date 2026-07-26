@@ -55,27 +55,27 @@ export default function ResultPage() {
   if (loading) return null;
 
   return (
-    <main className="h-full flex flex-col justify-start overflow-y-auto py-2 gap-4 pb-8">
+    <main className="h-full flex flex-col justify-start overflow-y-auto py-2 gap-4 pb-8 max-w-full md:max-w-[1000px] md:mx-auto w-full">
       {/* Header Bar */}
       <header className="flex flex-col gap-3 shrink-0">
         <div className="flex items-center justify-between">
           <Link
             href="/"
-            className="bg-[#121212] text-white px-3 py-1.5 swiss-border text-xs font-black font-display tracking-wider flex items-center gap-1.5 hover:bg-[#EF4444] transition-colors"
+            className="bg-[#121212] text-white px-3 py-1.5 md:px-4 md:py-2 swiss-border text-xs md:text-sm font-black font-display tracking-wider flex items-center gap-1.5 hover:bg-[#EF4444] transition-colors"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-4 h-4 md:w-5 md:h-5" />
             <span>HOME</span>
           </Link>
-          <span className="font-display font-black text-xs text-[#111111] bg-white px-3 py-1.5 swiss-border">
+          <span className="font-display font-black text-xs md:text-sm text-[#111111] bg-white px-3 py-1.5 md:px-4 md:py-2 swiss-border">
             RESULT PAGE
           </span>
         </div>
 
         <div className="flex flex-col gap-1 mt-1">
-          <span className="font-display font-black text-xs text-[#111111] tracking-widest">
+          <span className="font-display font-black text-xs md:text-sm text-[#111111] tracking-widest">
             02. ANALYSIS RESULT
           </span>
-          <h1 className="font-display font-black text-3xl text-[#111111] leading-none">
+          <h1 className="font-display font-black text-3xl md:text-4xl text-[#111111] leading-none">
             判定結果画面
           </h1>
         </div>
@@ -83,29 +83,34 @@ export default function ResultPage() {
         <div className="w-full h-[3px] bg-[#111111]" />
       </header>
 
-      {/* 1. ResultCard */}
-      {result && <ResultCard result={result} />}
+      {/* Main Content Area: 1-Column on Mobile, 2-Column on PC */}
+      <div className="flex flex-col md:grid md:grid-cols-2 gap-6 items-start">
+        {/* Left Column: Result Card */}
+        <div className="flex flex-col gap-4 w-full">
+          {result && <ResultCard result={result} />}
+        </div>
 
-      {/* 2. AdBanner */}
-      <AdBanner />
+        {/* Right Column: AdBanner + Alternative Products + Retry Button */}
+        <div className="flex flex-col gap-4 w-full">
+          <AdBanner />
 
-      {/* 3. AlternativeProducts (Always output CLEAN ALTERNATIVES & BLOG cards for ALL judgments including SAFE) */}
-      {result && (
-        <AlternativeProducts
-          blogKeyword={result.blog_keyword}
-          productCategory={result.product_category}
-        />
-      )}
+          {result && (
+            <AlternativeProducts
+              blogKeyword={result.blog_keyword}
+              productCategory={result.product_category}
+            />
+          )}
 
-      {/* 4. Action Button */}
-      <div className="mt-2 mb-2 shrink-0">
-        <Link
-          href="/scan"
-          className="w-full py-4 bg-[#121212] hover:bg-[#222222] text-[#F5CE42] swiss-border swiss-shadow font-black text-base text-center flex items-center justify-center gap-2 transition-transform active:translate-x-0.5 active:translate-y-0.5"
-        >
-          <RefreshCw className="w-5 h-5" />
-          <span>もう一度判定する</span>
-        </Link>
+          <div className="mt-2 mb-2 shrink-0">
+            <Link
+              href="/scan"
+              className="w-full py-4 bg-[#121212] hover:bg-[#222222] text-[#F5CE42] swiss-border swiss-shadow font-black text-base md:text-lg text-center flex items-center justify-center gap-2 transition-transform active:translate-x-0.5 active:translate-y-0.5"
+            >
+              <RefreshCw className="w-5 h-5 md:w-6 md:h-6" />
+              <span>もう一度判定する</span>
+            </Link>
+          </div>
+        </div>
       </div>
 
       {/* Footer */}
@@ -114,7 +119,7 @@ export default function ResultPage() {
           href="https://gohannavi.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="font-display font-black tracking-widest text-[10px] text-[#111111] hover:underline inline-block"
+          className="font-display font-black tracking-widest text-[10px] md:text-xs text-[#111111] hover:underline inline-block"
         >
           GOHANNAVI.COM
         </a>
