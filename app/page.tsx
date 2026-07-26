@@ -82,7 +82,7 @@ export default function HomePage() {
           {mounted && !usable ? (
             <div className="w-full py-2.5 bg-[#333333] text-white/50 swiss-border-sm text-center font-extrabold text-xs flex items-center justify-center gap-2 cursor-not-allowed">
               <Camera className="w-4 h-4" />
-              <span>本日の無料判定は終了しました</span>
+              <span>本日分（10回）の利用上限に達しました</span>
             </div>
           ) : (
             <Link

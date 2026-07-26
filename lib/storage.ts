@@ -1,7 +1,7 @@
 // LocalStorage Usage Limit Management for Gohannavi Additive Checker
 
 const STORAGE_KEY = "gohannavi_usage";
-const DAILY_LIMIT = 3;
+const DAILY_LIMIT = 10;
 
 export interface UsageRecord {
   date: string; // YYYY-MM-DD
@@ -46,7 +46,7 @@ export function canUseToday(): boolean {
 }
 
 /**
- * 今日の残り回数を取得 (3 - count)
+ * 今日の残り回数を取得 (10 - count)
  */
 export function getUsageCount(): number {
   if (typeof window === "undefined") return DAILY_LIMIT;
@@ -86,6 +86,9 @@ export function incrementUsage(): boolean {
 
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(newRecord));
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new Event("gohannavi_usage_updated"));
+    }
     return true;
   } catch (e) {
     console.error("Failed to save gohannavi_usage to LocalStorage", e);
@@ -100,6 +103,9 @@ export function resetUsage(): void {
   if (typeof window === "undefined") return;
   try {
     localStorage.removeItem(STORAGE_KEY);
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new Event("gohannavi_usage_updated"));
+    }
   } catch (e) {
     console.error("Failed to reset gohannavi_usage", e);
   }

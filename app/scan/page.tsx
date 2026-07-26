@@ -81,7 +81,7 @@ export default function ScanPage() {
         <div className="swiss-card-dark p-6 text-center flex flex-col items-center gap-4 my-auto">
           <AlertCircle className="w-10 h-10 text-[#EF4444]" />
           <p className="text-sm font-extrabold text-white leading-relaxed">
-            本日の無料判定回数（3回）の上限に達しているため、新規撮影・判定はできません。
+            本日分（10回）の利用上限に達したため、新規撮影・判定はできません。
           </p>
           <Link
             href="/"
