@@ -3,6 +3,7 @@
 import React, { useState, useRef } from "react";
 import Link from "next/link";
 import { ArrowLeft, Search, Loader2, ExternalLink, ShoppingBag, AlertCircle, MessageSquare, ArrowUp } from "lucide-react";
+import { resetUsage } from "@/lib/storage";
 
 export interface SearchProduct {
   id: string;
@@ -33,6 +34,31 @@ export default function SearchPage() {
   const [loadingMore, setLoadingMore] = useState<boolean>(false);
   const [hasSearched, setHasSearched] = useState<boolean>(false);
   const [errorMsg, setErrorMsg] = useState<string>("");
+
+  // Developer Reset State & Tap Tracking (5-tap trigger on SEARCH DATABASE header badge)
+  const [devResetMessage, setDevResetMessage] = useState<string>("");
+  const tapCountRef = useRef<number>(0);
+  const tapTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleHeaderBadgeClick = () => {
+    tapCountRef.current += 1;
+
+    if (tapTimerRef.current) {
+      clearTimeout(tapTimerRef.current);
+    }
+
+    if (tapCountRef.current >= 5) {
+      resetUsage();
+      tapCountRef.current = 0;
+      setDevResetMessage("開発者モード: 本日の利用回数をリセットしました！");
+      setTimeout(() => setDevResetMessage(""), 3500);
+      return;
+    }
+
+    tapTimerRef.current = setTimeout(() => {
+      tapCountRef.current = 0;
+    }, 2500);
+  };
 
   const scrollToTop = () => {
     if (mainRef.current) {
@@ -179,9 +205,14 @@ export default function SearchPage() {
             <ArrowLeft className="w-4 h-4" />
             <span>HOME</span>
           </Link>
-          <span className="font-display font-black text-xs text-[#111111] bg-white px-3 py-1.5 swiss-border">
+          <button
+            type="button"
+            onClick={handleHeaderBadgeClick}
+            className="font-display font-black text-xs text-[#111111] bg-white px-3 py-1.5 swiss-border hover:bg-[#F5CE42] transition-colors cursor-pointer select-none"
+            title="5回連続タップで利用回数をリセット（開発者用）"
+          >
             SEARCH DATABASE
-          </span>
+          </button>
         </div>
 
         <div className="flex flex-col gap-1 mt-1">
@@ -195,6 +226,13 @@ export default function SearchPage() {
 
         <div className="w-full h-[3px] bg-[#111111]" />
       </header>
+
+      {/* Dev Reset Toast Message */}
+      {devResetMessage && (
+        <div className="swiss-card-dark p-3 text-xs font-black text-[#F5CE42] text-center border-2 border-black shrink-0 animate-bounce">
+          ⚡ {devResetMessage}
+        </div>
+      )}
 
       {/* Search Input Box */}
       <div className="swiss-card-white p-4 sm:p-5 flex flex-col gap-2.5 shrink-0">
