@@ -25,7 +25,7 @@ export default function ResultCard({ result }: ResultCardProps) {
         cardStyle: "swiss-card-dark",
         badgeBg: "bg-[#F59E0B] text-[#111111]",
         icon: <AlertCircle className="w-8 h-8 text-[#F59E0B]" />,
-        title: "NO MATCH / 読み取れませんでした",
+        title: "NO MATCH / 読み取れません",
         sub: "明るくブレのない画像でもう一度お試しください",
         accentColor: "#F59E0B",
       };

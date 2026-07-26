@@ -66,7 +66,7 @@ export default function AlternativeProducts({
 
         <h4 className="font-extrabold text-sm text-[#111111] leading-snug">
           {isUnreadable
-            ? "食品添加物や無添加商品をごはんなびで詳しく解説中"
+            ? "無添加商品をごはんなびで探す"
             : `「${cleanCategory}」に入る食品添加物や無添加商品をごはんなびで詳しく解説中`}
         </h4>
 
