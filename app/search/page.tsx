@@ -209,7 +209,6 @@ export default function SearchPage() {
             type="button"
             onClick={handleHeaderBadgeClick}
             className="font-display font-black text-xs text-[#111111] bg-white px-3 py-1.5 swiss-border hover:bg-[#F5CE42] transition-colors cursor-pointer select-none"
-            title="5回連続タップで利用回数をリセット（開発者用）"
           >
             SEARCH DATABASE
           </button>
