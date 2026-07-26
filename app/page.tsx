@@ -50,7 +50,7 @@ export default function HomePage() {
   return (
     <main className="h-full max-h-full flex flex-col justify-between overflow-hidden select-none">
       {/* 1. Header Row */}
-      <header className="flex flex-col gap-1.5 shrink-0">
+      <header className="flex flex-col gap-1 shrink-0">
         <div className="flex items-center justify-between">
           <a
             href="https://gohannavi.com"
@@ -68,11 +68,11 @@ export default function HomePage() {
         </div>
 
         {/* Mega Typography Header */}
-        <div className="flex flex-col gap-0.5 mt-0.5">
+        <div className="flex flex-col gap-0 mt-0.5">
           <h1 className="font-display font-black text-2xl sm:text-3xl leading-none tracking-tight text-[#111111]">
             FOOD CHECKER
           </h1>
-          <p className="text-[10px] font-black text-[#111111] tracking-wider">
+          <p className="text-[10px] font-black text-[#111111] tracking-wider mt-0.5">
             食品添加物を瞬時に判定するアプリ
           </p>
         </div>
@@ -80,85 +80,87 @@ export default function HomePage() {
         <div className="w-full h-[2px] bg-[#111111]" />
       </header>
 
-      {/* 2. Main Hero Cards (Order: 01. DATABASE -> 02. SCANNER -> 03. HOW IT WORKS -> 04. INSTALL) */}
-      <div className="flex-1 flex flex-col justify-evenly gap-1.5 sm:gap-2 my-auto overflow-hidden py-1">
-        {/* 01. DATABASE Card */}
+      {/* 2. Main Hero Cards Container */}
+      <div className="flex-1 flex flex-col justify-between gap-1.5 min-h-0 overflow-hidden py-1">
+        {/* 01. DATABASE Card (Expanded) */}
         <Link
           href="/search"
-          className="swiss-card-dark p-2 sm:p-2.5 flex flex-col gap-1.5 group hover:opacity-95 transition-opacity cursor-pointer block"
+          className="swiss-card-dark p-2.5 sm:p-3 flex flex-col justify-between gap-2 group hover:opacity-95 transition-opacity cursor-pointer block flex-none"
         >
           <div className="flex items-center justify-between">
-            <span className="font-display font-black text-[9px] sm:text-[10px] text-[#F5CE42] tracking-widest">
+            <span className="font-display font-black text-[10px] sm:text-xs text-[#F5CE42] tracking-widest">
               01. DATABASE
             </span>
           </div>
-          <div className="w-full py-1.5 sm:py-2 px-3 bg-[#EF4444] text-white swiss-border-sm font-black text-xs sm:text-sm flex items-center justify-center gap-2 group-hover:bg-[#DC2626] transition-colors">
-            <Search className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white group-hover:scale-110 transition-transform" />
+          <div className="w-full py-2.5 sm:py-3 px-3.5 bg-[#EF4444] text-white swiss-border-sm font-black text-xs sm:text-sm flex items-center justify-center gap-2.5 group-hover:bg-[#DC2626] transition-colors">
+            <Search className="w-4 h-4 text-white group-hover:scale-110 transition-transform" />
             <span>無添加商品を検索する</span>
-            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </div>
         </Link>
 
-        {/* 02. SCANNER Card */}
-        <div className="swiss-card-dark p-2.5 sm:p-3 flex flex-col gap-1.5 relative overflow-hidden">
-          <div className="flex items-center justify-between border-b border-white/20 pb-0.5">
-            <span className="font-display font-black text-[9px] sm:text-[10px] text-[#F5CE42] tracking-widest">
+        {/* 02. SCANNER Card (Maximized Primary Hero Feature) */}
+        <div className="swiss-card-dark p-3 sm:p-3.5 flex flex-col justify-between gap-2.5 relative overflow-hidden flex-1 min-h-0">
+          <div className="flex items-center justify-between border-b border-white/20 pb-1">
+            <span className="font-display font-black text-[10px] sm:text-xs text-[#F5CE42] tracking-widest">
               02. SCANNER
             </span>
           </div>
 
-          <h2 className="font-extrabold text-xs sm:text-sm text-white leading-tight whitespace-nowrap">
+          <h2 className="font-extrabold text-sm sm:text-base text-white leading-tight whitespace-nowrap">
             原材料名を撮影・入力する
           </h2>
 
           {mounted && !usable ? (
-            <div className="w-full py-2 bg-[#333333] text-white/50 swiss-border-sm text-center font-extrabold text-xs flex items-center justify-center gap-2 cursor-not-allowed">
-              <Camera className="w-3.5 h-3.5" />
+            <div className="w-full py-3 bg-[#333333] text-white/50 swiss-border-sm text-center font-extrabold text-xs flex items-center justify-center gap-2 cursor-not-allowed my-auto">
+              <Camera className="w-4 h-4" />
               <span>本日分（10回）の利用上限に達しました</span>
             </div>
           ) : (
             <Link
               href="/scan"
-              className="w-full py-2 sm:py-2.5 bg-[#EF4444] hover:bg-[#DC2626] text-white swiss-border swiss-shadow-sm font-black text-xs sm:text-sm flex items-center justify-center gap-2 transition-transform active:translate-x-0.5 active:translate-y-0.5 group"
+              className="w-full py-3 sm:py-3.5 bg-[#EF4444] hover:bg-[#DC2626] text-white swiss-border swiss-shadow-sm font-black text-sm sm:text-base flex items-center justify-center gap-2.5 transition-transform active:translate-x-0.5 active:translate-y-0.5 group my-auto"
             >
-              <Camera className="w-4 h-4 text-white group-hover:scale-110 transition-transform" />
+              <Camera className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
               <span>判定スタート</span>
-              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           )}
         </div>
 
-        {/* 03. HOW IT WORKS Section (Slim 2-step layout) */}
-        <section className="swiss-card-white p-2 sm:p-2.5 flex flex-col gap-1">
+        {/* 03. HOW IT WORKS Section (Compact) */}
+        <section className="swiss-card-white p-1.5 sm:p-2 flex flex-col gap-1 flex-none">
           <h3 className="font-display font-black text-[9px] sm:text-[10px] text-[#111111] tracking-widest border-b border-black pb-0.5 flex items-center justify-between">
             <span>03. HOW IT WORKS</span>
             <span>使い方</span>
           </h3>
 
-          <div className="flex flex-col gap-1">
-            <div className="flex items-center gap-2">
+          <div className="flex items-center justify-around gap-2 py-0.5">
+            <div className="flex items-center gap-1.5">
               <span className="font-display font-black text-[9px] bg-[#111111] text-[#F5CE42] px-1 py-0.2 shrink-0">
                 01
               </span>
-              <p className="font-extrabold text-[11px] sm:text-xs text-[#111111] leading-none">
-                パッケージ撮影 <span className="text-[9px] sm:text-[10px] text-[#555555] font-normal">（原材料欄をパシャリ）</span>
+              <p className="font-extrabold text-[10px] sm:text-[11px] text-[#111111] leading-none">
+                パッケージ撮影
               </p>
             </div>
 
-            <div className="flex items-center gap-2">
+            <span className="text-[#888888] text-xs font-black">→</span>
+
+            <div className="flex items-center gap-1.5">
               <span className="font-display font-black text-[9px] bg-[#111111] text-[#F5CE42] px-1 py-0.2 shrink-0">
                 02
               </span>
-              <p className="font-extrabold text-[11px] sm:text-xs text-[#111111] leading-none">
-                AI瞬時判定 <span className="text-[9px] sm:text-[10px] text-[#555555] font-normal">（添加物を即検出）</span>
+              <p className="font-extrabold text-[10px] sm:text-[11px] text-[#111111] leading-none">
+                AI瞬時判定
               </p>
             </div>
           </div>
         </section>
 
-        {/* 04. INSTALL Card (Hidden in PWA standalone mode) */}
+        {/* 04. INSTALL Card (Compact, Hidden in PWA standalone mode) */}
         {mounted && !isStandalone && (
-          <div className="swiss-card-dark p-2 sm:p-2.5 flex flex-col gap-1.5 group cursor-pointer block">
+          <div className="swiss-card-dark p-1.5 sm:p-2 flex flex-col gap-1 group cursor-pointer block flex-none">
             <div className="flex items-center justify-between">
               <span className="font-display font-black text-[9px] sm:text-[10px] text-[#F5CE42] tracking-widest">
                 04. INSTALL
@@ -166,7 +168,7 @@ export default function HomePage() {
             </div>
             <button
               onClick={handleInstallClick}
-              className="w-full py-1.5 sm:py-2 px-3 bg-[#F5CE42] hover:bg-[#E5BE32] text-[#111111] swiss-border-sm font-black text-xs sm:text-sm flex items-center justify-center gap-2 transition-colors cursor-pointer group"
+              className="w-full py-1.5 sm:py-2 px-2.5 bg-[#F5CE42] hover:bg-[#E5BE32] text-[#111111] swiss-border-sm font-black text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer group"
             >
               <span>📱 スマホのホーム画面に追加する →</span>
             </button>
