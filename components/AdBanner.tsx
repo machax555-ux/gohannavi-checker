@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 
 declare global {
   interface Window {
@@ -9,36 +9,60 @@ declare global {
 }
 
 export default function AdBanner() {
+  const adRef = useRef<HTMLModElement | null>(null);
+  const pushedRef = useRef<boolean>(false);
+
   useEffect(() => {
-    try {
-      const scriptUrl =
-        "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5974007350632133";
+    // 既にこのコンポーネントで push 済みの場合は処理しない
+    if (pushedRef.current) return;
 
-      let script = document.querySelector(
-        `script[src="${scriptUrl}"]`
-      ) as HTMLScriptElement | null;
+    // メインスレッドの処理（API通信等）と衝突しないようタイマーで遅延初期化
+    const timer = setTimeout(() => {
+      try {
+        const insElement = adRef.current;
+        // ins要素が存在し、AdSenseによって未処理の場合のみ push
+        if (insElement && !insElement.getAttribute("data-adsbygoogle-status")) {
+          const scriptUrl =
+            "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5974007350632133";
 
-      const pushAd = () => {
-        try {
-          (window.adsbygoogle = window.adsbygoogle || []).push({});
-        } catch (e) {
-          console.error("AdSense push error:", e);
+          let script = document.querySelector(
+            `script[src="${scriptUrl}"]`
+          ) as HTMLScriptElement | null;
+
+          const pushAd = () => {
+            try {
+              if (
+                insElement &&
+                !insElement.getAttribute("data-adsbygoogle-status") &&
+                !pushedRef.current
+              ) {
+                pushedRef.current = true;
+                (window.adsbygoogle = window.adsbygoogle || []).push({});
+              }
+            } catch (e) {
+              console.warn("AdSense push warning:", e);
+            }
+          };
+
+          if (!script) {
+            script = document.createElement("script");
+            script.src = scriptUrl;
+            script.async = true;
+            script.crossOrigin = "anonymous";
+            script.onload = pushAd;
+            document.head.appendChild(script);
+          } else {
+            pushAd();
+          }
         }
-      };
-
-      if (!script) {
-        script = document.createElement("script");
-        script.src = scriptUrl;
-        script.async = true;
-        script.crossOrigin = "anonymous";
-        script.onload = pushAd;
-        document.head.appendChild(script);
-      } else {
-        pushAd();
+      } catch (e) {
+        console.warn("AdSense init warning:", e);
       }
-    } catch (e) {
-      console.error("AdSense error:", e);
-    }
+    }, 150);
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, []);
 
   return (
@@ -47,6 +71,7 @@ export default function AdBanner() {
         SPONSORED
       </span>
       <ins
+        ref={adRef}
         className="adsbygoogle"
         style={{ display: "block", width: "100%" }}
         data-ad-client="ca-pub-5974007350632133"
