@@ -84,7 +84,7 @@ export default function HomePage() {
 
       {/* 2. Main Hero Cards Container */}
       {/* MOBILE DISPLAY (767px & below) */}
-      <div className="flex-1 flex flex-col justify-start pt-4 sm:pt-6 pb-3 gap-5 sm:gap-6 min-h-0 overflow-y-auto md:hidden">
+      <div className="flex-1 flex flex-col justify-start pt-10 sm:pt-14 pb-4 gap-5 sm:gap-6 min-h-0 overflow-y-auto md:hidden">
         {/* 01. DATABASE Card */}
         <Link
           href="/search"
