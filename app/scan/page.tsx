@@ -105,8 +105,21 @@ export default function ScanPage() {
         </div>
       )}
 
-      {/* Footer with Compliance Disclosure */}
-      <AffiliateNoticeFooter />
+      {/* Footer */}
+      {loading ? (
+        <AffiliateNoticeFooter />
+      ) : (
+        <footer className="pt-1 sm:pt-1.5 border-t-2 sm:border-t-3 border-black text-center shrink-0">
+          <a
+            href="https://gohannavi.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-display font-black tracking-widest text-[9px] sm:text-[10px] md:text-xs text-[#111111] hover:underline inline-block"
+          >
+            GOHANNAVI.COM
+          </a>
+        </footer>
+      )}
     </main>
   );
 }
