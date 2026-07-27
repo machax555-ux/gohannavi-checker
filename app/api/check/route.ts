@@ -99,6 +99,23 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const is429 =
+      error?.status === 429 ||
+      error?.statusCode === 429 ||
+      error?.response?.status === 429 ||
+      (typeof error?.message === "string" &&
+        (error.message.includes("429") ||
+         error.message.includes("Too Many Requests") ||
+         error.message.includes("RESOURCE_EXHAUSTED") ||
+         error.message.includes("quota")));
+
+    if (is429) {
+      return NextResponse.json(
+        { error: "ただいまAIが混み合っています。しばらく時間をおいて再度お試しください。" },
+        { status: 429 }
+      );
+    }
+
     if (error instanceof SyntaxError) {
       return NextResponse.json(
         { error: "原材料名を読み取れませんでした" },
