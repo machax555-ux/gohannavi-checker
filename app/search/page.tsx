@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { ArrowLeft, Search } from "lucide-react";
+import { ArrowLeft, Search, Smartphone, Share, PlusSquare, X } from "lucide-react";
 import { resetUsage } from "@/lib/storage";
 import SearchResultList from "@/components/SearchResultList";
 import AffiliateNoticeFooter from "@/components/AffiliateNoticeFooter";
@@ -12,8 +12,46 @@ export default function SearchPage() {
   const [keyword, setKeyword] = useState<string>("");
   const [submittedKeyword, setSubmittedKeyword] = useState<string>("");
   const [devResetMessage, setDevResetMessage] = useState<string>("");
+  const [mounted, setMounted] = useState<boolean>(false);
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [isStandalone, setIsStandalone] = useState<boolean>(false);
+  const [showIosGuide, setShowIosGuide] = useState<boolean>(false);
+
   const tapCountRef = useRef<number>(0);
   const tapTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    setMounted(true);
+
+    if (typeof window !== "undefined") {
+      const isStandaloneMode =
+        window.matchMedia("(display-mode: standalone)").matches ||
+        (window.navigator as any).standalone === true;
+      setIsStandalone(isStandaloneMode);
+
+      const handleBeforeInstallPrompt = (e: Event) => {
+        e.preventDefault();
+        setDeferredPrompt(e);
+      };
+
+      window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+      return () => {
+        window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+      };
+    }
+  }, []);
+
+  const handleInstallClick = async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === "accepted") {
+        setDeferredPrompt(null);
+      }
+    } else {
+      setShowIosGuide(true);
+    }
+  };
 
   const handleHeaderBadgeClick = () => {
     tapCountRef.current += 1;
@@ -109,17 +147,41 @@ export default function SearchPage() {
       {submittedKeyword ? (
         <SearchResultList key={submittedKeyword} keyword={submittedKeyword} autoFetch={true} />
       ) : (
-        /* Initial State Guide */
-        <div className="swiss-card-white p-5 md:p-8 text-center flex flex-col items-center justify-center gap-3 shrink-0 mt-1">
-          <div className="w-12 h-12 md:w-16 md:h-16 bg-[#121212] text-[#F5CE42] swiss-border flex items-center justify-center">
-            <Search className="w-6 h-6 md:w-8 md:h-8" />
+        /* Initial State Guide + Install Card Container */
+        <div className="flex flex-col gap-3 shrink-0">
+          {/* Initial State Guide Card */}
+          <div className="swiss-card-white p-5 md:p-8 text-center flex flex-col items-center justify-center gap-3 shrink-0 mt-1">
+            <div className="w-12 h-12 md:w-16 md:h-16 bg-[#121212] text-[#F5CE42] swiss-border flex items-center justify-center">
+              <Search className="w-6 h-6 md:w-8 md:h-8" />
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <p className="text-sm md:text-lg font-black text-[#111111]">無添加食品をキーワードで探す</p>
+              <p className="text-xs md:text-sm text-[#444444] font-bold leading-relaxed">
+                気になる商品やカテゴリー（ぽん酢・めんつゆ・おやつ・塩など）を入力してください
+              </p>
+            </div>
           </div>
-          <div className="flex flex-col gap-1.5">
-            <p className="text-sm md:text-lg font-black text-[#111111]">無添加食品をキーワードで探す</p>
-            <p className="text-xs md:text-sm text-[#444444] font-bold leading-relaxed">
-              気になる商品やカテゴリー（ぽん酢・めんつゆ・おやつ・塩など）を入力してください
-            </p>
-          </div>
+
+          {/* INSTALL Card (Directly below initial guide card, hidden in PWA standalone mode) */}
+          {mounted && !isStandalone && (
+            <div className="swiss-card-dark p-3.5 sm:p-4 flex flex-col gap-2.5 group cursor-pointer block shrink-0">
+              <div className="flex items-center justify-between border-b border-white/20 pb-1">
+                <span className="font-display font-black text-[11px] sm:text-xs text-[#F5CE42] tracking-widest">
+                  INSTALL
+                </span>
+                <span className="text-[10px] sm:text-[11px] text-white/60 font-bold">PWAアプリ化</span>
+              </div>
+              <p className="text-[11px] sm:text-xs text-white/80 font-medium leading-tight">
+                ホーム画面に追加してワンタップで簡単起動できます。
+              </p>
+              <button
+                onClick={handleInstallClick}
+                className="w-full py-2.5 sm:py-3 px-3 bg-[#F5CE42] hover:bg-[#E5BE32] text-[#111111] swiss-border-sm font-black text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-colors cursor-pointer group"
+              >
+                <span>📱 スマホのホーム画面に追加する →</span>
+              </button>
+            </div>
+          )}
         </div>
       )}
 
@@ -137,6 +199,58 @@ export default function SearchPage() {
             GOHANNAVI.COM
           </a>
         </footer>
+      )}
+
+      {/* PWA / iOS Home Screen Install Modal */}
+      {showIosGuide && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50 animate-in fade-in duration-200">
+          <div className="swiss-card-white p-4 max-w-sm w-full flex flex-col gap-3 relative">
+            <button
+              onClick={() => setShowIosGuide(false)}
+              className="absolute top-2.5 right-2.5 p-1 text-[#111111] hover:bg-black/10 rounded-sm transition-colors"
+            >
+              <X className="w-4 h-4" />
+            </button>
+
+            <div className="flex items-center gap-2 border-b-2 border-black pb-1.5">
+              <Smartphone className="w-4 h-4 text-[#EF4444]" />
+              <h3 className="font-display font-black text-xs sm:text-sm text-[#111111]">
+                ホーム画面への追加方法
+              </h3>
+            </div>
+
+            <p className="text-[11px] font-bold text-[#333333] leading-tight">
+              アプリのようにワンタップで起動できるよう、ホーム画面に追加できます。
+            </p>
+
+            <div className="flex flex-col gap-2 my-0.5">
+              <div className="flex items-start gap-2 bg-[#FAF9F5] p-2 swiss-border-sm">
+                <span className="font-display font-black text-[10px] bg-[#111111] text-[#F5CE42] w-4 h-4 flex items-center justify-center shrink-0 mt-0.5">
+                  1
+                </span>
+                <p className="text-[11px] font-bold text-[#111111] leading-snug">
+                  ブラウザ下の <Share className="w-3.5 h-3.5 inline mx-0.5 text-[#007AFF]" /> 「共有ボタン」をタップ
+                </p>
+              </div>
+
+              <div className="flex items-start gap-2 bg-[#FAF9F5] p-2 swiss-border-sm">
+                <span className="font-display font-black text-[10px] bg-[#111111] text-[#F5CE42] w-4 h-4 flex items-center justify-center shrink-0 mt-0.5">
+                  2
+                </span>
+                <p className="text-[11px] font-bold text-[#111111] leading-snug">
+                  メニューから <PlusSquare className="w-3.5 h-3.5 inline mx-0.5 text-[#111111]" /> 「ホーム画面に追加」をタップ
+                </p>
+              </div>
+            </div>
+
+            <button
+              onClick={() => setShowIosGuide(false)}
+              className="w-full py-1.5 bg-[#111111] text-white swiss-border font-black text-xs hover:bg-[#EF4444] transition-colors"
+            >
+              とじる
+            </button>
+          </div>
+        </div>
       )}
     </main>
   );
