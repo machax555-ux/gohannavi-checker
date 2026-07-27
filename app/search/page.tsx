@@ -169,7 +169,6 @@ export default function SearchPage() {
                 <span className="font-display font-black text-[11px] sm:text-xs text-[#F5CE42] tracking-widest">
                   INSTALL
                 </span>
-                <span className="text-[10px] sm:text-[11px] text-white/60 font-bold">PWAアプリ化</span>
               </div>
               <p className="text-[11px] sm:text-xs text-white/80 font-medium leading-tight">
                 ホーム画面に追加してワンタップで簡単起動できます。
