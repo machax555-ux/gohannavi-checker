@@ -6,7 +6,6 @@ import { ArrowLeft, RefreshCw } from "lucide-react";
 import ResultCard from "@/components/ResultCard";
 import AlternativeProducts from "@/components/AlternativeProducts";
 import AdBanner from "@/components/AdBanner";
-import AffiliateNoticeFooter from "@/components/AffiliateNoticeFooter";
 import { AdditiveCheckResult } from "@/lib/gemini";
 
 export default function ResultPage() {
@@ -115,7 +114,16 @@ export default function ResultPage() {
       </div>
 
       {/* Footer */}
-      <AffiliateNoticeFooter />
+      <footer className="pt-2 border-t-3 border-black text-center shrink-0 mt-auto">
+        <a
+          href="https://gohannavi.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-display font-black tracking-widest text-[10px] md:text-xs text-[#111111] hover:underline inline-block"
+        >
+          GOHANNAVI.COM
+        </a>
+      </footer>
     </main>
   );
 }

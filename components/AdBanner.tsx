@@ -33,17 +33,17 @@ export default function AdBanner() {
   }, []);
 
   return (
-    <div className="w-full my-1 flex flex-col items-center justify-center text-center overflow-hidden h-auto">
-      <span className="text-[9px] text-[#A8A29E] font-mono tracking-widest uppercase mb-0.5">
+    <div className="w-full my-1 flex flex-col items-center justify-center text-center overflow-hidden h-auto max-h-[130px] shrink-0">
+      <span className="text-[9px] text-[#A8A29E] font-mono tracking-widest uppercase mb-0.5 shrink-0">
         SPONSORED
       </span>
       <ins
         ref={adRef}
         className="adsbygoogle"
-        style={{ display: "block", width: "100%" }}
+        style={{ display: "block", width: "100%", height: "auto", maxHeight: "100px" }}
         data-ad-client="ca-pub-5974007350632133"
         data-ad-slot="7975055877"
-        data-ad-format="auto"
+        data-ad-format="horizontal"
         data-full-width-responsive="true"
       />
     </div>
