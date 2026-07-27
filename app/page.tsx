@@ -84,13 +84,7 @@ export default function HomePage() {
 
       {/* 2. Main Hero Cards Container */}
       {/* MOBILE DISPLAY (767px & below) */}
-      <div
-        className={`flex-1 flex flex-col min-h-0 overflow-hidden md:hidden ${
-          mounted && isStandalone
-            ? "justify-start pt-2 gap-3.5 sm:gap-4 overflow-y-auto"
-            : "justify-evenly py-1 gap-2"
-        }`}
-      >
+      <div className="flex-1 flex flex-col justify-start pt-4 sm:pt-6 pb-3 gap-5 sm:gap-6 min-h-0 overflow-y-auto md:hidden">
         {/* 01. DATABASE Card */}
         <Link
           href="/search"
