@@ -45,7 +45,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#FFFFFF",
+  themeColor: "#FDFBF7",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
@@ -84,9 +84,9 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${notoSansJP.variable} ${unbounded.variable} antialiased h-full w-full overflow-hidden overscroll-none bg-white text-[#111111] selection:bg-[#111111] selection:text-[#F5CE42] fixed inset-0`}
+        className={`${notoSansJP.variable} ${unbounded.variable} antialiased h-full w-full overflow-hidden overscroll-none bg-[#FDFBF7] text-[#111111] selection:bg-[#111111] selection:text-[#F5CE42] fixed inset-0`}
       >
-        <div className="fixed inset-0 max-w-[440px] md:max-w-[1200px] mx-auto h-[100dvh] max-h-[100dvh] overflow-hidden overscroll-none bg-white sm:border-x-3 sm:border-black flex flex-col p-2.5 sm:p-3.5 md:p-6 justify-between select-none">
+        <div className="fixed inset-0 max-w-[440px] md:max-w-[1200px] mx-auto h-[100dvh] max-h-[100dvh] overflow-hidden overscroll-none bg-[#FDFBF7] sm:border-x-3 sm:border-black flex flex-col p-2.5 sm:p-3.5 md:p-6 justify-between select-none">
           {children}
         </div>
 
