@@ -115,7 +115,7 @@ export default function HomePage() {
             <span className="font-display font-black text-[11px] sm:text-xs text-[#F5CE42] tracking-widest">
               02. SCANNER
             </span>
-            <span className="text-[10px] sm:text-[11px] text-[#F5CE42] font-black">AI判定解析</span>
+            <span className="text-[10px] sm:text-[11px] text-[#F5CE42] font-black">判定解析</span>
           </div>
 
           <h2 className="font-black text-base sm:text-lg text-white leading-tight whitespace-nowrap">
@@ -163,7 +163,7 @@ export default function HomePage() {
                 02
               </span>
               <p className="font-extrabold text-xs sm:text-sm text-[#111111] leading-none">
-                AI瞬時判定
+                瞬時判定
               </p>
             </div>
           </div>
@@ -245,9 +245,9 @@ export default function HomePage() {
                     STEP 02
                   </span>
                 </div>
-                <h4 className="font-extrabold text-xs text-[#111111]">AIが添加物を瞬時判定</h4>
+                <h4 className="font-extrabold text-xs text-[#111111]">添加物を瞬時判定</h4>
                 <p className="text-[10px] lg:text-[11px] text-[#555555] font-medium leading-tight">
-                  高精度AIが気になる添加物を抽出し、リスク評価と代替案をご提案。
+                  高精度な判定システムが気になる添加物を抽出し、リスク評価と代替案をご提案。
                 </p>
               </div>
             </div>

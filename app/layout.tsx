@@ -31,7 +31,7 @@ const foodCheckerIconBase64 = getFoodCheckerIconBase64();
 
 export const metadata: Metadata = {
   title: "FOOD CHECKER | ごはんなび食品添加物チェッカー",
-  description: "原材料を撮るだけで気になる添加物をAIが瞬時に検出。安全な無添加商品の購入までフルサポート。",
+  description: "原材料を撮るだけで気になる添加物を瞬時に検出。安全な無添加商品の購入までフルサポート。",
   manifest: "/manifest.json",
   icons: {
     icon: [{ url: foodCheckerIconBase64, type: "image/png" }],
