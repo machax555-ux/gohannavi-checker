@@ -82,9 +82,15 @@ export default function HomePage() {
         <div className="w-full h-[2px] md:h-[2px] bg-[#111111] mt-0.5 md:mt-1 pwa-divider-shift" />
       </header>
 
-      {/* 2. Main Hero Cards Container (Restored & Locked to High-Rating Card Layout) */}
+      {/* 2. Main Hero Cards Container */}
       {/* MOBILE DISPLAY (767px & below) */}
-      <div className="flex-1 flex flex-col justify-start pt-4 sm:pt-6 pb-3 gap-5 sm:gap-6 min-h-0 overflow-y-auto md:hidden">
+      <div
+        className={`flex-1 flex flex-col min-h-0 md:hidden ${
+          mounted && isStandalone
+            ? "justify-start pt-10 sm:pt-14 pb-4 gap-5 sm:gap-6 overflow-y-auto"
+            : "justify-evenly py-1 gap-2 overflow-hidden"
+        }`}
+      >
         {/* 01. DATABASE Card */}
         <Link
           href="/search"

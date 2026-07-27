@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
   // 1. Check GEMINI_API_KEY
   if (!process.env.GEMINI_API_KEY) {
     return NextResponse.json(
-      { error: "GEMINI_API_KEYが設定されていません" },
+      { error: "ただいまAIが混み合っています。しばらく時間をおいて再度お試しください。" },
       { status: 500 }
     );
   }
@@ -92,27 +92,25 @@ export async function POST(req: NextRequest) {
   } catch (error: any) {
     console.error("Gemini API Check Error:", error);
 
-    if (error.message === "GEMINI_API_KEY_MISSING") {
-      return NextResponse.json(
-        { error: "GEMINI_API_KEYが設定されていません" },
-        { status: 500 }
-      );
-    }
-
-    const is429 =
+    // 503 (Service Unavailable) or 429 (Rate Limit) / Busy / Overloaded Errors
+    const isBusyOrUnavailable =
+      error?.status === 503 ||
+      error?.statusCode === 503 ||
       error?.status === 429 ||
       error?.statusCode === 429 ||
-      error?.response?.status === 429 ||
       (typeof error?.message === "string" &&
-        (error.message.includes("429") ||
+        (error.message.includes("503") ||
+         error.message.includes("429") ||
+         error.message.includes("Service Unavailable") ||
          error.message.includes("Too Many Requests") ||
          error.message.includes("RESOURCE_EXHAUSTED") ||
+         error.message.includes("overloaded") ||
          error.message.includes("quota")));
 
-    if (is429) {
+    if (isBusyOrUnavailable) {
       return NextResponse.json(
         { error: "ただいまAIが混み合っています。しばらく時間をおいて再度お試しください。" },
-        { status: 429 }
+        { status: 503 }
       );
     }
 
@@ -123,8 +121,9 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Default Fallback Error Message (No raw English/stack traces exposed to user)
     return NextResponse.json(
-      { error: error?.message ? `AI判定エラー: ${error.message}` : "しばらく時間をおいて再度お試しください" },
+      { error: "ただいまAIが混み合っています。しばらく時間をおいて再度お試しください。" },
       { status: 500 }
     );
   }

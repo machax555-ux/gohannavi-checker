@@ -85,7 +85,12 @@ export default function CameraCapture({
     } catch (err: any) {
       console.error(err);
       if (onError) {
-        onError(err.message || "エラーが発生しました。しばらく時間をおいて再度お試しください。");
+        const msg = err?.message;
+        if (!msg || /[a-zA-Z]{5,}/.test(msg) || msg.includes("Failed to fetch") || msg.includes("Error")) {
+          onError("ただいまAIが混み合っています。しばらく時間をおいて再度お試しください。");
+        } else {
+          onError(msg);
+        }
       }
       if (onEndLoading) onEndLoading();
     }
