@@ -21,5 +21,5 @@ export function getGeminiModel(): GenerativeModel {
     throw new Error("GEMINI_API_KEY_MISSING");
   }
   const genAI = new GoogleGenerativeAI(apiKey);
-  return genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+  return genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 }

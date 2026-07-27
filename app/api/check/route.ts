@@ -107,7 +107,7 @@ export async function POST(req: NextRequest) {
     }
 
     return NextResponse.json(
-      { error: "しばらく時間をおいて再度お試しください" },
+      { error: error?.message ? `AI判定エラー: ${error.message}` : "しばらく時間をおいて再度お試しください" },
       { status: 500 }
     );
   }
