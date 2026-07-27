@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowLeft, Search } from "lucide-react";
 import { resetUsage } from "@/lib/storage";
 import SearchResultList from "@/components/SearchResultList";
+import AffiliateNoticeFooter from "@/components/AffiliateNoticeFooter";
 
 export default function SearchPage() {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -123,16 +124,20 @@ export default function SearchPage() {
       )}
 
       {/* Footer */}
-      <footer className="pt-2 border-t-3 border-black text-center shrink-0 mt-auto">
-        <a
-          href="https://gohannavi.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-display font-black tracking-widest text-[10px] md:text-xs text-[#111111] hover:underline inline-block"
-        >
-          GOHANNAVI.COM
-        </a>
-      </footer>
+      {submittedKeyword ? (
+        <AffiliateNoticeFooter />
+      ) : (
+        <footer className="pt-2 border-t-3 border-black text-center shrink-0 mt-auto">
+          <a
+            href="https://gohannavi.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-display font-black tracking-widest text-[10px] md:text-xs text-[#111111] hover:underline inline-block"
+          >
+            GOHANNAVI.COM
+          </a>
+        </footer>
+      )}
     </main>
   );
 }
