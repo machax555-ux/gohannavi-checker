@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "gohannavi-checker.vercel.app"
+        }
+      ],
+      "destination": "https://checker.gohannavi.com/:path*",
+      "permanent": true
+    }
+  ]
+}
