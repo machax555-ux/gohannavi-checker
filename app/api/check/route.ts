@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
   // 1. Check GEMINI_API_KEY
   if (!process.env.GEMINI_API_KEY) {
     return NextResponse.json(
-      { error: "ただいまAIが混み合っています。しばらく時間をおいて再度お試しください。" },
+      { error: "アクセス集中につき、時間おいて再度お試しください。" },
       { status: 500 }
     );
   }
@@ -109,7 +109,7 @@ export async function POST(req: NextRequest) {
 
     if (isBusyOrUnavailable) {
       return NextResponse.json(
-        { error: "ただいまAIが混み合っています。しばらく時間をおいて再度お試しください。" },
+        { error: "アクセス集中につき、時間おいて再度お試しください。" },
         { status: 503 }
       );
     }
@@ -123,7 +123,7 @@ export async function POST(req: NextRequest) {
 
     // Default Fallback Error Message (No raw English/stack traces exposed to user)
     return NextResponse.json(
-      { error: "ただいまAIが混み合っています。しばらく時間をおいて再度お試しください。" },
+      { error: "アクセス集中につき、時間おいて再度お試しください。" },
       { status: 500 }
     );
   }

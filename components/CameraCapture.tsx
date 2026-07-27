@@ -87,7 +87,7 @@ export default function CameraCapture({
       if (onError) {
         const msg = err?.message;
         if (!msg || /[a-zA-Z]{5,}/.test(msg) || msg.includes("Failed to fetch") || msg.includes("Error")) {
-          onError("ただいまAIが混み合っています。しばらく時間をおいて再度お試しください。");
+          onError("アクセス集中につき、時間おいて再度お試しください。");
         } else {
           onError(msg);
         }
