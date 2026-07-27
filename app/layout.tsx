@@ -63,6 +63,12 @@ export default function RootLayout({
         <link rel="icon" href={foodCheckerIconBase64} type="image/png" />
         <link rel="apple-touch-icon" href={foodCheckerIconBase64} />
         <link rel="apple-touch-icon-precomposed" href={foodCheckerIconBase64} />
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5974007350632133"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
       </head>
       <body
         className={`${notoSansJP.variable} ${unbounded.variable} antialiased h-full w-full overflow-hidden overscroll-none bg-[#F5CE42] text-[#111111] selection:bg-[#111111] selection:text-[#F5CE42] fixed inset-0`}
