@@ -102,12 +102,12 @@ html, body {
   border-radius: 0px;
 }
 
-/* PWA Standalone Display Mode Specific Adjustments */
+/* PWA Standalone Display Mode Specific Title Block Shift (+32px / +16px) */
 @media (display-mode: standalone) {
   .pwa-title-shift {
-    margin-top: 1.25rem !important;
+    margin-top: 2rem !important;
   }
   .pwa-divider-shift {
-    margin-top: 0.75rem !important;
+    margin-top: 1rem !important;
   }
 }
