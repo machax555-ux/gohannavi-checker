@@ -64,10 +64,23 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href={foodCheckerIconBase64} />
         <link rel="apple-touch-icon-precomposed" href={foodCheckerIconBase64} />
         <Script
+          id="adsense-init"
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5974007350632133"
           crossOrigin="anonymous"
           strategy="afterInteractive"
+        />
+        <Script
+          id="disable-auto-ads"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (window.adsbygoogle = window.adsbygoogle || []).push({
+                google_ad_client: "ca-pub-5974007350632133",
+                enable_page_level_ads: false
+              });
+            `,
+          }}
         />
       </head>
       <body
