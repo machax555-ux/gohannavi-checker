@@ -244,7 +244,7 @@ export default function CameraCapture({
             (activeTab === "camera" && !previewImage) ||
             (activeTab === "text" && !textInput.trim())
           }
-          className="w-full py-3.5 sm:py-4 bg-[#EF4444] hover:bg-[#DC2626] text-white swiss-border swiss-shadow font-black text-base sm:text-lg flex items-center justify-center gap-3 transition-transform active:translate-x-0.5 active:translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+          className="w-full py-3.5 sm:py-4 bg-[#10B981] hover:bg-[#059669] text-white swiss-border swiss-shadow font-black text-base sm:text-lg flex items-center justify-center gap-3 transition-transform active:translate-x-0.5 active:translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
         >
           <span>判定を実行する</span>
         </button>

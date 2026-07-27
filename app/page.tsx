@@ -102,7 +102,7 @@ export default function HomePage() {
             </span>
             <span className="text-[10px] sm:text-[11px] text-white/60 font-bold">無添加商品検索</span>
           </div>
-          <div className="w-full py-3.5 sm:py-4 px-4 bg-[#EF4444] text-white swiss-border-sm font-black text-sm sm:text-base flex items-center justify-center gap-2.5 group-hover:bg-[#DC2626] transition-colors shadow-sm">
+          <div className="w-full py-3.5 sm:py-4 px-4 bg-[#10B981] text-white swiss-border-sm font-black text-sm sm:text-base flex items-center justify-center gap-2.5 group-hover:bg-[#059669] transition-colors shadow-sm">
             <Search className="w-4.5 h-4.5 text-white group-hover:scale-110 transition-transform" />
             <span>無添加商品を検索する</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -130,7 +130,7 @@ export default function HomePage() {
           ) : (
             <Link
               href="/scan"
-              className="w-full py-3.5 sm:py-4 bg-[#EF4444] hover:bg-[#DC2626] text-white swiss-border swiss-shadow-sm font-black text-base sm:text-lg flex items-center justify-center gap-2.5 transition-transform active:translate-x-0.5 active:translate-y-0.5 group"
+              className="w-full py-3.5 sm:py-4 bg-[#10B981] hover:bg-[#059669] text-white swiss-border swiss-shadow-sm font-black text-base sm:text-lg flex items-center justify-center gap-2.5 transition-transform active:translate-x-0.5 active:translate-y-0.5 group"
             >
               <Camera className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
               <span>判定スタート</span>
@@ -212,7 +212,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="w-full py-3.5 px-4 bg-[#EF4444] text-white swiss-border font-black text-xs lg:text-sm flex items-center justify-center gap-2 group-hover:bg-[#DC2626] transition-colors shadow-sm">
+            <div className="w-full py-3.5 px-4 bg-[#10B981] text-white swiss-border font-black text-xs lg:text-sm flex items-center justify-center gap-2 group-hover:bg-[#059669] transition-colors shadow-sm">
               <Search className="w-4 h-4 text-white group-hover:scale-110 transition-transform" />
               <span>無添加商品を検索する</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -282,7 +282,7 @@ export default function HomePage() {
             ) : (
               <Link
                 href="/scan"
-                className="w-full py-3.5 bg-[#EF4444] hover:bg-[#DC2626] text-white swiss-border swiss-shadow font-black text-sm lg:text-base flex items-center justify-center gap-2 transition-transform active:translate-x-0.5 active:translate-y-0.5 group"
+                className="w-full py-3.5 bg-[#10B981] hover:bg-[#059669] text-white swiss-border swiss-shadow font-black text-sm lg:text-base flex items-center justify-center gap-2 transition-transform active:translate-x-0.5 active:translate-y-0.5 group"
               >
                 <Camera className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
                 <span>判定スタート ➔</span>

@@ -213,7 +213,7 @@ export default function SearchResultList({
             href={amazonSearchUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full px-4 sm:px-5 py-3 sm:py-3.5 bg-[#10B981] hover:bg-[#059669] text-white swiss-border swiss-shadow-sm flex items-center justify-between gap-3 transition-transform active:translate-x-0.5 active:translate-y-0.5 group"
+            className="w-full px-4 sm:px-5 py-3 sm:py-3.5 bg-[#FF9900] hover:bg-[#E68A00] text-white swiss-border swiss-shadow-sm flex items-center justify-between gap-3 transition-transform active:translate-x-0.5 active:translate-y-0.5 group"
           >
             <div className="flex flex-col text-left min-w-0">
               <span className="font-black text-xs sm:text-sm tracking-tight leading-snug">

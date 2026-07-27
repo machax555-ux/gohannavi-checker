@@ -136,7 +136,7 @@ export default function SearchPage() {
           <button
             type="submit"
             disabled={!keyword.trim()}
-            className="px-5 py-3 bg-[#EF4444] hover:bg-[#DC2626] text-white swiss-border swiss-shadow-sm font-black text-xs md:text-sm transition-transform active:translate-x-0.5 active:translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed shrink-0 cursor-pointer"
+            className="px-5 py-3 bg-[#10B981] hover:bg-[#059669] text-white swiss-border swiss-shadow-sm font-black text-xs md:text-sm transition-transform active:translate-x-0.5 active:translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed shrink-0 cursor-pointer"
           >
             検索
           </button>
