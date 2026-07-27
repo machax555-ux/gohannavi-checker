@@ -91,10 +91,8 @@ export default function ResultPage() {
           {result && <ResultCard result={result} />}
         </div>
 
-        {/* Right Column: AdBanner + Alternative Products + Retry Button */}
+        {/* Right Column: Alternative Products + Retry Button */}
         <div className="flex flex-col gap-4 w-full">
-          <AdBanner />
-
           {result && (
             <AlternativeProducts
               blogKeyword={result.blog_keyword}
@@ -112,6 +110,11 @@ export default function ResultPage() {
             </Link>
           </div>
         </div>
+      </div>
+
+      {/* AdBanner relocated directly below "もう一度判定する" button & right above footer */}
+      <div className="w-full max-w-[360px] mx-auto shrink-0 my-1">
+        <AdBanner />
       </div>
 
       {/* Footer with Compliance Disclosure */}
