@@ -30,7 +30,7 @@ export default function ScanPage() {
 
         <div className="flex flex-col gap-0.5 mt-0.5">
           <span className="font-display font-black text-xs md:text-sm text-[#111111] tracking-widest">
-            01. SCANNER
+            02. SCANNER
           </span>
           <h1 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-[#111111] leading-none">
             撮影・入力画面

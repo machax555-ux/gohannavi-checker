@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Loader2, ExternalLink, ShoppingBag, AlertCircle, MessageSquare, ArrowUp } from "lucide-react";
 import { generateAmazonLink, formatCleanCategory } from "@/lib/affiliateLinks";
+import AdBanner from "@/components/AdBanner";
 
 export interface SearchProduct {
   id: string;
@@ -387,6 +388,11 @@ export default function SearchResultList({
                 <ArrowUp className="w-4 h-4" />
                 <span>最初に戻る</span>
               </button>
+
+              {/* AdBanner placed directly below "最初に戻る" button */}
+              <div className="w-full max-w-[360px] mx-auto shrink-0 my-1">
+                <AdBanner />
+              </div>
             </div>
           </div>
         </div>

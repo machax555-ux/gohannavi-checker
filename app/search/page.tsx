@@ -62,7 +62,7 @@ export default function SearchPage() {
 
         <div className="flex flex-col gap-1 mt-1">
           <span className="font-display font-black text-xs md:text-sm text-[#111111] tracking-widest">
-            02. DATABASE
+            01. DATABASE
           </span>
           <h1 className="font-display font-black text-3xl md:text-4xl text-[#111111] leading-none">
             無添加商品検索
