@@ -109,9 +109,12 @@ export default function SearchResultList({
     setPage(1);
 
     try {
-      const url = `https://gohannavi.com/wp-json/gohannavi/v1/search?keyword=${encodeURIComponent(
-        trimmed
-      )}&per_page=12&page=1`;
+      const params = new URLSearchParams({
+        keyword: trimmed,
+        per_page: "12",
+        page: "1",
+      });
+      const url = `https://gohannavi.com/wp-json/gohannavi/v1/search?${params.toString()}`;
 
       const res = await fetch(url);
       if (!res.ok) {
@@ -147,9 +150,12 @@ export default function SearchResultList({
     setLoadingMore(true);
 
     try {
-      const url = `https://gohannavi.com/wp-json/gohannavi/v1/search?keyword=${encodeURIComponent(
-        fetchedKeyword
-      )}&per_page=12&page=${nextPage}`;
+      const params = new URLSearchParams({
+        keyword: fetchedKeyword,
+        per_page: "12",
+        page: String(nextPage),
+      });
+      const url = `https://gohannavi.com/wp-json/gohannavi/v1/search?${params.toString()}`;
 
       const res = await fetch(url);
       if (!res.ok) {
