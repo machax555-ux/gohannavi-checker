@@ -53,11 +53,11 @@ export default function ScanPage() {
         <div className="my-auto flex flex-col gap-3 sm:gap-4 w-full min-h-0 overflow-y-auto">
           {/* Main Loading Status Card */}
           <div className="swiss-card-dark p-5 sm:p-6 md:p-8 flex flex-col items-center justify-center gap-4 text-center">
-            <div className="w-12 h-12 sm:w-14 sm:h-14 bg-[#F5CE42] text-[#111111] swiss-border flex items-center justify-center">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 bg-[#10B981] text-white swiss-border flex items-center justify-center">
               <Loader2 className="w-7 h-7 sm:w-8 sm:h-8 animate-spin" />
             </div>
             <div className="flex flex-col gap-1.5 w-full">
-              <h2 className="font-display font-black text-lg sm:text-xl md:text-2xl text-[#F5CE42] tracking-wider leading-snug">
+              <h2 className="font-display font-black text-lg sm:text-xl md:text-2xl text-[#10B981] tracking-wider leading-snug">
                 原材料を判定中...
               </h2>
               <p className="text-xs sm:text-sm md:text-base font-extrabold text-white tracking-wide">
