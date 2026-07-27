@@ -84,47 +84,51 @@ export default function HomePage() {
 
       {/* 2. Main Hero Cards Container */}
       {/* MOBILE DISPLAY (767px & below) */}
-      <div className="flex-1 flex flex-col justify-center gap-4 sm:gap-4.5 py-2 my-auto min-h-0 overflow-y-auto md:hidden">
+      <div
+        className={`flex-1 flex flex-col min-h-0 overflow-hidden md:hidden ${
+          mounted && isStandalone
+            ? "justify-start pt-2 gap-3.5 sm:gap-4 overflow-y-auto"
+            : "justify-evenly py-1 gap-2"
+        }`}
+      >
         {/* 01. DATABASE Card */}
         <Link
           href="/search"
-          className="swiss-card-dark p-3.5 sm:p-4 flex flex-col gap-2.5 group hover:opacity-95 transition-opacity cursor-pointer block"
+          className="swiss-card-dark p-2.5 sm:p-3 flex flex-col gap-2 group hover:opacity-95 transition-opacity cursor-pointer block"
         >
-          <div className="flex items-center justify-between border-b border-white/20 pb-1">
-            <span className="font-display font-black text-[11px] sm:text-xs text-[#F5CE42] tracking-widest">
+          <div className="flex items-center justify-between">
+            <span className="font-display font-black text-[10px] sm:text-xs text-[#F5CE42] tracking-widest">
               01. DATABASE
             </span>
-            <span className="text-[10px] sm:text-[11px] text-white/60 font-bold">無添加商品検索</span>
           </div>
-          <div className="w-full py-3.5 sm:py-4 px-4 bg-[#EF4444] text-white swiss-border-sm font-black text-sm sm:text-base flex items-center justify-center gap-2.5 group-hover:bg-[#DC2626] transition-colors shadow-sm">
-            <Search className="w-4.5 h-4.5 text-white group-hover:scale-110 transition-transform" />
+          <div className="w-full py-2.5 sm:py-3 px-3.5 bg-[#EF4444] text-white swiss-border-sm font-black text-xs sm:text-sm flex items-center justify-center gap-2.5 group-hover:bg-[#DC2626] transition-colors">
+            <Search className="w-4 h-4 text-white group-hover:scale-110 transition-transform" />
             <span>無添加商品を検索する</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </div>
         </Link>
 
-        {/* 02. SCANNER Card (Primary Hero Feature) */}
-        <div className="swiss-card-dark p-3.5 pb-4.5 sm:p-4 sm:pb-5 flex flex-col gap-2.5 relative overflow-hidden">
+        {/* 02. SCANNER Card (Primary Hero Feature - Slightly expanded bottom padding) */}
+        <div className="swiss-card-dark p-3 pb-4 sm:p-3.5 sm:pb-4.5 flex flex-col gap-2.5 relative overflow-hidden">
           <div className="flex items-center justify-between border-b border-white/20 pb-1">
-            <span className="font-display font-black text-[11px] sm:text-xs text-[#F5CE42] tracking-widest">
+            <span className="font-display font-black text-[10px] sm:text-xs text-[#F5CE42] tracking-widest">
               02. SCANNER
             </span>
-            <span className="text-[10px] sm:text-[11px] text-[#F5CE42] font-black">AI判定解析</span>
           </div>
 
-          <h2 className="font-black text-base sm:text-lg text-white leading-tight whitespace-nowrap">
+          <h2 className="font-extrabold text-sm sm:text-base text-white leading-tight whitespace-nowrap">
             原材料名を撮影・入力する
           </h2>
 
           {mounted && !usable ? (
-            <div className="w-full py-3.5 bg-[#333333] text-white/50 swiss-border-sm text-center font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 cursor-not-allowed">
+            <div className="w-full py-3 bg-[#333333] text-white/50 swiss-border-sm text-center font-extrabold text-xs flex items-center justify-center gap-2 cursor-not-allowed">
               <Camera className="w-4 h-4" />
               <span>本日分（10回）の利用上限に達しました</span>
             </div>
           ) : (
             <Link
               href="/scan"
-              className="w-full py-3.5 sm:py-4 bg-[#EF4444] hover:bg-[#DC2626] text-white swiss-border swiss-shadow-sm font-black text-base sm:text-lg flex items-center justify-center gap-2.5 transition-transform active:translate-x-0.5 active:translate-y-0.5 group"
+              className="w-full py-3 sm:py-3.5 bg-[#EF4444] hover:bg-[#DC2626] text-white swiss-border swiss-shadow-sm font-black text-sm sm:text-base flex items-center justify-center gap-2.5 transition-transform active:translate-x-0.5 active:translate-y-0.5 group"
             >
               <Camera className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
               <span>判定スタート</span>
@@ -134,18 +138,18 @@ export default function HomePage() {
         </div>
 
         {/* 03. HOW IT WORKS Section */}
-        <section className="swiss-card-white p-3 sm:p-3.5 flex flex-col gap-2">
-          <h3 className="font-display font-black text-[10px] sm:text-xs text-[#111111] tracking-widest border-b border-black pb-1 flex items-center justify-between">
+        <section className="swiss-card-white p-2 sm:p-2.5 flex flex-col gap-1.5">
+          <h3 className="font-display font-black text-[9px] sm:text-[10px] text-[#111111] tracking-widest border-b border-black pb-0.5 flex items-center justify-between">
             <span>03. HOW IT WORKS</span>
-            <span className="font-bold text-[10px] sm:text-[11px]">使い方</span>
+            <span>使い方</span>
           </h3>
 
-          <div className="flex items-center justify-around gap-2 py-1">
+          <div className="flex items-center justify-around gap-2 py-0.5">
             <div className="flex items-center gap-1.5">
-              <span className="font-display font-black text-[10px] bg-[#111111] text-[#F5CE42] px-1.5 py-0.3 shrink-0">
+              <span className="font-display font-black text-[9px] bg-[#111111] text-[#F5CE42] px-1 py-0.2 shrink-0">
                 01
               </span>
-              <p className="font-extrabold text-xs sm:text-sm text-[#111111] leading-none">
+              <p className="font-extrabold text-[10px] sm:text-[11px] text-[#111111] leading-none">
                 原材料名を撮影
               </p>
             </div>
@@ -153,10 +157,10 @@ export default function HomePage() {
             <span className="text-[#888888] text-xs font-black">→</span>
 
             <div className="flex items-center gap-1.5">
-              <span className="font-display font-black text-[10px] bg-[#111111] text-[#F5CE42] px-1.5 py-0.3 shrink-0">
+              <span className="font-display font-black text-[9px] bg-[#111111] text-[#F5CE42] px-1 py-0.2 shrink-0">
                 02
               </span>
-              <p className="font-extrabold text-xs sm:text-sm text-[#111111] leading-none">
+              <p className="font-extrabold text-[10px] sm:text-[11px] text-[#111111] leading-none">
                 AI瞬時判定
               </p>
             </div>
