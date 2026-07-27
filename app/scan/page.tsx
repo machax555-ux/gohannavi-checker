@@ -6,6 +6,7 @@ import { ArrowLeft, Loader2, AlertCircle } from "lucide-react";
 import CameraCapture from "@/components/CameraCapture";
 import UsageLimit from "@/components/UsageLimit";
 import AdBanner from "@/components/AdBanner";
+import AffiliateNoticeFooter from "@/components/AffiliateNoticeFooter";
 
 export default function ScanPage() {
   const [loading, setLoading] = useState(false);
@@ -49,7 +50,7 @@ export default function ScanPage() {
 
       {/* Loading State UI */}
       {loading ? (
-        <div className="my-auto flex flex-col gap-3 sm:gap-4 w-full min-h-0">
+        <div className="my-auto flex flex-col gap-3 sm:gap-4 w-full min-h-0 overflow-y-auto">
           {/* Main Loading Status Card */}
           <div className="swiss-card-dark p-5 sm:p-6 md:p-8 flex flex-col items-center justify-center gap-4 text-center">
             <div className="w-12 h-12 sm:w-14 sm:h-14 bg-[#F5CE42] text-[#111111] swiss-border flex items-center justify-center">
@@ -75,7 +76,7 @@ export default function ScanPage() {
           </div>
 
           {/* Ad Container for Google AdSense */}
-          <div className="w-full max-w-[320px] mx-auto shrink-0 mt-4 sm:mt-6">
+          <div className="w-full max-w-[320px] mx-auto shrink-0 mt-3 mb-6 sm:mt-4 sm:mb-8">
             <AdBanner />
           </div>
         </div>
@@ -104,17 +105,8 @@ export default function ScanPage() {
         </div>
       )}
 
-      {/* Footer */}
-      <footer className="pt-1 sm:pt-1.5 border-t-2 sm:border-t-3 border-black text-center shrink-0">
-        <a
-          href="https://gohannavi.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-display font-black tracking-widest text-[9px] sm:text-[10px] md:text-xs text-[#111111] hover:underline inline-block"
-        >
-          GOHANNAVI.COM
-        </a>
-      </footer>
+      {/* Footer with Compliance Disclosure */}
+      <AffiliateNoticeFooter />
     </main>
   );
 }

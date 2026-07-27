@@ -33,7 +33,7 @@ export default function AdBanner() {
   }, []);
 
   return (
-    <div className="w-full my-3 flex flex-col items-center justify-center text-center overflow-hidden min-h-[90px]">
+    <div className="w-full my-1 flex flex-col items-center justify-center text-center overflow-hidden h-auto">
       <span className="text-[9px] text-[#A8A29E] font-mono tracking-widest uppercase mb-0.5">
         SPONSORED
       </span>
