@@ -101,3 +101,13 @@ html, body {
   background: #111111;
   border-radius: 0px;
 }
+
+/* PWA Standalone Display Mode Specific Adjustments */
+@media (display-mode: standalone) {
+  .pwa-title-shift {
+    margin-top: 1.25rem !important;
+  }
+  .pwa-divider-shift {
+    margin-top: 0.75rem !important;
+  }
+}

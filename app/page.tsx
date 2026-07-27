@@ -67,8 +67,8 @@ export default function HomePage() {
           <UsageLimit onLimitCheck={(valid) => setUsable(valid)} />
         </div>
 
-        {/* Mega Typography Header */}
-        <div className="flex flex-col gap-0.5 mt-1.5 sm:mt-2 md:flex-row md:items-end md:justify-between md:mt-2.5">
+        {/* Mega Typography Header (Shifted only in PWA mode via @media display-mode: standalone) */}
+        <div className="flex flex-col gap-0.5 mt-0.5 md:flex-row md:items-end md:justify-between md:mt-1 pwa-title-shift">
           <div>
             <h1 className="font-display font-black text-3xl sm:text-4xl md:text-3xl lg:text-4xl leading-none tracking-tight text-[#111111]">
               FOOD<br className="md:hidden" /> <span className="hidden md:inline"></span>CHECKER
@@ -79,12 +79,12 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="w-full h-[2px] md:h-[2px] bg-[#111111] mt-1 sm:mt-1.5" />
+        <div className="w-full h-[2px] md:h-[2px] bg-[#111111] mt-0.5 md:mt-1 pwa-divider-shift" />
       </header>
 
       {/* 2. Main Hero Cards Container */}
       {/* MOBILE DISPLAY (767px & below) */}
-      <div className="flex-1 flex flex-col justify-start pt-10 sm:pt-14 pb-4 gap-5 sm:gap-6 min-h-0 overflow-y-auto md:hidden">
+      <div className="flex-1 flex flex-col justify-evenly py-1 gap-2 min-h-0 overflow-hidden md:hidden">
         {/* 01. DATABASE Card */}
         <Link
           href="/search"
@@ -102,7 +102,7 @@ export default function HomePage() {
           </div>
         </Link>
 
-        {/* 02. SCANNER Card (Primary Hero Feature - Slightly expanded bottom padding) */}
+        {/* 02. SCANNER Card */}
         <div className="swiss-card-dark p-3 pb-4 sm:p-3.5 sm:pb-4.5 flex flex-col gap-2.5 relative overflow-hidden">
           <div className="flex items-center justify-between border-b border-white/20 pb-1">
             <span className="font-display font-black text-[10px] sm:text-xs text-[#F5CE42] tracking-widest">
