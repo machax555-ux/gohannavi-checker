@@ -50,7 +50,8 @@ export default function HomePage() {
   return (
     <main className="h-full max-h-full flex flex-col justify-between overflow-hidden select-none">
       {/* 1. Header Row */}
-      <header className="flex flex-col gap-1 shrink-0">
+      <header className="flex flex-col shrink-0">
+        {/* Strictly Preserved Logo & Usage Badge Bar */}
         <div className="flex items-center justify-between">
           <a
             href="https://gohannavi.com"
@@ -67,24 +68,24 @@ export default function HomePage() {
           <UsageLimit onLimitCheck={(valid) => setUsable(valid)} />
         </div>
 
-        {/* Mega Typography Header */}
-        <div className="flex flex-col gap-0.5 mt-0.5 md:flex-row md:items-end md:justify-between md:mt-1">
+        {/* Title Area: FOOD CHECKER (Enlarged & Positioned Slightly Downwards) */}
+        <div className="flex flex-col gap-0.5 mt-1.5 sm:mt-2 pb-1 sm:pb-1.5 md:flex-row md:items-end md:justify-between">
           <div>
-            <h1 className="font-display font-black text-3xl sm:text-4xl md:text-3xl lg:text-4xl leading-none tracking-tight text-[#111111]">
+            <h1 className="font-display font-black text-4xl sm:text-5xl md:text-4xl lg:text-5xl leading-none tracking-tight text-[#111111]">
               FOOD<br className="md:hidden" /> <span className="hidden md:inline"></span>CHECKER
             </h1>
-            <p className="text-[11px] sm:text-xs md:text-xs font-black text-[#111111] tracking-wider mt-0.5">
+            <p className="text-xs sm:text-sm md:text-sm font-black text-[#111111] tracking-wider mt-1">
               食品添加物を瞬時に判定するアプリ
             </p>
           </div>
         </div>
 
-        <div className="w-full h-[2px] md:h-[2px] bg-[#111111] mt-0.5 md:mt-1" />
+        <div className="w-full h-[2px] sm:h-[3px] bg-[#111111] mt-1 sm:mt-1.5" />
       </header>
 
       {/* 2. Main Hero Cards Container */}
       {/* MOBILE DISPLAY (767px & below) */}
-      <div className="flex-1 flex flex-col justify-center gap-3 sm:gap-3.5 py-1.5 my-auto min-h-0 overflow-y-auto md:hidden">
+      <div className="flex-1 flex flex-col justify-center gap-4 sm:gap-4.5 py-2 my-auto min-h-0 overflow-y-auto md:hidden">
         {/* 01. DATABASE Card */}
         <Link
           href="/search"
