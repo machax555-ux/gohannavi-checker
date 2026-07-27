@@ -79,6 +79,21 @@ export default function SearchResultList({
         ingredients = infoElem.textContent?.trim().replace(/^【原材料】\s*/, "") || "";
       }
 
+      const getCleanUrl = (btn: HTMLAnchorElement | null): string | undefined => {
+        if (!btn) return undefined;
+        const href = (btn.getAttribute("href") || btn.href || "").trim();
+        if (
+          !href ||
+          href === "#" ||
+          href.includes("404") ||
+          href.toLowerCase().includes("not-found") ||
+          href.toLowerCase().includes("notfound")
+        ) {
+          return undefined;
+        }
+        return href;
+      };
+
       const amazonBtn = box.querySelector(".pochipp-box__btnwrap.-amazon a") as HTMLAnchorElement | null;
       const rakutenBtn = box.querySelector(".pochipp-box__btnwrap.-rakuten a") as HTMLAnchorElement | null;
       const yahooBtn = box.querySelector(".pochipp-box__btnwrap.-yahoo a") as HTMLAnchorElement | null;
@@ -90,9 +105,9 @@ export default function SearchResultList({
         titleUrl,
         ingredients,
         price: "",
-        amazonUrl: amazonBtn?.getAttribute("href") || amazonBtn?.href || undefined,
-        rakutenUrl: rakutenBtn?.getAttribute("href") || rakutenBtn?.href || undefined,
-        yahooUrl: yahooBtn?.getAttribute("href") || yahooBtn?.href || undefined,
+        amazonUrl: getCleanUrl(amazonBtn),
+        rakutenUrl: getCleanUrl(rakutenBtn),
+        yahooUrl: getCleanUrl(yahooBtn),
       });
     });
 
