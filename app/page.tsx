@@ -56,12 +56,12 @@ export default function HomePage() {
             href="https://gohannavi.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-white px-2 py-0.5 md:px-2.5 md:py-0.5 swiss-border inline-flex items-center hover:opacity-90 transition-opacity"
+            className="inline-flex items-center hover:opacity-85 transition-opacity py-0.5"
           >
             <img
-              src="/gohannavi-logo.png"
+              src="/gohannavi-hedar-rogo.png"
               alt="ごはんなび"
-              className="h-5 sm:h-5.5 md:h-6 w-auto object-contain"
+              className="h-5 sm:h-6 md:h-6.5 w-auto object-contain"
             />
           </a>
           <UsageLimit onLimitCheck={(valid) => setUsable(valid)} />
