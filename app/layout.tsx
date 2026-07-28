@@ -32,7 +32,7 @@ const foodCheckerIconBase64 = getFoodCheckerIconBase64();
 export const metadata: Metadata = {
   title: "FOOD CHECKER | ごはんなび食品添加物チェッカー",
   description: "原材料を撮るだけで気になる添加物を瞬時に検出。安全な無添加商品の購入までフルサポート。",
-  manifest: "/manifest.json?v=4",
+  manifest: "/manifest.json?v=5",
   icons: {
     icon: [{ url: foodCheckerIconBase64, type: "image/png" }],
     apple: [{ url: foodCheckerIconBase64, type: "image/png" }],
@@ -86,11 +86,11 @@ export default function RootLayout({
       <body
         className={`${notoSansJP.variable} ${unbounded.variable} antialiased h-full w-full overflow-hidden overscroll-none bg-[#FDFBF7] text-[#111111] selection:bg-[#111111] selection:text-[#F5CE42] fixed inset-0`}
       >
-        <div className="fixed inset-0 max-w-[440px] md:max-w-[1200px] mx-auto h-[100dvh] max-h-[100dvh] overflow-hidden overscroll-none bg-[#FDFBF7] sm:border-x-3 sm:border-black flex flex-col p-2.5 sm:p-3.5 md:p-6 justify-between select-none">
+        <div className="fixed inset-0 max-w-[440px] md:max-w-[1200px] mx-auto h-[100dvh] max-h-[100dvh] overflow-hidden overscroll-none bg-[#FDFBF7] sm:border-x-3 sm:border-black flex flex-col p-2.5 sm:p-3.5 md:p-6 justify-between select-none pc-scale-80">
           {children}
         </div>
 
-        {/* Service Worker v4 Registration & Automatic Cache Purge Script */}
+        {/* Service Worker v5 Registration & Automatic Cache Purge Script */}
         <Script
           id="sw-register"
           strategy="afterInteractive"
@@ -98,7 +98,7 @@ export default function RootLayout({
             __html: `
               if ('serviceWorker' in navigator) {
                 window.addEventListener('load', function() {
-                  navigator.serviceWorker.register('/sw.js?v=4', { scope: '/' })
+                  navigator.serviceWorker.register('/sw.js?v=5', { scope: '/' })
                     .then(function(registration) {
                       registration.update();
                     })
@@ -110,7 +110,7 @@ export default function RootLayout({
               if ('caches' in window) {
                 caches.keys().then(function(names) {
                   for (let name of names) {
-                    if (name !== 'food-checker-v4') {
+                    if (name !== 'food-checker-v5') {
                       caches.delete(name);
                     }
                   }
