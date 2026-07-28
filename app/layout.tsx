@@ -32,7 +32,7 @@ const foodCheckerIconBase64 = getFoodCheckerIconBase64();
 export const metadata: Metadata = {
   title: "FOOD CHECKER | ごはんなび食品添加物チェッカー",
   description: "原材料を撮るだけで気になる添加物を瞬時に検出。安全な無添加商品の購入までフルサポート。",
-  manifest: "/manifest.json?v=3",
+  manifest: "/manifest.json?v=4",
   icons: {
     icon: [{ url: foodCheckerIconBase64, type: "image/png" }],
     apple: [{ url: foodCheckerIconBase64, type: "image/png" }],
@@ -90,7 +90,7 @@ export default function RootLayout({
           {children}
         </div>
 
-        {/* Service Worker v3 Registration & Automatic Cache Purge Script */}
+        {/* Service Worker v4 Registration & Automatic Cache Purge Script */}
         <Script
           id="sw-register"
           strategy="afterInteractive"
@@ -98,7 +98,7 @@ export default function RootLayout({
             __html: `
               if ('serviceWorker' in navigator) {
                 window.addEventListener('load', function() {
-                  navigator.serviceWorker.register('/sw.js?v=3', { scope: '/' })
+                  navigator.serviceWorker.register('/sw.js?v=4', { scope: '/' })
                     .then(function(registration) {
                       registration.update();
                     })
@@ -110,7 +110,7 @@ export default function RootLayout({
               if ('caches' in window) {
                 caches.keys().then(function(names) {
                   for (let name of names) {
-                    if (name !== 'food-checker-v3') {
+                    if (name !== 'food-checker-v4') {
                       caches.delete(name);
                     }
                   }

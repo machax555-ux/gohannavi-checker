@@ -6,6 +6,7 @@ import { ArrowLeft, Search, Smartphone, Share, PlusSquare, X } from "lucide-reac
 import { resetUsage } from "@/lib/storage";
 import SearchResultList from "@/components/SearchResultList";
 import AffiliateNoticeFooter from "@/components/AffiliateNoticeFooter";
+import AdBanner from "@/components/AdBanner";
 
 export default function SearchPage() {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -186,6 +187,11 @@ export default function SearchPage() {
               </button>
             </div>
           )}
+
+          {/* AdBanner Container placed directly below INSTALL card & right above footer border */}
+          <div className="w-full max-w-[320px] mx-auto shrink-0 my-3">
+            <AdBanner />
+          </div>
         </div>
       )}
 
