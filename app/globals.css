@@ -112,12 +112,15 @@ html, body {
   }
 }
 
-/* PC Display (768px & above) Whole App Scale 80% Adjustment */
+/* PC Display (768px & above) Width 80% & Full Height 100% Adjustment */
 @media (min-width: 768px) {
   .pc-scale-80 {
-    transform: scale(0.8) !important;
-    transform-origin: top center !important;
-    height: 125dvh !important;
-    max-height: 125dvh !important;
+    transform: none !important;
+    width: 80% !important;
+    max-width: 960px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
   }
 }
