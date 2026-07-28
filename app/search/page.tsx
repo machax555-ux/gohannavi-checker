@@ -89,13 +89,18 @@ export default function SearchPage() {
             <ArrowLeft className="w-4 h-4 md:w-5 md:h-5" />
             <span>HOME</span>
           </Link>
-          <button
-            type="button"
-            onClick={handleHeaderBadgeClick}
-            className="font-display font-black text-xs md:text-sm text-[#111111] bg-white px-3 py-1.5 md:px-4 md:py-2 swiss-border hover:bg-[#F5CE42] transition-colors cursor-pointer select-none"
+          <a
+            href="https://gohannavi.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center hover:opacity-85 transition-opacity py-0.5"
           >
-            SEARCH DATABASE
-          </button>
+            <img
+              src="/gohannavi-hedar-rogo.png"
+              alt="ごはんなび"
+              className="h-5 sm:h-6 md:h-6.5 w-auto object-contain"
+            />
+          </a>
         </div>
 
         <div className="flex flex-col gap-1 mt-1">

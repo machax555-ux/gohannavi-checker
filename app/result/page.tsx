@@ -67,9 +67,18 @@ export default function ResultPage() {
             <ArrowLeft className="w-4 h-4 md:w-5 md:h-5" />
             <span>HOME</span>
           </Link>
-          <span className="font-display font-black text-xs md:text-sm text-[#111111] bg-white px-3 py-1.5 md:px-4 md:py-2 swiss-border">
-            RESULT PAGE
-          </span>
+          <a
+            href="https://gohannavi.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center hover:opacity-85 transition-opacity py-0.5"
+          >
+            <img
+              src="/gohannavi-hedar-rogo.png"
+              alt="ごはんなび"
+              className="h-5 sm:h-6 md:h-6.5 w-auto object-contain"
+            />
+          </a>
         </div>
 
         <div className="flex flex-col gap-1 mt-1">
