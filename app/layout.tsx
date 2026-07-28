@@ -32,9 +32,9 @@ const foodCheckerIconBase64 = getFoodCheckerIconBase64();
 export const metadata: Metadata = {
   title: "FOOD CHECKER | ごはんなび食品添加物チェッカー",
   description: "原材料を撮るだけで気になる添加物を瞬時に検出。安全な無添加商品の購入までフルサポート。",
-  manifest: "/manifest.json?v=8",
+  manifest: "/manifest.json?v=9",
   icons: {
-    icon: [{ url: "/favicon-transparent.png?v=8", type: "image/png" }],
+    icon: [{ url: "/favicon-transparent.png?v=9", type: "image/png" }],
     apple: [{ url: foodCheckerIconBase64, type: "image/png" }],
   },
   appleWebApp: {
@@ -60,8 +60,29 @@ export default function RootLayout({
   return (
     <html lang="ja" className="h-full overflow-hidden overscroll-none">
       <head>
-        <link rel="icon" href="/favicon-transparent.png?v=8" type="image/png" />
-        <link rel="shortcut icon" href="/favicon-transparent.png?v=8" type="image/png" />
+        {/* Google Analytics (GA4: G-23LLLREKB3) */}
+        <Script
+          id="gtag-init"
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-23LLLREKB3"
+          strategy="afterInteractive"
+        />
+        <Script
+          id="gtag-config"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'G-23LLLREKB3');
+            `,
+          }}
+        />
+
+        <link rel="icon" href="/favicon-transparent.png?v=9" type="image/png" />
+        <link rel="shortcut icon" href="/favicon-transparent.png?v=9" type="image/png" />
         <link rel="apple-touch-icon" href={foodCheckerIconBase64} />
         <link rel="apple-touch-icon-precomposed" href={foodCheckerIconBase64} />
         <Script
@@ -91,7 +112,7 @@ export default function RootLayout({
           {children}
         </div>
 
-        {/* Service Worker v8 Registration & Automatic Cache Purge Script */}
+        {/* Service Worker v9 Registration & Automatic Cache Purge Script */}
         <Script
           id="sw-register"
           strategy="afterInteractive"
@@ -99,7 +120,7 @@ export default function RootLayout({
             __html: `
               if ('serviceWorker' in navigator) {
                 window.addEventListener('load', function() {
-                  navigator.serviceWorker.register('/sw.js?v=8', { scope: '/' })
+                  navigator.serviceWorker.register('/sw.js?v=9', { scope: '/' })
                     .then(function(registration) {
                       registration.update();
                     })
@@ -111,7 +132,7 @@ export default function RootLayout({
               if ('caches' in window) {
                 caches.keys().then(function(names) {
                   for (let name of names) {
-                    if (name !== 'food-checker-v8') {
+                    if (name !== 'food-checker-v9') {
                       caches.delete(name);
                     }
                   }
