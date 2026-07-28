@@ -32,15 +32,15 @@ const foodCheckerIconBase64 = getFoodCheckerIconBase64();
 export const metadata: Metadata = {
   title: "FOOD CHECKER | ごはんなび食品添加物チェッカー",
   description: "原材料を撮るだけで気になる添加物を瞬時に検出。安全な無添加商品の購入までフルサポート。",
-  manifest: "/manifest.json?v=6",
+  manifest: "/manifest.json?v=7",
   icons: {
-    icon: [{ url: "/favicon-transparent.png?v=6", type: "image/png" }],
+    icon: [{ url: "/favicon-transparent.png?v=7", type: "image/png" }],
     apple: [{ url: foodCheckerIconBase64, type: "image/png" }],
   },
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "食品添加物をチェック",
+    title: "添加物チェッカー",
   },
 };
 
@@ -60,8 +60,8 @@ export default function RootLayout({
   return (
     <html lang="ja" className="h-full overflow-hidden overscroll-none">
       <head>
-        <link rel="icon" href="/favicon-transparent.png?v=6" type="image/png" />
-        <link rel="shortcut icon" href="/favicon-transparent.png?v=6" type="image/png" />
+        <link rel="icon" href="/favicon-transparent.png?v=7" type="image/png" />
+        <link rel="shortcut icon" href="/favicon-transparent.png?v=7" type="image/png" />
         <link rel="apple-touch-icon" href={foodCheckerIconBase64} />
         <link rel="apple-touch-icon-precomposed" href={foodCheckerIconBase64} />
         <Script
@@ -91,7 +91,7 @@ export default function RootLayout({
           {children}
         </div>
 
-        {/* Service Worker v6 Registration & Automatic Cache Purge Script */}
+        {/* Service Worker v7 Registration & Automatic Cache Purge Script */}
         <Script
           id="sw-register"
           strategy="afterInteractive"
@@ -99,7 +99,7 @@ export default function RootLayout({
             __html: `
               if ('serviceWorker' in navigator) {
                 window.addEventListener('load', function() {
-                  navigator.serviceWorker.register('/sw.js?v=6', { scope: '/' })
+                  navigator.serviceWorker.register('/sw.js?v=7', { scope: '/' })
                     .then(function(registration) {
                       registration.update();
                     })
@@ -111,7 +111,7 @@ export default function RootLayout({
               if ('caches' in window) {
                 caches.keys().then(function(names) {
                   for (let name of names) {
-                    if (name !== 'food-checker-v6') {
+                    if (name !== 'food-checker-v7') {
                       caches.delete(name);
                     }
                   }
