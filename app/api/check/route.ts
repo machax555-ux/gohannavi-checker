@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getGeminiModel, AdditiveCheckResult } from "@/lib/gemini";
 
+export const maxDuration = 15;
+export const dynamic = "force-dynamic";
+
 const SYSTEM_PROMPT = `あなたは日本の食品添加物の専門家です。
 ユーザーが提示する食品の原材料名を分析し、以下のJSON形式のみで回答してください。
 マークダウンや説明文は一切不要です。JSONのみを返してください。
@@ -81,7 +84,15 @@ export async function POST(req: NextRequest) {
 
     const parsed: AdditiveCheckResult = JSON.parse(jsonMatch[0]);
 
-    if (!parsed.judgment || !parsed.summary) {
+    // サニタイズ（配列・初期値の安全保証）処理
+    parsed.detected_additives = Array.isArray(parsed.detected_additives) ? parsed.detected_additives : [];
+    parsed.safe_ingredients = Array.isArray(parsed.safe_ingredients) ? parsed.safe_ingredients : [];
+    parsed.judgment = parsed.judgment || "safe";
+    parsed.product_category = parsed.product_category || "不明";
+    parsed.summary = parsed.summary || "判定を完了しました。";
+    parsed.blog_keyword = parsed.blog_keyword || "";
+
+    if (!parsed.summary) {
       return NextResponse.json(
         { error: "原材料名を読み取れませんでした" },
         { status: 400 }

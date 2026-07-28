@@ -32,9 +32,9 @@ const foodCheckerIconBase64 = getFoodCheckerIconBase64();
 export const metadata: Metadata = {
   title: "FOOD CHECKER | ごはんなび食品添加物チェッカー",
   description: "原材料を撮るだけで気になる添加物を瞬時に検出。安全な無添加商品の購入までフルサポート。",
-  manifest: "/manifest.json?v=10",
+  manifest: "/manifest.json?v=11",
   icons: {
-    icon: [{ url: "/favicon-transparent.png?v=10", type: "image/png" }],
+    icon: [{ url: "/favicon-transparent.png?v=11", type: "image/png" }],
     apple: [{ url: foodCheckerIconBase64, type: "image/png" }],
   },
   appleWebApp: {
@@ -81,8 +81,8 @@ export default function RootLayout({
           }}
         />
 
-        <link rel="icon" href="/favicon-transparent.png?v=10" type="image/png" />
-        <link rel="shortcut icon" href="/favicon-transparent.png?v=10" type="image/png" />
+        <link rel="icon" href="/favicon-transparent.png?v=11" type="image/png" />
+        <link rel="shortcut icon" href="/favicon-transparent.png?v=11" type="image/png" />
         <link rel="apple-touch-icon" href={foodCheckerIconBase64} />
         <link rel="apple-touch-icon-precomposed" href={foodCheckerIconBase64} />
         <Script
@@ -112,7 +112,7 @@ export default function RootLayout({
           {children}
         </div>
 
-        {/* Service Worker v10 Registration & Automatic Cache Purge Script */}
+        {/* Service Worker v11 Registration & Automatic Cache Purge Script */}
         <Script
           id="sw-register"
           strategy="afterInteractive"
@@ -120,7 +120,7 @@ export default function RootLayout({
             __html: `
               if ('serviceWorker' in navigator) {
                 window.addEventListener('load', function() {
-                  navigator.serviceWorker.register('/sw.js?v=10', { scope: '/' })
+                  navigator.serviceWorker.register('/sw.js?v=11', { scope: '/' })
                     .then(function(registration) {
                       registration.update();
                     })
@@ -132,7 +132,7 @@ export default function RootLayout({
               if ('caches' in window) {
                 caches.keys().then(function(names) {
                   for (let name of names) {
-                    if (name !== 'food-checker-v10') {
+                    if (name !== 'food-checker-v11') {
                       caches.delete(name);
                     }
                   }

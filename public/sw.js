@@ -1,4 +1,4 @@
-const CACHE_NAME = "food-checker-v10";
+const CACHE_NAME = "food-checker-v11";
 
 self.addEventListener("install", (event) => {
   self.skipWaiting();

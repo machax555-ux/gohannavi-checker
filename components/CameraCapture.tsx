@@ -14,6 +14,47 @@ interface CameraCaptureProps {
 
 const MAX_TEXT_LENGTH = 2000;
 
+/**
+ * スマホ写真（大容量画像）をCanvasで長辺1024px・JPEG品質0.85へ自動リサイズ＆圧縮する関数
+ */
+const compressImage = (file: File, maxWidth = 1024, quality = 0.85): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        let width = img.width;
+        let height = img.height;
+
+        if (width > maxWidth || height > maxWidth) {
+          if (width > height) {
+            height = Math.round((height * maxWidth) / width);
+            width = maxWidth;
+          } else {
+            width = Math.round((width * maxWidth) / height);
+            height = maxWidth;
+          }
+        }
+        canvas.width = width;
+        canvas.height = height;
+
+        const ctx = canvas.getContext("2d");
+        if (ctx) {
+          ctx.imageSmoothingEnabled = true;
+          ctx.imageSmoothingQuality = "high";
+          ctx.drawImage(img, 0, 0, width, height);
+        }
+        resolve(canvas.toDataURL("image/jpeg", quality));
+      };
+      img.onerror = (err) => reject(err);
+      img.src = event.target?.result as string;
+    };
+    reader.onerror = (err) => reject(err);
+    reader.readAsDataURL(file);
+  });
+};
+
 export default function CameraCapture({
   onStartLoading,
   onEndLoading,
@@ -24,20 +65,24 @@ export default function CameraCapture({
   const [activeTab, setActiveTab] = useState<"camera" | "text">("camera");
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [textInput, setTextInput] = useState<string>("");
+  const [isCompressing, setIsCompressing] = useState<boolean>(false);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     if (onError) onError("");
 
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      if (typeof reader.result === "string") {
-        setPreviewImage(reader.result);
-      }
-    };
-    reader.readAsDataURL(file);
+    try {
+      setIsCompressing(true);
+      const compressedBase64 = await compressImage(file, 1024, 0.85);
+      setPreviewImage(compressedBase64);
+    } catch (err) {
+      console.error("Failed to compress image:", err);
+      if (onError) onError("画像の読み込みに失敗しました。別の画像でお試しください。");
+    } finally {
+      setIsCompressing(false);
+    }
   };
 
   const handleResetImage = () => {
@@ -46,7 +91,7 @@ export default function CameraCapture({
   };
 
   const handleSubmit = async () => {
-    if (disabled) return;
+    if (disabled || isCompressing) return;
 
     if (activeTab === "camera" && !previewImage) {
       if (onError) onError("画像を撮影または選択してください。");
@@ -81,7 +126,6 @@ export default function CameraCapture({
       incrementUsage();
       sessionStorage.setItem("gohannavi_result", JSON.stringify(data));
       router.push("/result");
-      // 成功時は /result への遷移が完了するまでローディング表示を維持
     } catch (err: any) {
       console.error(err);
       if (onError) {
@@ -98,7 +142,7 @@ export default function CameraCapture({
 
   return (
     <div className="w-full flex flex-col justify-between gap-4">
-      {/* Mode Switch Tabs (Full Original Swiss 70s Segmented Switch) */}
+      {/* Mode Switch Tabs */}
       <div className="grid grid-cols-2 bg-[#121212] p-1 swiss-border">
         <button
           type="button"
@@ -137,19 +181,19 @@ export default function CameraCapture({
         <div className="flex flex-col gap-4">
           {!previewImage ? (
             <div className="flex flex-col gap-3">
-              {/* Main Camera Dropzone (Full Original Sizing) */}
+              {/* Main Camera Dropzone */}
               <label className="w-full">
                 <input
                   type="file"
                   accept="image/*"
                   capture="environment"
                   onChange={handleFileChange}
-                  disabled={disabled}
+                  disabled={disabled || isCompressing}
                   className="hidden"
                 />
                 <div
                   className={`w-full min-h-[160px] swiss-card-white flex flex-col items-center justify-center gap-3 p-6 text-center transition-transform active:translate-x-0.5 active:translate-y-0.5 ${
-                    disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:bg-[#FAF9F5]"
+                    disabled || isCompressing ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:bg-[#FAF9F5]"
                   }`}
                 >
                   <div className="w-14 h-14 bg-[#121212] text-[#F5CE42] flex items-center justify-center swiss-border">
@@ -157,10 +201,10 @@ export default function CameraCapture({
                   </div>
                   <div>
                     <span className="font-extrabold text-lg text-[#111111] block">
-                      📷 パッケージを撮影する
+                      {isCompressing ? "📷 画像を最適化中..." : "📷 パッケージを撮影する"}
                     </span>
                     <span className="text-xs text-[#555555] font-medium block mt-0.5">
-                      スマホのカメラで原材料表示を撮影
+                      {isCompressing ? "少々お待ちください" : "スマホのカメラで原材料表示を撮影"}
                     </span>
                   </div>
                 </div>
@@ -172,12 +216,12 @@ export default function CameraCapture({
                   type="file"
                   accept="image/jpeg,image/png,image/webp"
                   onChange={handleFileChange}
-                  disabled={disabled}
+                  disabled={disabled || isCompressing}
                   className="hidden"
                 />
                 <div
                   className={`w-full py-4 px-4 bg-[#121212] text-white swiss-border text-center font-extrabold text-xs flex items-center justify-center gap-2 transition-transform active:translate-x-0.5 active:translate-y-0.5 ${
-                    disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:bg-[#222222]"
+                    disabled || isCompressing ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:bg-[#222222]"
                   }`}
                 >
                   <ImageIcon className="w-4 h-4 text-[#F5CE42]" />
@@ -241,6 +285,7 @@ export default function CameraCapture({
           onClick={handleSubmit}
           disabled={
             disabled ||
+            isCompressing ||
             (activeTab === "camera" && !previewImage) ||
             (activeTab === "text" && !textInput.trim())
           }
